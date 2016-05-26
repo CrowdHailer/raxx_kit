@@ -1,33 +1,14 @@
 defmodule Baobab do
-  defmodule HomePageHandler do
-    # DEBT options should inject dependency on Application
-    def init({:tcp, :http}, req, []) do
-      {:ok, req, :no_state}
+  defmodule RootController do
+    import Plug.Conn
+
+    def init(opts) do
+      Map.put(opts, :my_option, "Hello")
     end
 
-    def handle(request, :no_state) do
-      {:ok, reply} = :cowboy_req.reply(ok, headers, body, request)
-      {:ok, reply, :no_state}
+    def call(conn, opts) do
+      send_resp(conn, 200, "#{opts[:my_option]}, World!")
     end
-
-    def terminate(_reason, _request, :no_state) do
-      :ok
-    end
-
-    defp ok do
-      200
-    end
-
-    defp headers do
-      [ {"content-type", "text/html"} ]
-    end
-
-    defp body do
-      """
-      Hello from the Baobab
-      """
-    end
-
   end
   use Application
 
@@ -46,13 +27,6 @@ defmodule Baobab do
     opts = [strategy: :one_for_one, name: Baobab.Supervisor]
     Supervisor.start_link(children, opts)
 
-    dispatch = :cowboy_router.compile([
-      {:_, [
-        {"/static/[...]", :cowboy_static, {:priv_dir, :baobab, "static_files"}},
-        {"/", HomePageHandler, []}
-      ]}
-    ])
-    {:ok, _} = :cowboy.start_http(:http, 100, [{:port, 8080}], [{ :env, [{:dispatch, dispatch}]}])
-
+    Plug.Adapters.Cowboy.http(RootController, %{})
   end
 end
