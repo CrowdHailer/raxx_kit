@@ -16,6 +16,9 @@ defmodule RootPage do
     UserPartial.html(user)
   end
 end
+defmodule NotFoundPage do
+  use HtmlView, %{template_file: "lib/not_found.html.eex"}
+end
 
 defmodule Baobab do
   defmodule RootController do
@@ -28,10 +31,18 @@ defmodule Baobab do
       |> Map.put(:users, [%{name: "jimmey"}, %{name: "Briany"}])
     end
 
-    def call(conn, opts) do
-      page = RootPage.html(opts)
-      IO.inspect(page)
-      send_resp(conn, 200, page)
+    def call(conn = %{path_info: []}, opts) do
+      send_resp(conn, 200, RootPage.html(opts))
+    end
+
+    use Plug.Builder
+    plug Plug.Static,
+      at: "/",
+      from: __DIR__
+    plug :not_found
+
+    def not_found(conn, _) do
+      send_resp(conn, 404, NotFound.html)
     end
   end
   use Application

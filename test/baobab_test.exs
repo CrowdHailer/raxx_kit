@@ -9,6 +9,7 @@ defmodule BaobabTest do
 
     assert conn.state == :sent
     assert conn.status == 200
+    IO.inspect conn.resp_body
     assert String.contains?(conn.resp_body, "Hello")
   end
 end
