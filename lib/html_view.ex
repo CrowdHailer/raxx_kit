@@ -35,6 +35,9 @@ defmodule HtmlView do
         |> render_template
       end
 
+      defp escape_assigned_values({key, value}) when is_list(value) do
+        {key, value} # FIXME lets lists past unescaped
+      end
       defp escape_assigned_values({key, value}) do
         {key, HtmlView.escape(value)}
       end

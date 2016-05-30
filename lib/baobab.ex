@@ -18,6 +18,7 @@ defmodule Baobab do
       opts
       |> Map.put(:greeting, "Hello")
       |> Map.put(:other, "<h1>&</h1>")
+      |> Map.put(:users, [%{name: "jimmey"}, %{name: "Briany"}])
     end
 
     def call(conn, opts) do
