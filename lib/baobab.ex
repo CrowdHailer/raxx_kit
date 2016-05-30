@@ -16,7 +16,7 @@ defmodule RootPage do
     UserPartial.html(user)
   end
 end
-defmodule NotFoundPage do
+defmodule NotFound do
   use HtmlView, %{template_file: "lib/not_found.html.eex"}
 end
 
