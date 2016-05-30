@@ -31,7 +31,6 @@ defmodule HtmlView do
       def html(assigns \\ %{}) do
         assigns
         |> Enum.map(&escape_assigned_values/1)
-        # |> Enum.into(%{})
         |> render_template
       end
 

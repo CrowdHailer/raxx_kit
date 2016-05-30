@@ -2,11 +2,18 @@ defmodule RootPage do
   defmodule Header do
     use HtmlView, %{template_file: "lib/header.html.eex"}
   end
+  defmodule UserPartial do
+    use HtmlView, %{template_file: "lib/user_partial.html.eex"}
+  end
 
   use HtmlView
 
   def header do
     Header.html
+  end
+
+  def user_partial(user) do
+    UserPartial.html(user)
   end
 end
 
