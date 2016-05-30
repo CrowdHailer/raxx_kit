@@ -19,6 +19,9 @@ end
 defmodule NotFound do
   use HtmlView, %{template_file: "lib/not_found.html.eex"}
 end
+defmodule UploadPage do
+  use HtmlView, %{template_file: "lib/upload_page.html.eex"}
+end
 
 defmodule Baobab do
   defmodule RootController do
@@ -34,8 +37,21 @@ defmodule Baobab do
     def call(conn = %{path_info: []}, opts) do
       send_resp(conn, 200, RootPage.html(opts))
     end
+    def call(conn = %{path_info: ["upload"], method: "GET"}, opts) do
+      send_resp(conn, 200, UploadPage.html(opts))
+    end
+    def call(conn = %{path_info: ["upload"], method: "POST"}, opts) do
+      IO.inspect(parse(conn))
+      send_resp(conn, 200, "OP")
+    end
+
+    def parse(conn, opts \\ []) do
+      opts = Keyword.put_new(opts, :parsers, [Plug.Parsers.URLENCODED, Plug.Parsers.MULTIPART])
+      Plug.Parsers.call(conn, Plug.Parsers.init(opts))
+    end
 
     use Plug.Builder
+    # plug Plug.Parsers, parsers: [:urlencoded, :multipart]
     plug Plug.Static,
       at: "/",
       from: __DIR__
