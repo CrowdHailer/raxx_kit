@@ -17,14 +17,18 @@ defmodule HtmlView do
     IO.iodata_to_binary(for <<char <- buffer>>, do: escape_char(char))
   end
 
-  defmacro __using__(_opts) do
+  defmacro __using__(opts) do
     quote do
       require EEx
+      opts = case unquote(opts) do
+        list when is_list(list) -> Enum.into(list, %{})
+        opts -> opts
+      end
 
-      template_file = String.replace_suffix(__ENV__.file, ".ex", ".html.eex")
+      template_file = String.replace_suffix(Map.get(opts, :template_file, __ENV__.file), ".ex", ".html.eex")
       EEx.function_from_file :defp, :render_template, template_file, [:assigns]
 
-      def html(assigns) do
+      def html(assigns \\ %{}) do
         assigns
         |> Enum.map(&escape_assigned_values/1)
         # |> Enum.into(%{})

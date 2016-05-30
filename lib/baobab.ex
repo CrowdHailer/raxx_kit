@@ -1,5 +1,13 @@
 defmodule RootPage do
+  defmodule Header do
+    use HtmlView, %{template_file: "lib/header.html.eex"}
+  end
+
   use HtmlView
+
+  def header do
+    Header.html
+  end
 end
 
 defmodule Baobab do

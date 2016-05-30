@@ -1,1 +1,2 @@
+<%= header %>
 <h1><%= @greeting %>, World! <%= @other %></h1>
