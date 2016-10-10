@@ -30,7 +30,8 @@ defmodule Baobab.Mixfile do
   defp deps do
     [
       {:cowboy, "1.0.4"},
-      {:plug, "~> 1.1.4"}
+      {:plug, "~> 1.1.4"},
+      {:distillery, "~> 0.10"}
     ]
   end
 end
