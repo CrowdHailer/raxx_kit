@@ -64,6 +64,6 @@ defmodule Baobab do
   use Application
 
   def start(_type, _args) do
-    Plug.Adapters.Cowboy.http(RootController, %{})
+    Plug.Adapters.Cowboy.http(RootController, %{}, port: 8080)
   end
 end
