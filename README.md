@@ -16,11 +16,24 @@
           [applications: [:baobab]]
         end
 
+## Usage
+
+#### Running with Mix
+
+```
+cd /vagrant
+mix deps.get
+iex -S mix
+```
+
+Visit [localhost:8080](localhost:8080)
+
 ## Roadmap
 
 A long list of things that I need to do to make cloud native applications easier.
 
-- [ ] Setup vagrant for this project.
+- [x] Setup vagrant for this project.
+- [ ] Build releases with [distillery](https://github.com/bitwalker/distillery)
 - [ ] Organise DO/GCP credentials
 - [ ] Work out how to debug in a vm node.
 - [ ] Create a mock prod server vm.
@@ -28,7 +41,6 @@ A long list of things that I need to do to make cloud native applications easier
 - [ ] check nomad for example of cloud integration, [which to choose](https://thehftguy.wordpress.com/2016/06/08/choosing-a-cloud-provider-amazon-aws-ec2-vs-google-compute-engine-vs-microsoft-azure-vs-ibm-softlayer-vs-linode-vs-digitalocean-vs-ovh-vs-hertzner/) DO -> GCP -> (IBM machine images)
 - [ ] Setup [DMZ](http://www.erlang-factory.com/static/upload/media/144975595943066francescocesarinieflberlin2015.pdf#14) network area, certain releases from umbrella app. [DO floating ips](https://www.digitalocean.com/products/networking/) to load balancers. make each of [DO server setups](https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application)
 - [ ] Programmable load balancing from DMZ webservers to application server. One example would be a riak core ring or phoenix presence regestration.
-- [ ] Build releases with [distillery](https://github.com/bitwalker/distillery)
 
 - [real world elixir deployment](https://www.youtube.com/watch?v=H686MDn4Lo8)
 - [load balancing websockets](http://www.oxagile.com/company/blog/load-balancing-of-websocket-connections/)
