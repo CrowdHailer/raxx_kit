@@ -21,6 +21,8 @@
 #### Running with Mix
 
 ```
+# vagrant@development
+
 cd /vagrant
 mix deps.get
 iex -S mix
@@ -28,15 +30,42 @@ iex -S mix
 
 Visit [localhost:8080](localhost:8080)
 
+#### Manually deploying a distribution
+
+```
+# vagrant@development
+
+cd /vagrant
+mix deps.get
+mix release
+
+scp rel/baobab/releases/0.0.1/baobab.tar.gz vagrant@<dmz ip address>:.
+# Find ip following instructions below or setup static ip
+```
+
+```
+# vagrant@dmz
+
+ifconfig
+# get private ip_address, use eth1
+
+tar -xf baobab.tar.gz
+/bin/baobab start
+```
+
+visit http://172.28.128.4:8080/3434 # substitute dmz ip.
+
+Home page doesn't work some issue with compiling eex.
+
 ## Roadmap
 
 A long list of things that I need to do to make cloud native applications easier.
 
 - [x] Setup vagrant for this project.
-- [ ] Build releases with [distillery](https://github.com/bitwalker/distillery)
+- [x] Build releases with [distillery](https://github.com/bitwalker/distillery)
+- [x] Create a production with vagrant.
 - [ ] Organise DO/GCP credentials
 - [ ] Work out how to debug in a vm node.
-- [ ] Create a mock prod server vm.
 - [ ] Integrate with provisioning resources, looks like kuberneties, look at katacoda.
 - [ ] check nomad for example of cloud integration, [which to choose](https://thehftguy.wordpress.com/2016/06/08/choosing-a-cloud-provider-amazon-aws-ec2-vs-google-compute-engine-vs-microsoft-azure-vs-ibm-softlayer-vs-linode-vs-digitalocean-vs-ovh-vs-hertzner/) DO -> GCP -> (IBM machine images)
 - [ ] Setup [DMZ](http://www.erlang-factory.com/static/upload/media/144975595943066francescocesarinieflberlin2015.pdf#14) network area, certain releases from umbrella app. [DO floating ips](https://www.digitalocean.com/products/networking/) to load balancers. make each of [DO server setups](https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application)
