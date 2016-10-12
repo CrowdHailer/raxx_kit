@@ -41,6 +41,7 @@ mix release
 
 scp rel/baobab/releases/0.0.1/baobab.tar.gz vagrant@<dmz ip address>:.
 # Find ip following instructions below or setup static ip
+# On Digital ocean user is root, add ssh key or expect password in an email.
 ```
 
 ```
@@ -64,7 +65,7 @@ A long list of things that I need to do to make cloud native applications easier
 - [x] Setup vagrant for this project.
 - [x] Build releases with [distillery](https://github.com/bitwalker/distillery)
 - [x] Create a production with vagrant.
-- [ ] Organise DO/GCP credentials
+- [x] Organise DO/GCP credentials
 - [ ] Work out how to debug in a vm node.
 - [ ] Integrate with provisioning resources, looks like kuberneties, look at katacoda.
 - [ ] check nomad for example of cloud integration, [which to choose](https://thehftguy.wordpress.com/2016/06/08/choosing-a-cloud-provider-amazon-aws-ec2-vs-google-compute-engine-vs-microsoft-azure-vs-ibm-softlayer-vs-linode-vs-digitalocean-vs-ovh-vs-hertzner/) DO -> GCP -> (IBM machine images)
@@ -73,6 +74,7 @@ A long list of things that I need to do to make cloud native applications easier
 
 - [real world elixir deployment](https://www.youtube.com/watch?v=H686MDn4Lo8)
 - [load balancing websockets](http://www.oxagile.com/company/blog/load-balancing-of-websocket-connections/)
+- [Elixir deployment tools](https://elixirforum.com/t/elixir-deployment-tools-general-discussion-blog-posts-wiki/827)
 
 ## Glossary
 
