@@ -76,6 +76,12 @@ A long list of things that I need to do to make cloud native applications easier
 - [load balancing websockets](http://www.oxagile.com/company/blog/load-balancing-of-websocket-connections/)
 - [Elixir deployment tools](https://elixirforum.com/t/elixir-deployment-tools-general-discussion-blog-posts-wiki/827)
 
+Suggestions for securing a DO node.
+
+@crowdhailer I would make sure to have a separate (non-root) user running the Elixir application, at least `ufw` installed to close all other ports than 80/22, and set `PermitRootLogin no` in `/etc/ssh/sshd_config`
+Those three things are some quick wins with regards to security of a web app
+
+[setting up a server](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04)
 ## Glossary
 
 Each machine type has a different release (grouping of applications, assembly, cohort)
