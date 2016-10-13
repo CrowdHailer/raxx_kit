@@ -76,6 +76,14 @@ A long list of things that I need to do to make cloud native applications easier
 - [load balancing websockets](http://www.oxagile.com/company/blog/load-balancing-of-websocket-connections/)
 - [Elixir deployment tools](https://elixirforum.com/t/elixir-deployment-tools-general-discussion-blog-posts-wiki/827)
 
+
+The first step is to get Buildroot running on the platform. The next is to take a look at one of our system images and modify it based on what you learned about with Buildroot.
+
+: Yes, while Nerves could in theory use other Linux image builders, right now Buildroot is the only one we're supporting. Buildroot has generic x86_64 images that probably get close to what you need. Our root filesystems are all read-only squashfs ones. "Cross-compilation" will sound a little strange since you're on x86_64 already, but the C library that we're using will probably be slightly different so it's still needed.
+3:48 Also, we do actually supply an x86_64 cross-compiler that targets the MUSL C library that can be used on OSX, PC Linux, and RPi. I added it a while back when someone else asked me about running on a server. I haven't used it, though. You can find it under the v0.7.1 release at https://github.com/nerves-project/toolchains/releases/. 
+
+^Nerves chat
+
 ## Glossary
 
 Each machine type has a different release (grouping of applications, assembly, cohort)
