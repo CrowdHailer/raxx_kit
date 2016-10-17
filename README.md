@@ -85,6 +85,18 @@ The first step is to get Buildroot running on the platform. The next is to take 
 
 ^Nerves chat
 
+## Mission
+look at phoenix mission silde from 2014
+
+- Encourage domain modelling
+- Immutable data history
+- independent clients. offline first sharded DB,
+- MoSQL
+
+## Names
+Anvil, (Anonimous/kernal)
+Nimbus, cloud native
+
 ## Glossary
 
 Each machine type has a different release (grouping of applications, assembly, cohort)
