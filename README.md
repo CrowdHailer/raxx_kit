@@ -75,6 +75,7 @@ A long list of things that I need to do to make cloud native applications easier
 - [real world elixir deployment](https://www.youtube.com/watch?v=H686MDn4Lo8)
 - [load balancing websockets](http://www.oxagile.com/company/blog/load-balancing-of-websocket-connections/)
 - [Elixir deployment tools](https://elixirforum.com/t/elixir-deployment-tools-general-discussion-blog-posts-wiki/827)
+- [Elixir and Erlang cluster](http://bitwalker.org/posts/2016-08-04-clustering-in-kubernetes/)
 
 
 The first step is to get Buildroot running on the platform. The next is to take a look at one of our system images and modify it based on what you learned about with Buildroot.
