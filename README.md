@@ -7,7 +7,7 @@
   1. Add baobab to your list of dependencies in mix.exs:
 
         def deps do
-          [{:baobab, "~> 0.0.1"}]
+          [{:baobab, "~> 0.1.0"}]
         end
 
   2. Ensure baobab is started before your application:
