@@ -1,8 +1,0 @@
-<%= header %>
-<h1><%= @greeting %>, World! <%= @other %></h1>
-<ul>
-  <%= for %{name: name} <- @users do %>
-   <li><%= name %></li>
-  <% end %>
-  <%= Enum.map(@users, &user_partial/1) %>
-</ul>
