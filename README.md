@@ -1,20 +1,6 @@
 # Baobab
 
-**An example Cowboy application that might grow to be a routing tree example**
-
-## Installation
-
-  1. Add baobab to your list of dependencies in mix.exs:
-
-        def deps do
-          [{:baobab, "~> 0.1.0"}]
-        end
-
-  2. Ensure baobab is started before your application:
-
-        def application do
-          [applications: [:baobab]]
-        end
+**An example Ace/Raxx application**
 
 ## Usage
 
@@ -23,7 +9,7 @@
 ```
 # vagrant@development
 
-cd /vagrant
+cd /vagrant/server
 mix deps.get
 iex -S mix
 ```
@@ -35,7 +21,7 @@ Visit [localhost:8080](localhost:8080)
 ```
 # vagrant@development
 
-cd /vagrant
+cd /vagrant/server
 mix deps.get
 mix release
 
@@ -51,7 +37,7 @@ ifconfig
 # get private ip_address, use eth1
 
 tar -xf baobab.tar.gz
-/bin/baobab start
+./bin/baobab start
 ```
 
 visit http://172.28.128.4:8080/3434 # substitute dmz ip.
@@ -66,7 +52,7 @@ A long list of things that I need to do to make cloud native applications easier
 - [x] Build releases with [distillery](https://github.com/bitwalker/distillery)
 - [x] Create a production with vagrant.
 - [x] Organise DO/GCP credentials
-- [ ] Work out how to debug in a vm node.
+- [x] Work out how to debug in a vm node.
 - [ ] Integrate with provisioning resources, looks like kuberneties, look at katacoda.
 - [ ] check nomad for example of cloud integration, [which to choose](https://thehftguy.wordpress.com/2016/06/08/choosing-a-cloud-provider-amazon-aws-ec2-vs-google-compute-engine-vs-microsoft-azure-vs-ibm-softlayer-vs-linode-vs-digitalocean-vs-ovh-vs-hertzner/) DO -> GCP -> (IBM machine images)
 - [ ] Setup [DMZ](http://www.erlang-factory.com/static/upload/media/144975595943066francescocesarinieflberlin2015.pdf#14) network area, certain releases from umbrella app. [DO floating ips](https://www.digitalocean.com/products/networking/) to load balancers. make each of [DO server setups](https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application)
@@ -76,12 +62,12 @@ A long list of things that I need to do to make cloud native applications easier
 - [load balancing websockets](http://www.oxagile.com/company/blog/load-balancing-of-websocket-connections/)
 - [Elixir deployment tools](https://elixirforum.com/t/elixir-deployment-tools-general-discussion-blog-posts-wiki/827)
 - [Elixir and Erlang cluster](http://bitwalker.org/posts/2016-08-04-clustering-in-kubernetes/)
-
+- [elixir and kuberneties](https://substance.brpx.com/clustering-elixir-nodes-on-kubernetes-e85d0c26b0cf#.6o9fjoxrw)
 
 The first step is to get Buildroot running on the platform. The next is to take a look at one of our system images and modify it based on what you learned about with Buildroot.
 
 : Yes, while Nerves could in theory use other Linux image builders, right now Buildroot is the only one we're supporting. Buildroot has generic x86_64 images that probably get close to what you need. Our root filesystems are all read-only squashfs ones. "Cross-compilation" will sound a little strange since you're on x86_64 already, but the C library that we're using will probably be slightly different so it's still needed.
-3:48 Also, we do actually supply an x86_64 cross-compiler that targets the MUSL C library that can be used on OSX, PC Linux, and RPi. I added it a while back when someone else asked me about running on a server. I haven't used it, though. You can find it under the v0.7.1 release at https://github.com/nerves-project/toolchains/releases/. 
+3:48 Also, we do actually supply an x86_64 cross-compiler that targets the MUSL C library that can be used on OSX, PC Linux, and RPi. I added it a while back when someone else asked me about running on a server. I haven't used it, though. You can find it under the v0.7.1 release at https://github.com/nerves-project/toolchains/releases/.
 
 ^Nerves chat
 

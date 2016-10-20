@@ -9,6 +9,8 @@ defmodule Baobab.Mixfile do
   end
 
   defp deps do
-    []
+    [
+      {:distillery, "~> 0.10"}
+    ]
   end
 end
