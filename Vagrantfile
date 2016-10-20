@@ -23,4 +23,6 @@ Vagrant.configure("2") do |config|
     v.memory = 8192
     v.cpus = 2
   end
+
+  config.ssh.forward_x11 = true
 end
