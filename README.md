@@ -42,7 +42,19 @@ tar -xf baobab.tar.gz
 
 visit http://172.28.128.4:8080/3434 # substitute dmz ip.
 
-Home page doesn't work some issue with compiling eex.
+#### Clustering
+
+#### Discovery
+
+many discovery things
+
+- https://github.com/schlagert/bootstrap
+- http://stackoverflow.com/questions/78826/erlang-multicast
+- https://github.com/bitwalker/swarm
+- https://github.com/edevil/elixir_kubernetes_cluster
+- https://en.wikipedia.org/wiki/Zero-configuration_networking
+- https://github.com/Licenser/erlang-mdns-server
+- https://github.com/harmon25/sonex/blob/master/lib/sonex/discovery.ex
 
 ## Roadmap
 
