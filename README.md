@@ -23,7 +23,7 @@ Visit [localhost:8080](localhost:8080)
 
 cd /vagrant/server
 mix deps.get
-mix release
+mix release --env prod
 
 scp rel/baobab/releases/0.0.1/baobab.tar.gz vagrant@<dmz ip address>:.
 # Find ip following instructions below or setup static ip
