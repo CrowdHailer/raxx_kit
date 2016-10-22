@@ -116,3 +116,10 @@ It seams only to exist to serve Phoenix, however these articles are helpful.
 
 - [Building a web framework from scratch in Elixir](https://codewords.recurse.com/issues/five/building-a-web-framework-from-scratch-in-elixir)
 - [Getting started with Plug in Elixir](http://www.brianstorti.com/getting-started-with-plug-elixir/)
+
+there is no such thing as stateless it's just someone elses problem. we should embrace the state own the state.
+https://www.youtube.com/watch?v=DRK7WYNh6AA
+
+async is the constraints of the system in fact the constraints of reality
+
+http://adrianmarriott.net/logosroot/papers/LifeBeyondTxns.pdf
