@@ -42,6 +42,8 @@ tar -xf baobab.tar.gz
 
 visit http://172.28.128.4:8080/3434 # substitute dmz ip.
 
+https://medium.com/@kelseyhightower/12-fractured-apps-1080c73d481c#.6ralm99gu
+
 #### Clustering
 
 #### Discovery
