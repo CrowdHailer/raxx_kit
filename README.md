@@ -1,6 +1,66 @@
-# Baobab
+# Tokumei
 
-**An example Ace/Raxx application**
+**An Elixir webframework**
+
+## Dreamcoding
+
+```elixir
+defmodule SignUpForm do
+  use WebForm
+
+  [
+    first_name: name_field(blank: {:error, :required})
+    last_name: name_field(blank: {:ok, nil})
+    email: email_field(blank: %NullEmail{{}})
+    avatar: file_field(max_size: 30_000, empty: {:ok, nil})
+    username: string_field(max_size: 30_000, blank: {:error, :required})
+    country: field(&country_from_alpha2/1, blank: {:error, :requred})
+  ]
+
+  def name_field(required) do
+    string_field(pattern: ~r/[a-z]/i, min_length: 3, max_length: 26)
+  end
+end
+```
+
+```elixir
+defmodule Router do
+  use SomeRouter
+
+  def handle_request(%{path: ["sign-up"], method: :POST, body: %{"sign-up" => form}}, %{accounts: accounts}) do
+    OK.with do
+      data <- SignUpForm.validate(form)
+      user <- accounts.sign_up(data)
+      {:ok, redirect("/", success: "Welcome")}
+    else
+      %InvalidForm{form: form, errors: errors} ->
+        bad_request(sign_up_page(form, errors))
+      %EmailTaken{action: data, extra: email_address} ->
+        conflict(sign_up_page(data, %{email: "already taken"}))
+    end
+  end
+end
+```
+- HTTP action handlers should wait for any calls they need before they response.
+This is not a usecase where the message monad makes sense
+- Maybe hardcode services which are then passed to domain
+
+
+```elixir
+defmodule MyApp.Web do
+  def start(_type, _args) do
+    import Supervisor.Spec, warn: false
+
+    children = [
+      worker(Ace.HTTP, [MyApp.Web.Router, [port: 8080, name: MyApp.Web]])
+    ]
+
+    opts = [strategy: :one_for_one, name: MyApp.Web.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+end
+```
+
 
 ## Usage
 
