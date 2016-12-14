@@ -2,22 +2,41 @@
 
 **An Elixir webframework**
 
+This repo exists to experiment with code that does not belong in raxx.
+Raxx should be limited to behaviour that can be found in a http sepcification.
+
+Useful libraries would include:
+- sessions
+- flash messages
+- form validation
+- templating
+- js compilation
+- gateways
+- asset serving
+- security (although for prudence some of this will be in the interface/server)
+
 ## Dreamcoding
 
 ```elixir
 defmodule SignUpForm do
-  use WebForm
+  import WebForm.Fields
 
-  [
-    first_name: name_field(blank: {:error, :required})
-    last_name: name_field(blank: {:ok, nil})
-    email: email_field(blank: %NullEmail{{}})
-    avatar: file_field(max_size: 30_000, empty: {:ok, nil})
-    username: string_field(max_size: 30_000, blank: {:error, :required})
-    country: field(&country_from_alpha2/1, blank: {:error, :requred})
-  ]
+  def validator do
+    [
+      first_name: name_field(blank: {:error, :required})
+      last_name: name_field(blank: {:ok, nil})
+      email: email_field(blank: %NullEmail{{}})
+      avatar: file_field(max_size: 30_000, empty: {:ok, nil})
+      username: string_field(max_size: 30_000, blank: {:error, :required})
+      country: field(&country_from_alpha2/1, blank: {:error, :requred})
+    ]
+  end
 
-  def name_field(required) do
+  def validate(form) do
+    WebForm.validate(validator, form)
+  end
+
+  defp name_field(required) do
     string_field(pattern: ~r/[a-z]/i, min_length: 3, max_length: 26)
   end
 end
