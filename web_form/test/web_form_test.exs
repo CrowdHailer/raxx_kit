@@ -1,5 +1,7 @@
 defprotocol WebForm.Input do
-  def take(data, key, map)
+  def take(field, mount, map)
+
+  def check_blank(field, raw)
 end
 
 defmodule WebForm.Input.Text do
@@ -13,16 +15,44 @@ end
 defimpl WebForm.Input, for: WebForm.Input.Text do
   def take(self, key, map) do
     {:ok, raw} = Map.fetch(map, "#{key}")
-    # check_blank(raw)
+    WebForm.Input.check_blank(self, raw)
+    |> IO.inspect
     {key, {:ok, :out}}
   end
 end
+defimpl WebForm.Input, for: Any do
+  def check_blank(self, x) do
+    IO.inspect(self)
+  end
+end
 
-defmodule WebForm do
 
+defmodule Input.Text do
+  defmacro __using__(_) do
+    quote do
+      def take(key, options, map) do
+        {:ok, raw} = Map.fetch(map, "#{key}")
+        {key, coerce(raw, options)}
+      end
+      def coerce(raw, opts) do
+        IO.inspect(raw)
+
+        raw
+      end
+      defoverridable [take: 3, coerce: 2]
+    end
+  end
 end
 
 defmodule MyApp.Fields do
+  defmodule Email do
+    use Input.Text
+
+    def coerce(raw, _) do
+      {:email, raw}
+    end
+  end
+
   def username do
     WebForm.Input.Text.new(pattern: ~r/[a-z]+/)
   end
@@ -31,10 +61,16 @@ end
 defmodule MyApp.SignUpForm do
 
   def validate(form) do
-    validator = %{username: WebForm.Input.Text.new}
+    validator = %{
+      username: {MyApp.Fields.Email, []},
+      other: MyApp.Fields.Email
+    }
 
-    for {mount, field} <- validator do
-      WebForm.Input.take(field, mount, form)
+    for {key, validator} <- validators do
+      case validator do
+        {field, options} ->
+          field.take(key, options, form)
+      end
     end
   end
 end
