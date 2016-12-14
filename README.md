@@ -17,6 +17,13 @@ Useful libraries would include:
 
 ## Dreamcoding
 
+With input coercion/validation there is a shape of data that is expected to an action.
+coercion is the changing of individual fields from there transport representation to a program type. `string -> email`. Validation is the checking that the form is correct as far as an outside caller is concerned, password_confirmation and the like.
+Coercion can be of the form string to string or to a rich type.
+
+A form object is a mapping from an in browser form. It may map nicely to the domain data it may not. Lets assume that it does. i.e. fields will always be sent and if they are withheld we can assume that is deliberate.
+
+
 ```elixir
 defmodule SignUpForm do
   import WebForm.Fields
