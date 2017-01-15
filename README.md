@@ -17,6 +17,37 @@ Useful libraries would include:
 
 ## Dreamcoding
 
+### Routing
+
+Two ways to consider routing.
+- Router to Controllers that expect a mix of Elixir and Request objects
+- As a tree splitting request objects.
+
+Many modules implementing the `handle_request` function are an example of the second.
+Rails etc implements the first, I have not previously been interested in the first but I think it is worth investigating.
+
+```elixir
+defmodule Router do
+  use Tokumei.Router
+  
+  
+  route "/users/:id" do
+    :GET -> UsersController.show(id, request)
+    :DELETE -> UsersController.delete(request, env)
+  end
+end
+```
+
+benefits
+- easier to read
+
+costs
+- complication by introduction of macro
+- controller should be domain specific but more often than not will need http specific info from request.
+  alternative is to pass only request and then re read path
+
+### Forms
+
 With input coercion/validation there is a shape of data that is expected to an action.
 coercion is the changing of individual fields from there transport representation to a program type. `string -> email`. Validation is the checking that the form is correct as far as an outside caller is concerned, password_confirmation and the like.
 Coercion can be of the form string to string or to a rich type.
