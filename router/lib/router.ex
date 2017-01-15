@@ -1,5 +1,4 @@
 defmodule Tokumei.Router do
-  @known_methods [:GET, :POST, :PUT, :PATCH, :DELETE, :OPTIONS, :HEAD]
 
   defmacro route(path, do: clauses) do
     path = Raxx.Request.split_path(path)
@@ -10,6 +9,7 @@ defmodule Tokumei.Router do
     request_match = quote do: %{path: unquote(path)}
     methods = Enum.map(clauses, fn({:->, _, [[method], _action]}) -> method end) |> Enum.join(" ")
     quote do
+      @known_methods [:GET, :POST, :PUT, :PATCH, :DELETE, :OPTIONS, :HEAD]
       def handle_request(request = unquote(request_match), env) do
         unquote(Macro.var(:request, nil)) = request
         unquote(Macro.var(:env, nil)) = env
