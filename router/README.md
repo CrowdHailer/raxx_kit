@@ -1,6 +1,6 @@
 # Tokumei.Router
 
-**TODO: Add description**
+**Routing layer for Raxx applications**
 
 ## Installation
 
@@ -22,3 +22,6 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
     end
     ```
 
+## Usage
+
+For usage examples see tests.

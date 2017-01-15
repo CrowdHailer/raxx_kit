@@ -1,6 +1,55 @@
 # Tokumei
 
-**An Elixir webframework**
+**A tiny buy mighty Elixir webframework**
+
+The Tokumei framework is a collection of focued independent libraries.
+They were developed from experiments into developing a few applications in Elixir.
+
+Inspiration has come from a variety of places but particularly [Hanami](http://hanamirb.org/) from the Ruby community is woth mentioning.
+
+Tokumei is built on top of [Raxx](https://github.com/CrowdHailer/raxx), because it shares the same goal to preserve the simple message semantics of the Request/Response cycle.
+
+## Router
+
+see `/router`
+
+```elixir
+defmodule MyApp.Router do
+  use Tokumei.Router
+
+  # Define response actions inline using Raxx Helpers.
+  route "about" do
+    :GET -> Raxx.Response.ok("Hello, World!")
+  end
+
+  # Or call out to any module.
+  route "/users/:id" do
+    :GET -> UsersController.show(id, request)
+    :POST -> UsersController.create(id, request)
+    :DELETE -> UsersController.delete(id, request)
+  end
+end
+```
+
+The `Tokumei.Router` provides a simple routing DSL that first routes on path and second on request method.
+This is done so that `Tokumei.Router` can return the correct responses for resources that will respond to only a subset of HTTP verbs.
+
+```elixir
+import Raxx.Request
+
+assert 200 == MyApp.Router.handle_request(get("/about"), :env)
+assert 405 == MyApp.Router.handle_request(put("/about"), :env)
+```
+
+Using `Tokumei.Router` will create a Raxx App that can be mounted using any of the adapters found in [Raxx](https://github.com/CrowdHailer/raxx)
+
+# The rest
+
+**The router is the only module available currently.**
+
+The rest of this repo consists of experiments in progress.
+
+-------------------------------------------------------------------------------
 
 This repo exists to experiment with code that does not belong in raxx.
 Raxx should be limited to behaviour that can be found in a http sepcification.
@@ -26,17 +75,7 @@ Two ways to consider routing.
 Many modules implementing the `handle_request` function are an example of the second.
 Rails etc implements the first, I have not previously been interested in the first but I think it is worth investigating.
 
-```elixir
-defmodule Router do
-  use Tokumei.Router
-  
-  
-  route "/users/:id" do
-    :GET -> UsersController.show(id, request)
-    :DELETE -> UsersController.delete(request, env)
-  end
-end
-```
+
 
 benefits
 - easier to read
