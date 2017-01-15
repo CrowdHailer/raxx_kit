@@ -1,4 +1,6 @@
 defmodule Tokumei.Router do
+  @known_methods [:GET, :POST, :PUT, :PATCH, :DELETE, :OPTIONS, :HEAD]
+
   defmacro route(path, do: clauses) do
     path = Raxx.Request.split_path(path)
     |> Enum.map(fn
@@ -13,7 +15,7 @@ defmodule Tokumei.Router do
         unquote(Macro.var(:env, nil)) = env
         case request.method do
           unquote(clauses ++ (quote do
-            method when method in [:PATCH] ->
+            method when method in @known_methods ->
               Raxx.Response.method_not_allowed([{"allow", unquote(methods)}])
             _ ->
               Raxx.Response.not_implemented
