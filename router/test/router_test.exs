@@ -32,6 +32,15 @@ defmodule Tokumei.RouterTest do
     assert 501 == response.status
   end
 
+  route "parameter/:id" do
+    :GET -> Response.ok("parameter: #{id}")
+  end
+
+  test "Will pass match variables into the action" do
+    response = get("/parameter/1")
+    assert "parameter: 1" == response.body
+  end
+
   route "bar" do
     :GET ->
       IO.inspect(request)

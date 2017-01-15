@@ -1,6 +1,10 @@
 defmodule Tokumei.Router do
   defmacro route(path, do: clauses) do
     path = Raxx.Request.split_path(path)
+    |> Enum.map(fn
+      (":" <> var) -> Macro.var(var |> String.to_atom, nil)
+      (segment) -> segment
+    end)
     request_match = quote do: %{path: unquote(path)}
     methods = Enum.map(clauses, fn({:->, _, [[method], _action]}) -> method end) |> Enum.join(" ")
     quote do
