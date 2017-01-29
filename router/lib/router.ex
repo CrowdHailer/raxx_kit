@@ -1,5 +1,20 @@
 defmodule Tokumei.Router do
 
+  defmacro mount(mount, app) do
+    [mount] = Raxx.Request.split_path(mount)
+    rest = quote do: rest
+    path = [{:|, [], [mount, rest]}]
+
+    request_match = quote do: %{path: unquote(path)}
+    request_match
+    quote do
+      def handle_request(request = unquote(request_match), env) do
+        request = %{request | path: rest, mount: [unquote(mount)]}
+        unquote(app).handle_request(request, env)
+      end
+    end
+  end
+
   defmacro route(path, do: clauses) do
     path = Raxx.Request.split_path(path)
     |> Enum.map(fn

@@ -55,6 +55,19 @@ defmodule Tokumei.RouterTest do
     assert 404 == get("/random").status
   end
 
+  mount "/subapp", __MODULE__
+
+  route "/level-two" do
+    :GET ->
+      send(self(), request)
+      Response.ok()
+  end
+
+  test "can mount a sub app" do
+    assert 200 == get("/subapp/level-two").status
+    assert_receive %{mount: ["subapp"], path: ["level-two"]}
+  end
+
   defp get(path) do
     Request.get(path)
     |>  __MODULE__.handle_request(:empty_env)
