@@ -39,6 +39,7 @@ import Raxx.Request
 
 assert 200 == MyApp.Router.handle_request(get("/about"), :env)
 assert 405 == MyApp.Router.handle_request(put("/about"), :env)
+assert 404 == MyApp.Router.handle_request(put("/random"), :env)
 ```
 
 Using `Tokumei.Router` will create a Raxx App that can be mounted using any of the adapters found in [Raxx](https://github.com/CrowdHailer/raxx)

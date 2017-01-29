@@ -43,12 +43,16 @@ defmodule Tokumei.RouterTest do
 
   route "bar" do
     :GET ->
-      IO.inspect(request)
+      send(self(), request)
       Response.ok()
   end
 
   test "Will handle multiple lines single path element" do
     assert 200 == get("/bar").status
+  end
+
+  test "Will return a 404 for not found" do
+    assert 404 == get("/random").status
   end
 
   defp get(path) do
