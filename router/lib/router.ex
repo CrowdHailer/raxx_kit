@@ -55,6 +55,7 @@ defmodule Tokumei.Router do
           other ->
             other
         end
+        |> check_length
       end
     end
   end
@@ -72,10 +73,21 @@ defmodule Tokumei.Router do
       def handle_request(request, _config) do
         exception = %Tokumei.Router.NotFoundError{request: request}
         on_error(exception)
+        |> check_length
       end
 
       def on_error(exception) do
         Raxx.Response.internal_server_error()
+      end
+
+      # TODO Use a middleware to work this out
+      defp check_length(response = %{headers: headers, body: body}) do
+        headers = if !List.keymember?(headers, "content-length", 0) do
+          headers ++ [{"content-length", "#{:erlang.iolist_size(body)}"}]
+        else
+          headers
+        end
+        %{response | headers: headers}
       end
     end
   end

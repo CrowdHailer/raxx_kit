@@ -13,37 +13,6 @@ Tokumei is built on top of [Raxx](https://github.com/CrowdHailer/raxx), because 
 
 see `/router`
 
-```elixir
-defmodule MyApp.Router do
-  use Tokumei.Router
-
-  # Define response actions inline using Raxx Helpers.
-  route "about" do
-    :GET -> Raxx.Response.ok("Hello, World!")
-  end
-
-  # Or call out to any module.
-  route "/users/:id" do
-    :GET -> UsersController.show(id, request)
-    :POST -> UsersController.create(id, request)
-    :DELETE -> UsersController.delete(id, request)
-  end
-end
-```
-
-The `Tokumei.Router` provides a simple routing DSL that first routes on path and second on request method.
-This is done so that `Tokumei.Router` can return the correct responses for resources that will respond to only a subset of HTTP verbs.
-
-```elixir
-import Raxx.Request
-
-assert 200 == MyApp.Router.handle_request(get("/about"), :env)
-assert 405 == MyApp.Router.handle_request(put("/about"), :env)
-assert 404 == MyApp.Router.handle_request(put("/random"), :env)
-```
-
-Using `Tokumei.Router` will create a Raxx App that can be mounted using any of the adapters found in [Raxx](https://github.com/CrowdHailer/raxx)
-
 # The rest
 
 **The router is the only module available currently.**

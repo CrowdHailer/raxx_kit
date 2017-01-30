@@ -3,7 +3,7 @@ defmodule Tokumei.Router.Mixfile do
 
   def project do
     [app: :tokumei_router,
-     version: "0.1.0",
+     version: "0.2.0",
      elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -20,7 +20,7 @@ defmodule Tokumei.Router.Mixfile do
 
   defp deps do
     [
-      {:raxx, "~> 0.8.1"},
+      {:raxx, "~> 0.8.2"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
