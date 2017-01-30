@@ -29,6 +29,6 @@ defmodule Tokumei.Router.Mixfile do
     [
      maintainers: ["Peter Saxton"],
      licenses: ["Apache 2.0"],
-     links: %{"GitHub" => "https://github.com/crowdhailer/raxx"}]
+     links: %{"GitHub" => "https://github.com/CrowdHailer/Tokumei/tree/master/router"}]
   end
 end
