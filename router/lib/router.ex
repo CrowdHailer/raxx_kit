@@ -1,4 +1,15 @@
 defmodule Tokumei.Router do
+  defmodule NotFoundError do
+    defexception message: nil, request: nil
+  end
+
+  defmodule NotImplementedError do
+    defexception message: nil, request: nil
+  end
+
+  defmodule MethodNotAllowedError do
+    defexception message: nil, request: nil, allowed: nil
+  end
 
   defmacro mount(mount, app) do
     # TODO need multilevel mount
@@ -7,7 +18,6 @@ defmodule Tokumei.Router do
     path = [{:|, [], [mount, rest]}]
 
     request_match = quote do: %{path: unquote(path)}
-    request_match
     quote do
       def handle_request(request = unquote(request_match), env) do
         # TODO add previous mounting.
@@ -24,7 +34,7 @@ defmodule Tokumei.Router do
       (segment) -> segment
     end)
     request_match = quote do: %{path: unquote(path)}
-    methods = Enum.map(clauses, fn({:->, _, [[method], _action]}) -> method end) |> Enum.join(" ")
+    methods = Enum.map(clauses, fn({:->, _, [[method], _action]}) -> method end)
     quote do
       @before_compile Tokumei.Router
       @known_methods [:GET, :POST, :PUT, :PATCH, :DELETE, :OPTIONS, :HEAD]
@@ -34,19 +44,38 @@ defmodule Tokumei.Router do
         case request.method do
           unquote(clauses ++ (quote do
             method when method in @known_methods ->
-              Raxx.Response.method_not_allowed([{"allow", unquote(methods)}])
+              {:error, %MethodNotAllowedError{request: request, allowed: unquote(methods)}}
             _ ->
-              Raxx.Response.not_implemented
+              {:error, %NotImplementedError{request: request}}
           end))
         end
+        |> case do
+          {:error, exception} ->
+            on_error(exception)
+          other ->
+            other
+        end
+      end
+    end
+  end
+
+  defmacro error filter, do: handler do
+    quote do
+      def on_error(unquote(filter)) do
+        unquote(handler)
       end
     end
   end
 
   defmacro __before_compile__(env) do
     quote do
-      def handle_request(_request, _config) do
-        Raxx.Response.not_found()
+      def handle_request(request, _config) do
+        exception = %Tokumei.Router.NotFoundError{request: request}
+        on_error(exception)
+      end
+
+      def on_error(exception) do
+        Raxx.Response.internal_server_error()
       end
     end
   end

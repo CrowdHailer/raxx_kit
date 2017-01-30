@@ -4,6 +4,7 @@ defmodule Tokumei.RouterTest do
   alias Raxx.Response
 
   import Tokumei.Router
+  alias Tokumei.Router.{NotImplementedError, MethodNotAllowedError, NotFoundError}
 
   route "foo" do
     :GET -> Response.ok("foo")
@@ -19,6 +20,14 @@ defmodule Tokumei.RouterTest do
   test "Will match on any method single path element" do
     %{status: status, body: body} = post("/foo")
     assert 204 == status
+  end
+
+  error %NotImplementedError{} do
+    Response.not_implemented()
+  end
+
+  error %MethodNotAllowedError{allowed: allowed} do
+    Raxx.Response.method_not_allowed([{"allow", allowed |> Enum.join(" ")}])
   end
 
   test "Will return method not allowed for other methods" do
@@ -51,8 +60,21 @@ defmodule Tokumei.RouterTest do
     assert 200 == get("/bar").status
   end
 
+  error %NotFoundError{request: request} do
+    Response.not_found
+  end
+
   test "Will return a 404 for not found" do
     assert 404 == get("/random").status
+  end
+
+  route "/server-error" do
+    :GET -> {:error, :oops}
+  end
+
+  test "Will return a 500 for other error" do
+    assert 500 == get("/server-error").status
+
   end
 
   mount "/subapp", __MODULE__
