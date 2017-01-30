@@ -1,6 +1,7 @@
 defmodule Tokumei.Router do
 
   defmacro mount(mount, app) do
+    # TODO need multilevel mount
     [mount] = Raxx.Request.split_path(mount)
     rest = quote do: rest
     path = [{:|, [], [mount, rest]}]
@@ -9,6 +10,7 @@ defmodule Tokumei.Router do
     request_match
     quote do
       def handle_request(request = unquote(request_match), env) do
+        # TODO add previous mounting.
         request = %{request | path: rest, mount: [unquote(mount)]}
         unquote(app).handle_request(request, env)
       end
