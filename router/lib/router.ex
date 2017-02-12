@@ -48,12 +48,6 @@ defmodule Tokumei.Router do
               {:error, %NotImplementedError{request: request}}
           end))
         end
-        |> case do
-          {:error, exception} ->
-            on_error(exception)
-          other ->
-            other
-        end
       end
     end
   end
@@ -70,8 +64,7 @@ defmodule Tokumei.Router do
     mods = [{mod1, conf1}, {mod2, conf2}] = Module.get_attribute(env.module, :middleware)
     quote do
       def handle_request(request, _config) do
-        exception = %Tokumei.Router.NotFoundError{request: request}
-        on_error(exception)
+        {:error, %Tokumei.Router.NotFoundError{request: request}}
       end
 
       def on_error(exception) do
@@ -82,7 +75,15 @@ defmodule Tokumei.Router do
 
       def handle_request(request, env) do
         router = &super(&1, env)
-        Enum.reduce(unquote(mods), router, fn
+        next = fn(request) ->
+          case router.(request) do
+            {:error, exception} ->
+              on_error(exception)
+            other ->
+              other
+          end
+        end
+        Enum.reduce(unquote(mods), next, fn
           ({mod, conf}, next) -> fn(r) -> mod.handle_request(r, {next, conf})end
         end).(request)
       end
