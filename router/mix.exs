@@ -20,7 +20,7 @@ defmodule Tokumei.Router.Mixfile do
 
   defp deps do
     [
-      {:raxx, "~> 0.10.0"},
+      {:raxx, "~> 0.10.3"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end

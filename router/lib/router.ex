@@ -36,7 +36,6 @@ defmodule Tokumei.Router do
     request_match = quote do: %{path: unquote(path)}
     methods = Enum.map(clauses, fn({:->, _, [[method], _action]}) -> method end)
     quote do
-      @before_compile Tokumei.Router
       @known_methods [:GET, :POST, :PUT, :PATCH, :DELETE, :OPTIONS, :HEAD]
       def handle_request(request = unquote(request_match), env) do
         unquote(Macro.var(:request, nil)) = request
@@ -55,7 +54,6 @@ defmodule Tokumei.Router do
           other ->
             other
         end
-        |> check_length
       end
     end
   end
@@ -69,25 +67,24 @@ defmodule Tokumei.Router do
   end
 
   defmacro __before_compile__(env) do
+    mods = [{mod1, conf1}, {mod2, conf2}] = Module.get_attribute(env.module, :middleware)
     quote do
       def handle_request(request, _config) do
         exception = %Tokumei.Router.NotFoundError{request: request}
         on_error(exception)
-        |> check_length
       end
 
       def on_error(exception) do
         Raxx.Response.internal_server_error()
       end
 
-      # TODO Use a middleware to work this out
-      defp check_length(response = %{headers: headers, body: body}) do
-        headers = if !List.keymember?(headers, "content-length", 0) do
-          headers ++ [{"content-length", "#{:erlang.iolist_size(body)}"}]
-        else
-          headers
-        end
-        %{response | headers: headers}
+      defoverridable [handle_request: 2]
+
+      def handle_request(request, env) do
+        router = &super(&1, env)
+        Enum.reduce(unquote(mods), router, fn
+          ({mod, conf}, next) -> fn(r) -> mod.handle_request(r, {next, conf})end
+        end).(request)
       end
     end
   end

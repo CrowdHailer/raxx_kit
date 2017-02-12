@@ -3,8 +3,34 @@ defmodule Tokumei.RouterTest do
   alias Raxx.Request
   alias Raxx.Response
 
+  defmodule ConnectionLogger do
+    def handle_request(request, {next, conf}) do
+      next.(request)
+    end
+  end
+
+  defmodule ContentLength do
+    def handle_request(request, {next, nil}) do
+      next.(request)
+      |> check_length
+    end
+
+    defp check_length(response) do
+      case Raxx.ContentLength.fetch(response) do
+        {:ok, _} ->
+          response
+        {:error, :field_value_not_specified} ->
+          Raxx.ContentLength.set(response, :erlang.iolist_size(response.body))
+      end
+    end
+  end
+
   import Tokumei.Router
+  @before_compile Tokumei.Router
   alias Tokumei.Router.{NotImplementedError, MethodNotAllowedError, NotFoundError}
+  Module.register_attribute(__MODULE__, :middleware, accumulate: true)
+  @middleware {ContentLength, nil}
+  @middleware {ConnectionLogger, :config2}
 
   route "foo" do
     :GET -> Response.ok("foo")
@@ -12,9 +38,10 @@ defmodule Tokumei.RouterTest do
   end
 
   test "Will match on a single path element" do
-    %{status: status, body: body} = get("/foo")
+    response = %{status: status, body: body} = get("/foo")
     assert 200 == status
     assert "foo" == body
+    assert {:ok, 3} == Raxx.ContentLength.fetch(response)
   end
 
   test "Will match on any method single path element" do
