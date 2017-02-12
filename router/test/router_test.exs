@@ -25,10 +25,8 @@ defmodule Tokumei.RouterTest do
     end
   end
 
-  import Tokumei.Router
-  @before_compile Tokumei.Router
-  alias Tokumei.Router.{NotImplementedError, MethodNotAllowedError, NotFoundError}
-  Module.register_attribute(__MODULE__, :middleware, accumulate: true)
+  use Tokumei.Router
+
   @middleware {ContentLength, nil}
   @middleware {ConnectionLogger, :config2}
 

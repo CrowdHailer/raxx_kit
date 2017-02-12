@@ -26,9 +26,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
 
 ```elixir
 defmodule MyApp.Router do
-  import Tokumei.Router
-  alias Tokumei.Router.{NotImplementedError, MethodNotAllowedError, NotFoundError}
-  alias Raxx.Response
+  use Tokumei.Router
 
   # Define response actions inline using Raxx Helpers.
   route "/hello" do

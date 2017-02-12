@@ -11,6 +11,15 @@ defmodule Tokumei.Router do
     defexception message: nil, request: nil, allowed: nil
   end
 
+  defmacro __using__(_conf) do
+    quote do
+      import Tokumei.Router
+      @before_compile Tokumei.Router
+      alias Tokumei.Router.{NotImplementedError, MethodNotAllowedError, NotFoundError}
+      Module.register_attribute(__MODULE__, :middleware, accumulate: true)
+    end
+  end
+
   defmacro mount(mount, app) do
     # TODO need multilevel mount
     [mount] = Raxx.Request.split_path(mount)
@@ -61,7 +70,7 @@ defmodule Tokumei.Router do
   end
 
   defmacro __before_compile__(env) do
-    mods = [{mod1, conf1}, {mod2, conf2}] = Module.get_attribute(env.module, :middleware)
+    mods = Module.get_attribute(env.module, :middleware)
     quote do
       def handle_request(request, _config) do
         {:error, %Tokumei.Router.NotFoundError{request: request}}
