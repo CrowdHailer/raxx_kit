@@ -1,6 +1,6 @@
 # Tokumei
 
-**TODO: Add description**
+**A tiny but mighty Elixir webframework**
 
 ## Installation
 
@@ -10,7 +10,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
 
     ```elixir
     def deps do
-      [{:app, "~> 0.1.0"}]
+      [{:tokumei, "~> 0.1.0"}]
     end
     ```
 
@@ -22,3 +22,33 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
     end
     ```
 
+### Long
+```
+mix new <app_name>
+add step 1 above
+add step 2 above
+add step 1 above for ace_http
+add step 2 above for ace_http
+add {mod: {AppName, []} to application
+use Tokumei in module
+write first route
+setup port configuration
+```
+
+### Short
+
+```
+mix archive.install https://github.com/crowdhailer/tokumei/raw/master/setup.ez
+mix tokumei.new my_app
+```
+
+- [help on archives](https://hashrocket.com/blog/posts/create-and-publish-your-own-elixir-mix-archives)
+
+has instructions in documentation
+has port, server, log_level all configured
+has first route configured
+
+Why not
+```
+mix archive.install tokumei
+```
