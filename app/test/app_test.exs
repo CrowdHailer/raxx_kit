@@ -1,7 +1,6 @@
 defmodule TokumeiTest do
   use ExUnit.Case
   doctest Tokumei
-  use Tokumei
 
   import Tokumei.Helpers
   route "/home" do
@@ -14,8 +13,11 @@ defmodule TokumeiTest do
       request
   end
 
-  # route(["params", a, b, c])
   route("/params/:a/:b/:c", {a, b, c}) do
+    get() ->
+      {a, b, c}
+  end
+  route(["other", a, b, c]) do
     get() ->
       {a, b, c}
   end
@@ -37,6 +39,9 @@ defmodule TokumeiTest do
     |> __MODULE__.handle_request(:nil)
     |> IO.inspect
     Raxx.Request.get("/params/1/2/3")
+    |> __MODULE__.handle_request(:nil)
+    |> IO.inspect
+    Raxx.Request.get("/other/1/2/3")
     |> __MODULE__.handle_request(:nil)
     |> IO.inspect
   end

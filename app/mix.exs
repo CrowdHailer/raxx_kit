@@ -12,11 +12,12 @@ defmodule Tokumei.Mixfile do
 
   def application do
     [applications: [:logger],
-     mod: {Tokumei, []}]
+     mod: {Example, []}]
   end
 
   defp deps do
     [
+      {:ace_http, "~> 0.1.3"},
       {:raxx, "~> 0.10.3"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]

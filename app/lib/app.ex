@@ -1,21 +1,19 @@
 defmodule Tokumei do
-  use Application
+  defmacro __using__(_opts) do
+    quote do
+      use Application
+      def start(_type, _args) do
+        import Supervisor.Spec, warn: false
 
-  # See http://elixir-lang.org/docs/stable/elixir/Application.html
-  # for more information on OTP Applications
-  def start(_type, _args) do
-    import Supervisor.Spec, warn: false
+        true = Code.ensure_loaded?(Ace.HTTP)
+        children = [
+          worker(Ace.HTTP, [{__MODULE__, []}, [port: 8080, name: __MODULE__]])
+        ]
 
-    # Define workers and child supervisors to be supervised
-    children = [
-      # Starts a worker by calling: Tokumei.Worker.start_link(arg1, arg2, arg3)
-      # worker(Tokumei.Worker, [arg1, arg2, arg3]),
-    ]
-
-    # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
-    # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Tokumei.Supervisor]
-    Supervisor.start_link(children, opts)
+        opts = [strategy: :one_for_one, name: Tokumei.Supervisor]
+        Supervisor.start_link(children, opts)
+      end
+    end
   end
 
   defmodule Helpers do
@@ -34,6 +32,19 @@ defmodule Tokumei do
     defmacro route(path, {:{}, _, vars}, do: clauses) do
       path = build_match(Raxx.Request.split_path(path), vars)
       request_match = quote do: %{path: unquote(path)}
+      quote do
+        def handle_request(request = unquote(request_match), env) do
+          case {request.method, request, env} do
+            unquote(clauses)
+          end
+        end
+      end
+    end
+    defmacro route(path, do: clauses) when is_list(path) do
+      request_match = quote do: %{path: unquote(path)}
+      clauses = clauses ++ (quote do
+        request -> {:error, :not_allowed}
+      end)
       quote do
         def handle_request(request = unquote(request_match), env) do
           case {request.method, request, env} do
@@ -68,10 +79,4 @@ defmodule Tokumei do
     end
   end
 
-  def __using__(opts) do
-    IO.inspect(opts)
-    quote do
-      require Tokumei.Helpers
-    end
-  end
 end
