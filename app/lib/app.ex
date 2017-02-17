@@ -1,13 +1,19 @@
 defmodule Tokumei do
   defmacro __using__(_opts) do
     quote do
+      @before_compile Tokumei
+    end
+  end
+  defmacro __before_compile__(_opts) do
+    quote do
       use Application
       def start(_type, _args) do
         import Supervisor.Spec, warn: false
 
+        port = @port || 8080
         true = Code.ensure_loaded?(Ace.HTTP)
         children = [
-          worker(Ace.HTTP, [{__MODULE__, []}, [port: 8080, name: __MODULE__]])
+          worker(Ace.HTTP, [{__MODULE__, []}, [port: port, name: __MODULE__]])
         ]
 
         opts = [strategy: :one_for_one, name: Tokumei.Supervisor]
@@ -76,6 +82,12 @@ defmodule Tokumei do
     end
     defmacro get() do
       quote do: {:GET, _, _}
+    end
+
+    defmacro config(:port, port) do
+      quote do
+        @port unquote(port)
+      end
     end
   end
 

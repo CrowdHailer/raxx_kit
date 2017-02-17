@@ -1,7 +1,9 @@
 defmodule Example do
   use Tokumei
-
   import Tokumei.Helpers
+
+  config :port, 8989
+
   route "/home" do
     get(request, env) ->
       {request, env}
