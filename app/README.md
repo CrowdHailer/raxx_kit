@@ -42,11 +42,21 @@ mix archive.install https://github.com/crowdhailer/tokumei/raw/master/setup.ez
 mix tokumei.new my_app
 ```
 
+In umbrella
+```
+mix tokumei.new www --mod MyApp.WWW --app myapp_web
+```
+
+---sup option uses Tokumei.Server and sets up without the router as an application allows multiple things in one supervision tree.
+
 - [help on archives](https://hashrocket.com/blog/posts/create-and-publish-your-own-elixir-mix-archives)
 
 has instructions in documentation
 has port, server, log_level all configured
 has first route configured
+
+Setup app should include server sent events.
+perhaps each server adds itself to a pg2 group and submitting a form causes it to be recieved in all servers
 
 Why not
 ```
