@@ -19,6 +19,18 @@ defmodule Tokumei do
         opts = [strategy: :one_for_one, name: Tokumei.Supervisor]
         Supervisor.start_link(children, opts)
       end
+
+      defoverridable [handle_request: 2]
+
+      def handle_request(request, env) do
+        response = super(request, env)
+        response = case Raxx.ContentLength.fetch(response) do
+          {:ok, _} ->
+            response
+          {:error, :field_value_not_specified} ->
+            Raxx.ContentLength.set(response, :erlang.iolist_size(response.body))
+        end
+      end
     end
   end
 
@@ -82,6 +94,15 @@ defmodule Tokumei do
     end
     defmacro get() do
       quote do: {:GET, _, _}
+    end
+    defmacro post(request, env) do
+      quote do: {:POST, unquote(request), unquote(env)}
+    end
+    defmacro post(request) do
+      quote do: {:POST, unquote(request), _}
+    end
+    defmacro post() do
+      quote do: {:POST, _, _}
     end
 
     defmacro config(:port, port) do

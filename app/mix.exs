@@ -11,7 +11,7 @@ defmodule Tokumei.Mixfile do
   end
 
   def application do
-    [applications: [:logger],
+    [applications: [:logger, :gproc],
      mod: {Example, []}]
   end
 
@@ -19,6 +19,7 @@ defmodule Tokumei.Mixfile do
     [
       {:ace_http, "~> 0.1.3"},
       {:raxx, "~> 0.10.3"},
+      {:gproc, "0.3.1"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
