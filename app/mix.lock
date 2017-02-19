@@ -6,4 +6,4 @@
   "http_status": {:hex, :http_status, "0.2.1", "74fa942b5874966a25088162e5297ad52dd5e6a29b88ad4a73953aa55e58e3bb", [:mix], []},
   "mime": {:hex, :mime, "1.1.0", "01c1d6f4083d8aa5c7b8c246ade95139620ef8effb009edde934e0ec3b28090a", [:mix], []},
   "plug": {:hex, :plug, "1.2.2", "cfbda521b54c92ab8ddffb173fbaabed8d8fc94bec07cd9bb58a84c1c501b0bd", [:mix], [{:cowboy, "~> 1.0", [hex: :cowboy, optional: true]}, {:mime, "~> 1.0", [hex: :mime, optional: false]}]},
-  "raxx": {:hex, :raxx, "0.10.4", "4d84eb28164e95b2e74e082d25a7a1564bfe7f692099ce5899bcb61f3aa64c7b", [:mix], [{:http_status, "~> 0.2", [hex: :http_status, optional: false]}, {:mime, "~> 1.0", [hex: :mime, optional: false]}, {:plug, "~> 1.2.2", [hex: :plug, optional: false]}]}}
+  "raxx": {:hex, :raxx, "0.10.5", "5df8e0537aee1e507eeb4a9b75364c653f52e18f2a9d4137de205934b64931af", [:mix], [{:http_status, "~> 0.2", [hex: :http_status, optional: false]}, {:mime, "~> 1.0", [hex: :mime, optional: false]}, {:plug, "~> 1.2.2", [hex: :plug, optional: false]}]}}

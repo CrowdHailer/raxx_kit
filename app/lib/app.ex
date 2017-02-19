@@ -24,12 +24,18 @@ defmodule Tokumei do
 
       def handle_request(request, env) do
         response = super(request, env)
-        response = case Raxx.ContentLength.fetch(response) do
-          {:ok, _} ->
-            response
-          {:error, :field_value_not_specified} ->
-            Raxx.ContentLength.set(response, :erlang.iolist_size(response.body))
+        case response do
+          %{body: _} -> # I am a response
+            response = case Raxx.ContentLength.fetch(response) do
+              {:ok, _} ->
+                response
+              {:error, :field_value_not_specified} ->
+                Raxx.ContentLength.set(response, :erlang.iolist_size(response.body))
+            end
+          upgrade = %Raxx.Chunked{} ->
+            upgrade
         end
+
       end
     end
   end
