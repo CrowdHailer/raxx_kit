@@ -19,6 +19,7 @@ defmodule Tokumei.Mixfile do
     [
       {:ace_http, "~> 0.1.3"},
       {:raxx, "~> 0.10.5"},
+      {:raxx_static, "~> 0.2.0"},
       {:gproc, "0.3.1"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]

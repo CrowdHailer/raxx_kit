@@ -5,9 +5,13 @@ defmodule ExampleTest do
     response = Raxx.Request.get("/")
     |> Example.handle_request(:state)
     assert 200 == response.status
+    # TODO wrapper that gets config from config files
   end
 
-  test "" do
-
+  test "fetch static content" do
+    response = Raxx.Request.get("/favicon.ico")
+    |> Example.handle_request(:state)
+    assert 200 == response.status
+    IO.inspect(response.headers)
   end
 end

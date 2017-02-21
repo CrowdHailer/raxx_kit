@@ -14,6 +14,7 @@ defmodule Example do
   import Raxx.Response
 
   config :port, 8080
+  config :static, "./public"
 
   @channel_name :chat
 
@@ -41,10 +42,6 @@ defmodule Example do
   # end
   def handle_info({:message, message}, @channel_name) do
     {:chunk, "event: chat\ndata: #{message}\n\n", :updates}
-  end
-
-  route(["favicon.ico"]) do
-    get() -> Raxx.Response.not_found()
   end
 
   def redirect(path) do

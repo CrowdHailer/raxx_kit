@@ -1,6 +1,7 @@
 defmodule Tokumei do
   defmacro __using__(_opts) do
     quote do
+      require Raxx.Static
       @before_compile Tokumei
     end
   end
@@ -18,6 +19,11 @@ defmodule Tokumei do
 
         opts = [strategy: :one_for_one, name: Tokumei.Supervisor]
         Supervisor.start_link(children, opts)
+      end
+
+      if @static do
+        @external_resource @static
+        Raxx.Static.serve_dir(@static)
       end
 
       defoverridable [handle_request: 2]
@@ -114,6 +120,11 @@ defmodule Tokumei do
     defmacro config(:port, port) do
       quote do
         @port unquote(port)
+      end
+    end
+    defmacro config(:static, port) do
+      quote do
+        @static unquote(port)
       end
     end
   end
