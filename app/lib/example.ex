@@ -5,22 +5,19 @@ defmodule Example do
   config :static, "./public"
   config :templates, "./templates"
 
-  @channel_name :chat
-
   route([]) do
     get() ->
-      ok(home_page(%{}))
-    # channel name to be passed as config
+      ok(home_page())
     post(%{body: body}) ->
       {:ok, %{message: message}} = parse_publish_form(body)
-      {:ok, _} = share_in_chatroom(@channel_name, message)
+      {:ok, _} = ChatRoom.publish(message)
       redirect("/")
   end
 
   route(["updates"]) do
     get() ->
-      {:ok, _} = join_chatroom(@channel_name)
-      SSE.stream(@channel_name)
+      {:ok, _} = ChatRoom.join()
+      SSE.stream()
   end
 
   # streaming @channel_name do
@@ -29,19 +26,8 @@ defmodule Example do
   #   _ ->
   #     {:nosend}
   # end
-  def handle_info({:message, message}, @channel_name) do
-    {:chunk, "event: chat\ndata: #{message}\n\n", :updates}
-  end
-
-  def share_in_chatroom(chatroom, message) do
-    :gproc.send({:p, :l, :chat}, {:message, message})
-    {:ok, message}
-  end
-
-  # Should also pass the process to register
-  def join_chatroom(room) do
-    :gproc.reg({:p, :l, room})
-    {:ok, room}
+  def handle_info({:message, message}, state = :config) do
+    {:chunk, "event: chat\ndata: #{message}\n\n", state}
   end
 
   def parse_publish_form(raw) do

@@ -3,6 +3,7 @@ defmodule Tokumei do
     quote do
       require Raxx.Static
       alias Tokumei.ServerSentEvents, as: SSE
+      require SSE
       import Tokumei.Helpers
       import Raxx.Response
       @before_compile Tokumei
@@ -50,7 +51,7 @@ defmodule Tokumei do
               EEx.function_from_file :defp, content_function_name, file_path, [:assigns]
               mime = MIME.type(extension)
               ast = quote do
-                def unquote(file_name |> String.to_atom)(assigns) do
+                def unquote(file_name |> String.to_atom)(assigns \\ %{}) do
                   %{
                     body: unquote(content_function_name)(assigns),
                     headers: [{"content-type", unquote(mime)}]
