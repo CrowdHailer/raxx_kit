@@ -15,12 +15,13 @@ defmodule Example do
 
   config :port, 8080
   config :static, "./public"
+  config :templates, "./templates"
 
   @channel_name :chat
 
   route([]) do
     get() ->
-      ok(home_page())
+      ok(home_page(%{}))
     # channel name to be passed as config
     post(%{body: body}) ->
       {:ok, %{message: message}} = parse_publish_form(body)
@@ -59,65 +60,8 @@ defmodule Example do
     {:ok, room}
   end
 
-
   def parse_publish_form(raw) do
     %{"message" => message} = URI.decode_www_form(raw) |> URI.decode_query
     {:ok, %{message: message}}
   end
-
-  def home_page() do
-    html("""
-      <!DOCTYPE html>
-      <html>
-      	<head>
-      		<script type="text/javascript">
-      			function ready() {
-      				if (!!window.EventSource) {
-      					setupEventSource();
-      				} else {
-      					document.getElementById('status').innerHTML =
-      						"Sorry but your browser doesn't support the EventSource API";
-      				}
-      			}
-      			function setupEventSource() {
-      				var source = new EventSource('/updates');
-              source.onmessage = function(e){
-                console.log(e)
-              }
-      				source.addEventListener('chat', function(event) {
-      					addStatus("server sent the following: '" + event.data + "'");
-      					}, false);
-      					source.addEventListener('open', function(event) {
-                  console.log(event)
-      						addStatus('eventsource connected.')
-      					}, false);
-      					source.addEventListener('error', function(event) {
-      						if (event.eventPhase == EventSource.CLOSED) {
-      							addStatus('eventsource was closed.')
-      						}
-      					}, false);
-      			}
-      			function addStatus(text) {
-      				var date = new Date();
-      				document.getElementById('status').innerHTML
-      				= document.getElementById('status').innerHTML
-      				+ date + ": " + text + "<br/>";
-      			}
-      		</script>
-      	</head>
-      	<body onload="ready();">
-          <form action="/" method="post">
-          <input type="text" name="message">
-          <button type="submit">Send</button>
-          </form>
-      		Hi!
-      		<div id="status"></div>
-      	</body>
-      </html>
-    """)
-  end
-  def html(body) do
-    %{body: body, headers: [{"content-type", "text/html"}]}
-  end
-
 end
