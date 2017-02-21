@@ -1,17 +1,5 @@
 defmodule Example do
-  defmodule SSE do
-    def stream(id) do
-      Raxx.Chunked.upgrade({Example, id}, headers: [
-        {"cache-control", "no-cache"},
-        {"transfer-encoding", "chunked"},
-        {"connection", "keep-alive"},
-        {"content-type", "text/event-stream"}
-      ])
-    end
-  end
   use Tokumei
-  import Tokumei.Helpers
-  import Raxx.Response
 
   config :port, 8080
   config :static, "./public"
@@ -43,10 +31,6 @@ defmodule Example do
   # end
   def handle_info({:message, message}, @channel_name) do
     {:chunk, "event: chat\ndata: #{message}\n\n", :updates}
-  end
-
-  def redirect(path) do
-    Raxx.Response.found([{"location", path}])
   end
 
   def share_in_chatroom(chatroom, message) do

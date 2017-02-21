@@ -2,7 +2,14 @@ defmodule Tokumei do
   defmacro __using__(_opts) do
     quote do
       require Raxx.Static
+      alias Tokumei.ServerSentEvents, as: SSE
+      import Tokumei.Helpers
+      import Raxx.Response
       @before_compile Tokumei
+
+      def redirect(path) do
+        Raxx.Response.found([{"location", path}])
+      end
     end
   end
   defmacro __before_compile__(_opts) do
