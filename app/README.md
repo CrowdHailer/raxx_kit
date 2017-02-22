@@ -1,8 +1,22 @@
 # Tokumei
 
-**A tiny but mighty Elixir webframework**
+**Tiny but MIGHTY Elixir webframework**
+
+## Getting started (Let's get productive)
+
+*Know all about mix and umbrella projects? [Jump onwards to add tokumei in an exitsting project]()*
+
+```
+mix archive.install https://github.com/crowdhailer/tokumei/raw/master/setup.ez
+mix tokumei.new my_app
+cd my_app
+iex -S mix
+```
+
+visit [localhost:8080](localhost:8080])
 
 ## Installation
+This should be obviouse to users interested in setting up their own mix project
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
 

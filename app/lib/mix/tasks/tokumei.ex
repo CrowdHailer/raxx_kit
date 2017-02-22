@@ -1,9 +1,57 @@
-defmodule Mix.Tasks.Tokumei do
+defmodule Mix.Tasks.Tokumei.New do
   use Mix.Task
-  @shortdoc "The task that will set up tokumei"
+  @shortdoc "Shiny new Tokumei application. :-)"
+  @moduledoc """
+  ```
+  mix tokumei.new <app_dir>
+  ```
+  """
 
-  def run(args) do
-    IO.inspect(args)
-    IO.puts("Example task")
+  def run([]) do
+    Mix.Tasks.Help.run ["tokumei.new"]
+  end
+
+  @safe_app_name ~r/^[a-z][\w_]*$/
+  def run([project_path]) do
+    app_name = project_path
+    app_name =~ @safe_app_name
+    app_module = Macro.camelize(app_name)
+    # if Mix.shell.yes?("continue?") do
+    if true do
+      File.mkdir_p!(project_path)
+      File.cd!(project_path, fn() ->
+        generate(app_name, app_module, [app_name: app_name, app_module: app_module])
+      end)
+    end
+  end
+
+  defp generate(app_name, app_module, bindings) do
+    this_dir = Path.dirname(__ENV__.file)
+    template_files = Path.expand("./**/*", this_dir) |> Path.wildcard
+    for template_file <- template_files do
+      case String.split(template_file, ".eex") do
+        [file_name, ""] ->
+          path = Path.relative_to(file_name, Path.expand("./template", this_dir))
+          case File.read(template_file) do
+            {:ok, template} ->
+              File.mkdir_p!(Path.dirname(path))
+              contents = EEx.eval_string(template, bindings)
+              path = String.replace(path, "app_name", app_name)
+              File.write!(path, contents)
+            {:error, :eisdir} ->
+              :nope
+          end
+        [file_name] ->
+          path = Path.relative_to(file_name, Path.expand("./template", this_dir))
+          case File.read(template_file) do
+            {:ok, contents} ->
+              File.mkdir_p!(Path.dirname(path))
+              path = String.replace(path, "app_name", app_name)
+              File.write!(path, contents)
+            {:error, :eisdir} ->
+              :nope
+          end
+      end
+    end
   end
 end

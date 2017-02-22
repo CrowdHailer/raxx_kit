@@ -1,0 +1,9 @@
+defmodule <%= app_module %>Test do
+  use ExUnit.Case
+  doctest Template
+
+  test "the truth" do
+    # TODO better test than this
+    assert 1 + 1 == 2
+  end
+end

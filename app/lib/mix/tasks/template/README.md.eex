@@ -1,0 +1,19 @@
+# <%= app_module %>
+
+**TODO: Add description**
+
+## Usage
+
+  1. fetch dependencies
+
+    ```
+    mix deps.get
+    ```
+
+  2. start application
+
+    ```
+    iex -S mix
+    ```
+
+  3. visit application at [localhost:8080](localhost:8080)
