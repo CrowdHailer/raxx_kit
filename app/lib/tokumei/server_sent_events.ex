@@ -13,4 +13,18 @@ defmodule Tokumei.ServerSentEvents do
       unquote(__MODULE__).stream(__MODULE__, unquote(config))
     end
   end
+  #
+  defmacro streaming(do: clauses) do
+    ast = for {:->, _, [[match], action]} <- clauses do
+      quote do
+        def handle_info(unquote(match), state) do
+          case unquote(action) do
+            {:send, message} when is_binary(message) ->
+              {:chunk, "event: chat\ndata: #{message}\n\n", state}
+          end
+        end
+      end
+    end
+    {:__block__, [], ast}
+  end
 end

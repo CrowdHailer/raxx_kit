@@ -20,14 +20,9 @@ defmodule Example do
       SSE.stream()
   end
 
-  # streaming @channel_name do
-  #   {:message, message} ->
-  #     {:send, message}
-  #   _ ->
-  #     {:nosend}
-  # end
-  def handle_info({:message, message}, state = :config) do
-    {:chunk, "event: chat\ndata: #{message}\n\n", state}
+  SSE.streaming do
+    {:message, message} ->
+      {:send, message}
   end
 
   def parse_publish_form(raw) do
