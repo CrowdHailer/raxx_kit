@@ -22,6 +22,19 @@ defmodule Mix.Tasks.Tokumei.New do
       File.cd!(project_path, fn() ->
         generate(app_name, app_module, [app_name: app_name, app_module: app_module])
       end)
+      """
+      Your Tokumei project was created successfully.
+
+      Get started:
+
+          cd #{project_path}
+          mix deps.get
+          iex -S mix
+
+      View on localhost:8080
+      """
+      |> String.trim_trailing
+      |> Mix.shell.info
     end
   end
 
