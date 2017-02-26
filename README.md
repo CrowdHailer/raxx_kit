@@ -9,13 +9,9 @@ Inspiration has come from a variety of places but particularly [Hanami](http://h
 
 Tokumei is built on top of [Raxx](https://github.com/CrowdHailer/raxx), because it shares the same goal to preserve the simple message semantics of the Request/Response cycle.
 
-## Router
+# Development is in [/app](https://github.com/CrowdHailer/Tokumei/tree/master/app). 
 
-see `/router`
-
-# The rest
-
-**The router is the only module available currently.**
+-------------------------------------------------------------------------------
 
 The rest of this repo consists of experiments in progress.
 
