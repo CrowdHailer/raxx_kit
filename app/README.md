@@ -7,7 +7,7 @@ defmodule MyApp.WWW do
   Use Tokumei
 
   route "/greeting/:name", {name} do
-    get ->
+    get(_request, _config) ->
       ok("Hello, #{name}!")
   end
 end
