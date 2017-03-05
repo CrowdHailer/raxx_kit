@@ -30,14 +30,12 @@ visit [localhost:8080](localhost:8080])
 
 ### Routing
 
-**N.B. Currently only get() and post() matchers are defined.** See [Development Goals](#development-goals)
-
 ```elixir
 # Routes are created in blocks grouped by url...
 route "/users" do
 
   # ...and by request method.
-  get() ->
+  get(_) ->
     ok("Dan, Lucy, Jane")
 
   # Methods accept a pattern that will be matched against the request.
@@ -51,13 +49,13 @@ end
 
 # Any segment beginning with a colon is a path variable.
 route "/users/:id", {id} do
-  get() ->
+  get(_) ->
     ok("This is user: '#{id}'")
 end
 
 # Multiple path variables can be matched.
 route "/users/:id/carts/:id", {user_id, cart_id} do
-  get() ->
+  get(_) ->
     ok("This is cart: '#{cart_id}' for user: '#{user_id}'")
 end
 
@@ -74,7 +72,7 @@ end
 ```elixir
 # An action must return a response with status, body and headers.
 route "/" do
-  get() ->
+  get(_) ->
     %{status: 200, body: "Home page", headers: [{"content-type", "text/plain"}]}
 end
 
@@ -103,7 +101,7 @@ end
 
 ```elixir
 route "/updates" do
-  get() ->
+  get(_) ->
 
     # Return a streaming upgrade to change a server state to streaming.
     SSE.stream()
@@ -137,14 +135,14 @@ config :static, "./public"
 config :templates, "./templates"
 
 route "/" do
-  get() ->
+  get(_) ->
 
     # View functions are compiled for each template.
     ok(home_page())
 end
 
 route "/users/:id", {id} do
-  get() ->
+  get(_) ->
     user = UsersRepo.fetch_by_id(id)
 
     # Variable are passed accessed in template as, `@user`.
@@ -203,8 +201,8 @@ TODO - same as Raxx
 - [x] Document static
 - [x] Document templates
 - [ ] Document configuration
-- [ ] Add remaining HTTP method matchers.
-- [ ] Test routing DSL
+- [x] Add remaining HTTP method matchers.
+- [x] Test routing DSL
 - [ ] Add error handling within actions
 - [ ] Handle messages to server without sending a chunk
 - [ ] Test streaming

@@ -6,6 +6,7 @@ defmodule Tokumei do
       require SSE
       import Tokumei.Helpers
       import Raxx.Response
+      use Tokumei.Routing
       @before_compile Tokumei
 
       def redirect(path) do
@@ -84,75 +85,6 @@ defmodule Tokumei do
   end
 
   defmodule Helpers do
-    defp build_match(segments, vars, reversed \\ [])
-    defp build_match([], [], reversed) do
-      Enum.reverse(reversed)
-    end
-    defp build_match([":" <> _| segments], [var | vars], reversed) do
-      reversed = [var | reversed]
-      build_match(segments, vars, reversed)
-    end
-    defp build_match([segment| segments], vars, reversed) do
-      reversed = [segment | reversed]
-      build_match(segments, vars, reversed)
-    end
-    defmacro route(path, {:{}, _, vars}, do: clauses) do
-      path = build_match(Raxx.Request.split_path(path), vars)
-      request_match = quote do: %{path: unquote(path)}
-      quote do
-        def handle_request(request = unquote(request_match), env) do
-          case {request.method, request, env} do
-            unquote(clauses)
-          end
-        end
-      end
-    end
-    defmacro route(path, do: clauses) when is_list(path) do
-      request_match = quote do: %{path: unquote(path)}
-      clauses = clauses ++ (quote do
-        request -> {:error, :not_allowed}
-      end)
-      quote do
-        def handle_request(request = unquote(request_match), env) do
-          case {request.method, request, env} do
-            unquote(clauses)
-          end
-        end
-      end
-    end
-    defmacro route(path, do: clauses) do
-      path = Raxx.Request.split_path(path)
-      request_match = quote do: %{path: unquote(path)}
-      clauses = clauses ++ (quote do
-        request -> {:error, :not_allowed}
-      end)
-      quote do
-        def handle_request(request = unquote(request_match), env) do
-          case {request.method, request, env} do
-            unquote(clauses)
-          end
-        end
-      end
-    end
-
-    defmacro get(request, env) do
-      quote do: {:GET, unquote(request), unquote(env)}
-    end
-    defmacro get(request) do
-      quote do: {:GET, unquote(request), _}
-    end
-    defmacro get() do
-      quote do: {:GET, _, _}
-    end
-    defmacro post(request, env) do
-      quote do: {:POST, unquote(request), unquote(env)}
-    end
-    defmacro post(request) do
-      quote do: {:POST, unquote(request), _}
-    end
-    defmacro post() do
-      quote do: {:POST, _, _}
-    end
 
     defmacro config(:port, port) do
       quote do
