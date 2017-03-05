@@ -7,6 +7,7 @@ defmodule Tokumei do
       import Tokumei.Helpers
       import Raxx.Response
       use Tokumei.Routing
+      use Tokumei.Exceptions
       @before_compile Tokumei
 
       def redirect(path) do

@@ -37,9 +37,8 @@ defmodule Tokumei.RoutingTest do
   end
 
   test "will return not found for unimplemented route" do
-    response = Request.get("/random") |> handle_request()
-    assert 404 = response.status
-    assert "Not Found" = response.body
+    {:error, exception} = Request.get("/random") |> handle_request()
+    assert ["random"] = exception.path
   end
 
   route "/variables/:a/:b/:c/", {x, y, z} do

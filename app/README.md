@@ -156,7 +156,29 @@ end
 
 ### Error Handling
 
-TODO
+```elixir
+route "/checkout" do
+  post(request) ->
+
+    # Actions can return an exception as part of an error tuple
+    {:error, :subscription_expired}
+end
+
+# Any error can be handled using an error block
+error :subscription_expired do
+
+  # payment_required/1 returns a 402 status Raxx.Response
+  payment_required("Please pay up, :-)")
+end
+
+# Routing errors can also be intercepted
+error %NotFoundError{path: path} do
+  path = "/" <> Enum.join(path, "/")
+
+  # For example, to send a custom response message.
+  not_found("Could not find #{path}")
+end
+```
 
 ### Server state
 
@@ -203,7 +225,7 @@ TODO - same as Raxx
 - [ ] Document configuration
 - [x] Add remaining HTTP method matchers.
 - [x] Test routing DSL
-- [ ] Add error handling within actions
+- [x] Add error handling within actions
 - [ ] Handle messages to server without sending a chunk
 - [ ] Test streaming
 - [ ] Match on rest of path, "/section/\*rest", I currently have no usecase for this.

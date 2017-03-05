@@ -24,8 +24,8 @@ defmodule Tokumei.Routing do
 
   defmacro __before_compile__(_env) do
     quote do
-      def route(_, _, request, env) do
-        Raxx.Response.not_found("Not Found")
+      def route(_, _, %{path: path}, _env) do
+        {:error, %Tokumei.Exceptions.NotFoundError{path: path}}
       end
 
       @routes Module.get_attribute(__MODULE__, :route)
