@@ -1,6 +1,6 @@
 # Tokumei
 
-**A tiny buy mighty Elixir webframework**
+**A tiny but MIGHTY Elixir webframework**
 
 The Tokumei framework is a collection of focued independent libraries.
 They were developed from experiments into developing a few applications in Elixir.
@@ -9,7 +9,7 @@ Inspiration has come from a variety of places but particularly [Hanami](http://h
 
 Tokumei is built on top of [Raxx](https://github.com/CrowdHailer/raxx), because it shares the same goal to preserve the simple message semantics of the Request/Response cycle.
 
-# Development is in [/app](https://github.com/CrowdHailer/Tokumei/tree/master/app). 
+# Development is in [/app](https://github.com/CrowdHailer/Tokumei/tree/master/app).
 
 -------------------------------------------------------------------------------
 
