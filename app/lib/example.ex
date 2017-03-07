@@ -1,21 +1,23 @@
 defmodule Example do
   use Tokumei
+  use Tokumei.App
 
   config :port, 8080
   config :static, "./public"
   config :templates, "./templates"
 
-  route([]) do
-    get() ->
-      ok(home_page())
+  route "/" do
+    get(_request) ->
+      ok("How")
+      ok(__MODULE__.home_page())
     post(%{body: body}) ->
       {:ok, %{message: message}} = parse_publish_form(body)
       {:ok, _} = ChatRoom.publish(message)
       redirect("/")
   end
 
-  route(["updates"]) do
-    get() ->
+  route "/updates" do
+    get(_request) ->
       {:ok, _} = ChatRoom.join()
       SSE.stream()
   end

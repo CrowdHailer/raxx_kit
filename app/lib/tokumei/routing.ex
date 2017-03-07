@@ -11,6 +11,8 @@ defmodule Tokumei.Routing do
   defmacro __using__(_) do
     quote do
       import unquote(__MODULE__)
+      # this import might belong in a html/response modules
+      import Raxx.Response
       Module.register_attribute(__MODULE__, :route, accumulate: true)
 
       def handle_request(request = %{path: path, method: method}, env \\ nil) do
@@ -18,6 +20,7 @@ defmodule Tokumei.Routing do
       end
 
       @before_compile unquote(__MODULE__)
+      @route_name :unnamed
       @allowed []
     end
   end
