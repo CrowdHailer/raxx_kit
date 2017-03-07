@@ -12,6 +12,7 @@ defmodule Tokumei do
       use Tokumei.Routing
       use Tokumei.Exceptions
       use Tokumei.ContentLength
+      use Tokumei.CommonLogger
       use Tokumei.MethodOverride
       use Tokumei.Static
     end

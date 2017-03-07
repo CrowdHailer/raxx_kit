@@ -19,7 +19,6 @@ defmodule Tokumei.Static do
       end
 
       def handle_request(r, e) do
-        IO.inspect(__MODULE__)
         super(r, e)
       end
     end

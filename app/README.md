@@ -236,6 +236,7 @@ TODO - same as Raxx
 - [ ] Cookies, Sessions and Flash
 - [ ] chunked responses
 - [ ] Sending files from action
+- [ ] Sinatra layers [ExtendedRack, ShowExceptions, MethodOverride, HEAD, logging, sessions, protection]
 - [ ] Add wobserver
 - [ ] Deployment examples. Digital Ocean, Vagrant, Kuberneties
 - [ ] Add mounting of sub-apps
