@@ -1,4 +1,4 @@
-defmodule ChatRoom do
+defmodule WaterCooler.ChatRoom do
   @default_room :chat
 
   def publish(message, room \\ @default_room) do

@@ -18,8 +18,4 @@ defmodule Tokumei.App do
     end
   end
 
-  defmacro __before_compile__(_env) do
-    quote do
-    end
-  end
 end

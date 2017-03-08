@@ -17,14 +17,6 @@ defmodule Tokumei.ContentLength do
             upgrade
         end
       end
-
-      @before_compile unquote(__MODULE__)
-    end
-  end
-
-  defmacro __before_compile__(_env) do
-    quote do
-
     end
   end
 end

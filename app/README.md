@@ -231,7 +231,9 @@ TODO - same as Raxx
 - [ ] Match on rest of path, "/section/\*rest", I currently have no usecase for this.
 - [ ] Advanced routing using array directly and when conditions
 - [ ] Make server configurable
+- [ ] Code reloading
 - [ ] Extract starting as application from starting as supervised process
+- [ ] HTTPS setup with lets encrypt
 - [ ] layout and partials
 - [ ] Cookies, Sessions and Flash
 - [ ] chunked responses
@@ -251,6 +253,7 @@ TODO - same as Raxx
       "/users/:id", GET, HEAD, PATCH, DELETE
 
 - [ ] Consider before and after filters, implemented as a raxx middleware
+- [ ] Generate sitemap.xml from router
 - [ ] Consider a Controller architecture for larger projects
 
       ```elixir

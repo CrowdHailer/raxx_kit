@@ -1,6 +1,7 @@
-defmodule Example do
+defmodule WaterCooler.WWW do
   use Tokumei
-  use Tokumei.App
+
+  alias WaterCooler.ChatRoom
 
   config :port, 8080
   config :static, "./public"
@@ -8,7 +9,6 @@ defmodule Example do
 
   route "/" do
     get(_request) ->
-      ok("How")
       ok(__MODULE__.home_page())
     post(%{body: body}) ->
       {:ok, %{message: message}} = parse_publish_form(body)

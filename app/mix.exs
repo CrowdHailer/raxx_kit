@@ -14,16 +14,13 @@ defmodule Tokumei.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :gproc],
-     mod: {Example, []}]
+    [applications: [:logger]]
   end
 
   defp deps do
     [
-      {:ace_http, "~> 0.1.3"},
       {:raxx, "~> 0.10.5"},
       {:raxx_static, "~> 0.2.0"},
-      {:gproc, "0.3.1"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
@@ -40,5 +37,5 @@ defmodule Tokumei.Mixfile do
      maintainers: ["Peter Saxton"],
      licenses: ["Apache 2.0"],
      links: %{"GitHub" => "https://github.com/CrowdHailer/Tokumei/tree/master/app"}]
-end
+  end
 end

@@ -22,7 +22,13 @@ defmodule Tokumei.CommonLogger do
             query = "" # TODO
             version = "HTTP/1.1"
             status = response.status |> to_string
-            content_length = "0" # TODO
+
+            content_length = case Raxx.ContentLength.fetch(response) do
+              {:ok, int} ->
+                "#{int}"
+              {:error, _} ->
+                "-"
+            end
             duration = unquote(__MODULE__).duration(received_at, responded_at)
             Logger.debug("#{remote_address} - #{remote_user} [#{timestamp}] \"#{method} #{path}#{query} #{version}\" #{status} #{content_length} #{duration}")
             response
