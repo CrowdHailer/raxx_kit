@@ -3,6 +3,21 @@ defmodule Fifteen.WWW.Router do
   alias Tokumei.Router.{NotImplementedError, MethodNotAllowedError, NotFoundError}
   alias Raxx.Response
 
+  #
+  # route "/",
+  #   GET: HomePage
+  #
+  # route "/posts",
+  #   GET: ShowPostsPage,
+  #   POST: CreatePost
+  #
+  # route "/posts/:id",
+  #   GET: ShowPostPage,
+  #   PUT: UpdatePost
+  #
+  # route "/posts/:id/edit",
+  #   GET: EditPostPage
+
   route "/" do
     :GET -> Response.ok("Hi")
   end

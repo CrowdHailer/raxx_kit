@@ -1,3 +1,4 @@
+# TODO should check that Ace.HTTP.server_name is implemented and that it is added to the message
 defmodule Tokumei.App do
   defmacro __using__(_opts) do
     quote do
