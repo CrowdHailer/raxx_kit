@@ -29,7 +29,7 @@ defmodule <%= app_module %>.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:tokumei, "~> 0.2.1"},
+      {:tokumei, "~> 0.3.0"},
       {:ace_http, "~> 0.1.3"}
     ]
   end
