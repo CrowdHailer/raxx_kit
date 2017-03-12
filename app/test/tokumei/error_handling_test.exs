@@ -1,4 +1,11 @@
 defmodule Tokumei.ErrorHandlingTest do
+  @moduledoc """
+  error any do
+    report_exception(any)
+    MyException.display_html(exceptin)
+  end
+
+  """
   use ExUnit.Case
   alias Raxx.Request
 

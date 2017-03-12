@@ -1,4 +1,6 @@
 defmodule Tokumei.Config do
+  # config(:basic_auth, :whitelist, ["/"])
+  # @basic_auth_config, %{@basic_auth_config | whitelist: value}
 
   defmacro config(:port, port) do
     quote do

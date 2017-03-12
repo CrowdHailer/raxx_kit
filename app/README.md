@@ -237,9 +237,12 @@ TODO - same as Raxx
 - [ ] layout and partials
 - [ ] Cookies, Sessions and Flash
 - [ ] chunked responses
-- [ ] Sending files from action
+- [ ] back(request) -> response
+- [ ] Sending files from action https://github.com/sinatra/sinatra/blob/master/lib/sinatra/base.rb#L384
+- [ ] Send content as an attachment https://github.com/sinatra/sinatra/blob/master/lib/sinatra/base.rb#L373
 - [ ] Sinatra layers [ExtendedRack, ShowExceptions, MethodOverride, HEAD, logging, sessions, protection]
 - [ ] Add wobserver
+- [ ] Basic Auth wrapper, with whitelist
 - [ ] Deployment examples. Digital Ocean, Vagrant, Kuberneties
 - [ ] Add mounting of sub-apps
 - [ ] HTTP/2 promises API, integration with raxx_chatterbox
