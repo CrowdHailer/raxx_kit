@@ -8,7 +8,7 @@
 
 In summary: semantics, simplicity, history and purity (in that order).
 
-h## Semantics
+## Semantics
 
 HTTP is a stateless request/response protocol.
 All the information required to generate a response is contained within the request.
@@ -18,7 +18,7 @@ client -> request -> server -> response -> client
 ```
 *This picture deliberately avoids websockets etc, we will deal with that later.*
 
-The job of a server is to transform an incomming request to an outgoing response.
+The job of a server is to transform an incoming request to an outgoing response.
 A server is the combination of behaviour and configuration.
 Raxx aims to match these semantics as closely as possible.
 To be a server a module only has to implement a `handle_request/2` function.
