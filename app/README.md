@@ -222,41 +222,59 @@ TODO - same as Raxx
 - [x] Document chunked/SSE's
 - [x] Document static
 - [x] Document templates
-- [ ] Document configuration
 - [x] Add remaining HTTP method matchers.
 - [x] Test routing DSL
 - [x] Add error handling within actions
-- [ ] Handle messages to server without sending a chunk
-- [ ] Test streaming
-- [ ] Match on rest of path, "/section/\*rest", I currently have no usecase for this.
-- [ ] Advanced routing using array directly and when conditions
-- [ ] Make server configurable
-- [ ] Code reloading
-- [ ] Extract starting as application from starting as supervised process
-- [ ] HTTPS setup with lets encrypt
-- [ ] layout and partials
-- [ ] Cookies, Sessions and Flash
-- [ ] chunked responses
-- [ ] back(request) -> response
-- [ ] Sending files from action https://github.com/sinatra/sinatra/blob/master/lib/sinatra/base.rb#L384
-- [ ] Send content as an attachment https://github.com/sinatra/sinatra/blob/master/lib/sinatra/base.rb#L373
-- [ ] Sinatra layers [ExtendedRack, ShowExceptions, MethodOverride, HEAD, logging, sessions, protection]
-- [ ] Add wobserver
-- [ ] Basic Auth wrapper, with whitelist
-- [ ] Deployment examples. Digital Ocean, Vagrant, Kuberneties
-- [ ] Add mounting of sub-apps
-- [ ] HTTP/2 promises API, integration with raxx_chatterbox
-- [ ] Add logging layer
-- [ ] Example with JS compilation, add to generator
+- [x] Add logging layer
+
 - [ ] named routes
 - [ ] mix task to list all routes in a module `tokumei.routes MyApp.WWW`
 
       "/", GET, HEAD
       "/users", GET, HEAD, POST
       "/users/:id", GET, HEAD, PATCH, DELETE
+- [ ] Draft designing a DSL
 
-- [ ] Consider before and after filters, implemented as a raxx middleware
-- [ ] Generate sitemap.xml from router
+- [ ] chunked responses
+- [ ] Test streaming
+- [ ] Handle messages to server without sending a chunk
+
+- [ ] mod docs routing
+- [ ] mod docs streaming
+- [ ] all middleware mod docs
+- [ ] publish why raxx article
+- [ ] write overview article
+- [ ] publish build your own middleware article
+
+- [ ] Make server configurable
+- [ ] Extract starting as application from starting as supervised process
+
+- [ ] HTTPS setup with lets encrypt
+- [ ] article Setting up without generator
+
+- [ ] Deployment examples. Digital Ocean, Vagrant, Kuberneties
+- [ ] Add wobserver
+
+- [ ] Handle Server Errors, url too long, request too slow, request too large
+
+- [ ] remove redirect from patch
+- [ ] back(request) -> response
+
+- [ ] Add mounting of sub-apps
+
+      ```elixir
+      mount "/api", {request, config} do
+        # request is using mount value
+
+        # To controller
+        ApiRouter.handle_request(request, config)
+
+        # To service
+        request = %{request | mount: [], host: "api.dmz"} # De militarized zone, i.e. private
+        make_request(request)
+      end
+      ```
+
 - [ ] Consider a Controller architecture for larger projects
 
       ```elixir
@@ -264,4 +282,39 @@ TODO - same as Raxx
         get(WelcomeController, :home)
         post(WelcomeController, :enquiry)
       end
+
+      @route_name :home # path(:home) -> "/", url(:home, request) -> "www.example.com/"
+      route "/",
+        GET: HomePage,
+        POST: SendEnquiry
+
+      @route_name :home # path(:home) -> "/", url(:home, request) -> "www.example.com/"
+      route "/", {request, config} do
+        :GET -> HomePage.handle_request(request, config),
+        :POST -> SendEnquiry.handle_request(request, config)
+      end
       ```
+- [ ] Cookies, Sessions and Flash
+
+- [ ] Consider before and after filters, implemented as a raxx middleware
+
+      ```elixir
+      before request, config do
+        request # OR {:error, reason}
+      end
+
+    after response, config do
+        request # OR {:error, reason}
+      end
+      ```
+- [ ] Sending files from action https://github.com/sinatra/sinatra/blob/master/lib/sinatra/base.rb#L384
+- [ ] Send file middleware, a return value of {:file, path} -> response
+- [ ] Send content as an attachment https://github.com/sinatra/sinatra/blob/master/lib/sinatra/base.rb#L373
+
+- [ ] HTTP/2 promises API, integration with raxx_chatterbox
+- [ ] layout and partials
+- [ ] Code reloading
+- [ ] Example with JS compilation, add to generator
+
+- [ ] Generate sitemap.xml from router
+- [ ] Basic Auth wrapper, with whitelist
