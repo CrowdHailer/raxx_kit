@@ -9,11 +9,16 @@ defmodule Tokumei.ErrorHandlingTest do
   use ExUnit.Case
   alias Raxx.Request
 
-  use Tokumei
+  def handle_request(%{path: path}, _) do
+    {:error, %Tokumei.Exceptions.NotFoundError{path: path}}
+  end
+
+  use Tokumei.Router
+  # Rename ErrorHandler
   use Tokumei.Exceptions
   import Raxx.Response
 
-  route "/foo", {_,_,_} do
+  route ["foo"] do
     :GET ->
       {:error, :my_error}
   end

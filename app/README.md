@@ -6,16 +6,10 @@
 defmodule MyApp.WWW do
   Use Tokumei
 
-  route "/greeting/:name", {name} do
-    get(_request, _config) ->
-      ok("Hello, #{name}!")
-  end
-
-  route "/greeting/:name", {_request, _config, %{name: name}} do
+  route ["greeting", name] do
     :GET ->
       ok("Hello, #{name}!")
   end
-
 end
 ```
 
@@ -38,56 +32,6 @@ visit [localhost:8080](localhost:8080])
   - error handling
 
 ## Usage
-
-### Routing
-
-```elixir
-# Routes are created in blocks grouped by url...
-route "/users" do
-
-  # ...and by request method.
-  get(_) ->
-    ok("Dan, Lucy, Jane")
-
-  # Methods accept a pattern that will be matched against the request.
-  post(%{body: ""}) ->
-    bad_request("Please provide a name")
-
-  # Methods can be defined more than once for a multiheaded match.
-  post(%{body: name}) ->
-    created("Added #{name}")
-end
-
-route ["users"], request do
-  :GET ->
-    ok("Dan, Lucy, Jane")
-  :POST ->
-    case request.body do
-      "" ->
-        bad_request("Please provide a name")
-
-    end
-end
-
-# Any segment beginning with a colon is a path variable.
-route "/users/:id", {id} do
-  get(_) ->
-    ok("This is user: '#{id}'")
-end
-
-# Multiple path variables can be matched.
-route "/users/:id/carts/:id", {user_id, cart_id} do
-  get(_) ->
-    ok("This is cart: '#{cart_id}' for user: '#{user_id}'")
-end
-
-# Server configuration can be accessed from match.
-route "/users/forgot-password" do
-  post(request, %{mailer: mailer}) ->
-    mailer.send_password_reset(request.body)
-    ok("Reset sent")
-end
-```
 
 ### Responses
 
@@ -250,28 +194,21 @@ TODO - same as Raxx
 - [x] Add error handling within actions
 - [x] Add logging layer
 
-- [ ] named routes
-- [ ] mix task to list all routes in a module `tokumei.routes MyApp.WWW`
+- [x] named routes
+- [x] path/url helpers
+- [x] Draft designing a DSL
 
-             "/",          [GET]
-      :users "/users",     [GET, POST]
-      :user  "/users/:id", [GET, PATCH, DELETE]
-      # delete can be an add reverse operation to event log
-      # dont bother with when clause in router url structure should not need it. particularly with ["users", "u" <> id]
-^ Move to issue
-- [ ] Draft designing a DSL
+- [x] mod docs routing
+- [ ] all middleware mod docs
+- [ ] publish why raxx article
+- [ ] write overview article
+- [ ] publish build your own middleware article
 
 - [ ] chunked responses
 - [ ] Test streaming
 - [ ] Handle messages to server without sending a chunk
 - [ ] Handle fact that server pid may be known after streaming completes, subscriptions are still open, possibly always close
-
-- [ ] mod docs routing
 - [ ] mod docs streaming
-- [ ] all middleware mod docs
-- [ ] publish why raxx article
-- [ ] write overview article
-- [ ] publish build your own middleware article
 
 - [ ] Make server configurable
 - [ ] Extract starting as application from starting as supervised process
@@ -287,40 +224,6 @@ TODO - same as Raxx
 - [ ] remove redirect from patch
 - [ ] back(request) -> response
 
-- [ ] Add mounting of sub-apps
-
-      ```elixir
-      mount "/api", {request, config} do
-        # request is using mount value
-
-        # To controller
-        ApiRouter.handle_request(request, config)
-
-        # To service
-        request = %{request | mount: [], host: "api.dmz"} # De militarized zone, i.e. private
-        make_request(request)
-      end
-      ```
-
-- [ ] Consider a Controller architecture for larger projects
-
-      ```elixir
-      route "/" do
-        get(WelcomeController, :home)
-        post(WelcomeController, :enquiry)
-      end
-
-      @route_name :home # path(:home) -> "/", url(:home, request) -> "www.example.com/"
-      route "/",
-        GET: HomePage,
-        POST: SendEnquiry
-
-      @route_name :home # path(:home) -> "/", url(:home, request) -> "www.example.com/"
-      route "/", {request, config} do
-        :GET -> HomePage.handle_request(request, config),
-        :POST -> SendEnquiry.handle_request(request, config)
-      end
-      ```
 - [ ] Cookies, Sessions and Flash
 
 - [ ] Consider before and after filters, implemented as a raxx middleware

@@ -11,6 +11,14 @@ defmodule Tokumei.Exceptions do
         NotFoundError
       }
 
+
+
+      @before_compile unquote(__MODULE__)
+    end
+  end
+
+  defmacro __before_compile__(_env) do
+    quote do
       defoverridable [handle_request: 2]
 
       def handle_request(request, env) do
@@ -23,12 +31,6 @@ defmodule Tokumei.Exceptions do
         end
       end
 
-      @before_compile unquote(__MODULE__)
-    end
-  end
-
-  defmacro __before_compile__(_env) do
-    quote do
       def on_error(%Tokumei.Exceptions.NotFoundError{}) do
         Raxx.Response.not_found("Not Found")
       end

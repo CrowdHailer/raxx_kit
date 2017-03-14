@@ -9,7 +9,7 @@ defmodule Tokumei do
       use Tokumei.App
 
       # Stack in reverse order
-      use Tokumei.Routing
+      use Tokumei.Router
       # FailureHandling
       # ExceptionHandling
       use Tokumei.Exceptions
@@ -19,6 +19,7 @@ defmodule Tokumei do
       use Tokumei.Static
       # NOTE static is using before compile so is infact wrapping after tokumei head
       use Tokumei.Head
+
     end
   end
 end
