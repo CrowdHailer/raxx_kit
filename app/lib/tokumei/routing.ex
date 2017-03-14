@@ -5,23 +5,22 @@ defmodule Tokumei.Routing do
   ## Issues
 
   - Impossible to know what methods are allowed because match can be arbitrarily complex
+  ## Examples
+
   """
-  @known_methods [:GET, :POST, :PUT, :PATCH, :DELETE, :OPTIONS, :HEAD]
+  @known_methods [:GET, :POST, :PUT, :PATCH, :DELETE, :OPTIONS]
 
   defmacro __using__(_) do
     quote do
-      import unquote(__MODULE__)
-      # this import might belong in a html/response modules
-      import Raxx.Response
+      import unquote(__MODULE__), only: [route: 3]
       Module.register_attribute(__MODULE__, :route, accumulate: true)
 
-      def handle_request(request = %{path: path, method: method}, env \\ nil) do
-        route(path, method, request, env)
+      def handle_request(request = %{path: path, method: method}, config) do
+        route(path, method, request, config)
       end
 
       @before_compile unquote(__MODULE__)
       @route_name :unnamed
-      @allowed []
     end
   end
 
@@ -38,63 +37,48 @@ defmodule Tokumei.Routing do
     end
   end
 
-  defmacro route(path, vars, do: clauses) do
-    match = build_match(path, vars)
-    route_ast(path, match, clauses)
-  end
-  defmacro route(path, do: clauses) do
-    match = build_match(path)
-    route_ast(path, match, clauses)
-  end
-
-  for method <- @known_methods do
-    defmacro unquote("#{method}" |> String.downcase |> String.to_atom)(request) do
-      method = unquote(method)
-      quote do
-        {unquote(method), unquote(request), _env}
-      end
+  defmacro route(path, vars, do: actions) do
+    {:{}, _, [request, config, params]} = vars
+    {match, map} = build_match(path)
+    |> IO.inspect
+    allowed = Enum.map(actions, fn({:->, _, [[method], _]}) -> method end)
+    # TODO add allowed
+    actions = actions ++ quote do
+      method -> Raxx.Response.method_not_allowed("Method not allowed")
     end
-  end
-
-  for method <- @known_methods do
-    defmacro unquote("#{method}" |> String.downcase |> String.to_atom)(request, config) do
-      method = unquote(method)
-      quote do
-        {unquote(method), unquote(request), unquote(config)}
-      end
-    end
-  end
-
-  defp route_ast(path, match, clauses) do
-    clauses = clauses ++ quote do
-      _request -> Raxx.Response.method_not_allowed("Method not allowed")
-    end
+    map = Macro.escape(map)
     quote do
-      @route {@route_name, unquote(path), @allowed}
-      def route(unquote(match), method, request, env) do
-        case {method, request, env} do
-          unquote(clauses)
+      @route {@route_name, unquote(path), unquote(allowed)}
+      def route(array = unquote(match), method, unquote(request), unquote(config)) do
+        unquote(params) = Enum.map(unquote(map), fn({k, i}) -> {k, Enum.at(array, i)} end) |> Enum.into(%{})
+        case method do
+          unquote(actions)
         end
       end
+
+      # def path(@route_name) do
+      #   "/" <> Enum.join(unquote(match), "/")
+      # end
       @route_name :unnamed
-      @allowed []
     end
   end
 
-  defp build_match(path, vars \\ quote do: {})
-  defp build_match(path, {:{}, _, vars}) do
-    build_match(Raxx.Request.split_path(path), vars, [])
+  defp build_match(path) do
+    build_match(Raxx.Request.split_path(path), [], 0, %{})
   end
 
-  defp build_match([], _, reversed) do
-    Enum.reverse(reversed)
+  defp build_match([], reversed, _i, map) do
+    {Enum.reverse(reversed), map}
   end
-  defp build_match([":" <> _| segments], [var | vars], reversed) do
-    reversed = [var | reversed]
-    build_match(segments, vars, reversed)
+  defp build_match([":" <> key| segments], reversed, i, map) do
+    # match = Keyword.get(kw, String.to_atom(key), quote do: _)
+    map = Map.put(map, String.to_atom(key), i)
+    |> IO.inspect
+    reversed = [(quote do: _) | reversed]
+    build_match(segments, reversed, i + 1, map)
   end
-  defp build_match([segment| segments], vars, reversed) do
+  defp build_match([segment| segments], reversed, i, map) do
     reversed = [segment | reversed]
-    build_match(segments, vars, reversed)
+    build_match(segments, reversed, i + 1, map)
   end
 end

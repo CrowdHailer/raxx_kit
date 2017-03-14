@@ -11,9 +11,10 @@ defmodule Tokumei.ErrorHandlingTest do
 
   use Tokumei
   use Tokumei.Exceptions
+  import Raxx.Response
 
-  route "/foo" do
-    get(_r) ->
+  route "/foo", {_,_,_} do
+    :GET ->
       {:error, :my_error}
   end
 
@@ -22,7 +23,7 @@ defmodule Tokumei.ErrorHandlingTest do
   end
 
   test "not found error is available for missing route" do
-    response = Request.get("/random") |> handle_request()
+    response = Request.get("/random") |> handle_request(:config)
     assert 404 = response.status
     assert ["random"] = response.body
   end
@@ -32,7 +33,7 @@ defmodule Tokumei.ErrorHandlingTest do
   end
 
   test "custom errors are also passed to error callback" do
-    response = Request.get("/foo") |> handle_request()
+    response = Request.get("/foo") |> handle_request(:config)
     assert 504 = response.status
     assert "my error" = response.body
   end

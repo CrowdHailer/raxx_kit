@@ -10,6 +10,12 @@ defmodule MyApp.WWW do
     get(_request, _config) ->
       ok("Hello, #{name}!")
   end
+
+  route "/greeting/:name", {_request, _config, %{name: name}} do
+    :GET ->
+      ok("Hello, #{name}!")
+  end
+
 end
 ```
 
@@ -25,6 +31,11 @@ iex -S mix
 ```
 
 visit [localhost:8080](localhost:8080])
+
+- for an overview see articles
+- otherwise documentation can be found for
+  - Routing
+  - error handling
 
 ## Usage
 
@@ -45,6 +56,17 @@ route "/users" do
   # Methods can be defined more than once for a multiheaded match.
   post(%{body: name}) ->
     created("Added #{name}")
+end
+
+route ["users"], request do
+  :GET ->
+    ok("Dan, Lucy, Jane")
+  :POST ->
+    case request.body do
+      "" ->
+        bad_request("Please provide a name")
+
+    end
 end
 
 # Any segment beginning with a colon is a path variable.
@@ -82,9 +104,10 @@ route "/users" do
     # Helpers available for all response statuses.*(1)
     case MyApp.create_user(data) do
       {:ok, user} ->
-        created("New user #{user}")
+        ok created("New user #{user}")
       {:error, :already_exists} ->
-        conflict("sorry")
+        # failure macro so we know to return an error that can get handled later
+        failure conflict("sorry")
       {:error, :bad_params} ->
         bad_request("sorry")
       {:error, :database_fail} ->
@@ -230,14 +253,18 @@ TODO - same as Raxx
 - [ ] named routes
 - [ ] mix task to list all routes in a module `tokumei.routes MyApp.WWW`
 
-      "/", GET, HEAD
-      "/users", GET, HEAD, POST
-      "/users/:id", GET, HEAD, PATCH, DELETE
+             "/",          [GET]
+      :users "/users",     [GET, POST]
+      :user  "/users/:id", [GET, PATCH, DELETE]
+      # delete can be an add reverse operation to event log
+      # dont bother with when clause in router url structure should not need it. particularly with ["users", "u" <> id]
+^ Move to issue
 - [ ] Draft designing a DSL
 
 - [ ] chunked responses
 - [ ] Test streaming
 - [ ] Handle messages to server without sending a chunk
+- [ ] Handle fact that server pid may be known after streaming completes, subscriptions are still open, possibly always close
 
 - [ ] mod docs routing
 - [ ] mod docs streaming
