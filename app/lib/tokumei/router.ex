@@ -50,7 +50,7 @@ defmodule Tokumei.Router do
         # This can be handled by earlier middleware, e.g. Tokumei.NotFound
         def handle_request(request, _) do
 
-          # Checkout Raxx.ErrorHandler for consolidating managing error return values.
+          # Checkout Tokumei.ErrorHandler for consolidating managing error return values.
           {:error, {:not_found, request}}
         end
       end
@@ -72,7 +72,7 @@ defmodule Tokumei.Router do
 
   **NOTE: Tokumei.Router does not provide any guarantees on return value.
   It can be used in conjunction with other middleware to ensure responses can be sent to client,
-  e.g. Raxx.ErrorHandler, Raxx.ContentLength etc.**
+  e.g. `Tokumei.ErrorHandler`, `Tokumei.ContentLength` etc.**
 
   The router will have helpers for generating paths from route names.
 

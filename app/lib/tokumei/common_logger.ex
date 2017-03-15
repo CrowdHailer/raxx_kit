@@ -1,10 +1,18 @@
 defmodule Tokumei.CommonLogger do
   @moduledoc """
-  http://httpd.apache.org/docs/1.3/logs.html#common
+  Log every request handled by the application.
+
+  Log format is found here: http://httpd.apache.org/docs/1.3/logs.html#common
+
   """
   defmacro __using__(_opts) do
     quote do
       require Logger
+      @before_compile unquote(__MODULE__)
+    end
+  end
+  defmacro __before_compile__(_env) do
+    quote do
       defoverridable [handle_request: 2]
 
       def handle_request(request, config) do

@@ -6,9 +6,15 @@
 defmodule MyApp.WWW do
   Use Tokumei
 
+  @static "./public"
+
   route ["greeting", name] do
     :GET ->
       ok("Hello, #{name}!")
+  end
+
+  error %NotFoundError do
+    not_found("Could not find what you were looking for!")
   end
 end
 ```
@@ -17,6 +23,7 @@ end
 
 <!-- *Know all about mix and umbrella projects? [Jump onwards to add tokumei in an exitsting project]()* -->
 
+*N.B. Generator outdated setups up 0.3.0 project*
 ```
 mix archive.install https://github.com/crowdhailer/tokumei/raw/master/tokumei_new.ez
 mix tokumei.new my_app
@@ -26,158 +33,17 @@ iex -S mix
 
 visit [localhost:8080](localhost:8080])
 
-- for an overview see articles
-- otherwise documentation can be found for
-  - Routing
-  - error handling
-
 ## Usage
 
-### Responses
-
-```elixir
-# An action must return a response with status, body and headers.
-route "/" do
-  get(_) ->
-    %{status: 200, body: "Home page", headers: [{"content-type", "text/plain"}]}
-end
-
-route "/users" do
-  get(%{body: data}) ->
-
-    # Helpers available for all response statuses.*(1)
-    case MyApp.create_user(data) do
-      {:ok, user} ->
-        ok created("New user #{user}")
-      {:error, :already_exists} ->
-        # failure macro so we know to return an error that can get handled later
-        failure conflict("sorry")
-      {:error, :bad_params} ->
-        bad_request("sorry")
-      {:error, :database_fail} ->
-        bad_gateway("sorry")
-      {:error, _unknown} ->
-        internal_server_error("Well that's weird")
-    end
-end
-```
-
-*1 - Response helpers are imported from [Raxx.Response](https://hexdocs.pm/raxx/Raxx.Response.html).*
-
-### Streaming
-
-```elixir
-route "/updates" do
-  get(_) ->
-
-    # Return a streaming upgrade to change a server state to streaming.
-    SSE.stream()
-end
-
-# Define behaviour for a server that has transitioned to streaming.
-SSE.streaming do
-
-  # match on messages received by server.
-  {:update, update} ->
-    {:send, update}
-end
-```
-
-### Static content
-
-```elixir
-# Serve the contents of a directory, file path is relative to this file.
-config :static, "./public"
-```
-
-*- Files are served using [Raxx.Static](https://hex.pm/packages/raxx_static)*
-
-### Templates
-
-```elixir
-# relative path to template ./templates/home_page.html.eex
-# relative path to template ./templates/user_page.html.eex
-
-# Provide a relative path to templates directory.
-config :templates, "./templates"
-
-route "/" do
-  get(_) ->
-
-    # View functions are compiled for each template.
-    ok(home_page())
-end
-
-route "/users/:id", {id} do
-  get(_) ->
-    user = UsersRepo.fetch_by_id(id)
-
-    # Variable are passed accessed in template as, `@user`.
-    ok(user_page(%{user: user}))
-end
-```
-
-*- Templates must have an eex extension*
-
-*- Content type is derived from first pary of template extension.*
-
-### Error Handling
-
-```elixir
-route "/checkout" do
-  post(request) ->
-
-    # Actions can return an exception as part of an error tuple
-    {:error, :subscription_expired}
-end
-
-# Any error can be handled using an error block
-error :subscription_expired do
-
-  # payment_required/1 returns a 402 status Raxx.Response
-  payment_required("Please pay up, :-)")
-end
-
-# Routing errors can also be intercepted
-error %NotFoundError{path: path} do
-  path = "/" <> Enum.join(path, "/")
-
-  # For example, to send a custom response message.
-  not_found("Could not find #{path}")
-end
-```
-
-### Server state
-
-TODO
-
-### Request
-
-```elixir
-route "/" do
-  get(request) ->
-    IO.inspect(request.scheme)  # "http"
-    IO.inspect(request.host)    # "www.exxample.com"
-    IO.inspect(request.port)    # 8080
-    IO.inspect(request.method)  # :GET
-    IO.inspect(request.mount)   # []
-    IO.inspect(request.path)    # []
-    IO.inspect(request.query)   # %{"page" => "5"}
-    IO.inspect(request.headers) # [{"accept", "text/html"}]
-    IO.inspect(request.body)    # "Lorem ..."
-end
-```
-
-### Model
-
-**Tokumei is a XVC framework.**
-
-Routing is provided for controllers, and templating for views.
-Applications bring their own model.
-
-### Testing
-
-TODO - same as Raxx
+1. Explore the water cooler example in this [repository](https://github.com/CrowdHailer/Tokumei/tree/master/water_cooler).
+2. Documentation is available, [on hexdocs](https://hexdocs.pm/tokumei/), for all middleware modules.
+    - `Tokumei.Router`
+    - `Tokumei.ErrorHandler`
+    - `Tokumei.ContentLength`
+    - `Tokumei.MethodOverride`
+    - `Tokumei.Static`
+    - `Tokumei.Head`
+    - `Tokumei.CommonLogger`
 
 ## Development Goals
 
@@ -199,9 +65,16 @@ TODO - same as Raxx
 - [x] Draft designing a DSL
 
 - [x] mod docs routing
-- [ ] all middleware mod docs
-- [ ] publish why raxx article
+- [x] all middleware mod docs
 - [ ] write overview article
+
+- [ ] Document and test templates
+
+- [ ] Make server configurable
+- [ ] Extract starting as application from starting as supervised process
+- [ ] test starting as endpoint `start_link` and as application `start`
+
+- [ ] publish why raxx article
 - [ ] publish build your own middleware article
 
 - [ ] chunked responses
@@ -209,9 +82,6 @@ TODO - same as Raxx
 - [ ] Handle messages to server without sending a chunk
 - [ ] Handle fact that server pid may be known after streaming completes, subscriptions are still open, possibly always close
 - [ ] mod docs streaming
-
-- [ ] Make server configurable
-- [ ] Extract starting as application from starting as supervised process
 
 - [ ] HTTPS setup with lets encrypt
 - [ ] article Setting up without generator

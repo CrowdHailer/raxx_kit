@@ -68,8 +68,10 @@ defmodule Tokumei.MethodOverride do
       ...> |> Map.get(:method)
       :POST
 
-  *Should the field be customisable? `_method` as default.*
-  *Should it ever error for bad requests.*
+  ## Extensions
+
+  - Should the field be customisable? `_method` as default.*
+  - Should it ever error for bad requests.*
   """
 
   def override_method(request = %{method: :POST, query: query}) do
@@ -88,6 +90,12 @@ defmodule Tokumei.MethodOverride do
 
   defmacro __using__(_opts) do
     quote do
+      @before_compile unquote(__MODULE__)
+    end
+  end
+
+  defmacro __before_compile__(_env) do
+    quote location: :keep do
       defoverridable [handle_request: 2]
 
       def handle_request(request, config) do

@@ -7,19 +7,17 @@ defmodule Tokumei do
       use Tokumei.Templates
       import Tokumei.Patch
       use Tokumei.App
+      import Raxx.Response
 
-      # Stack in reverse order
+      use Tokumei.NotFound
       use Tokumei.Router
-      # FailureHandling
-      # ExceptionHandling
-      use Tokumei.Exceptions
+      use Tokumei.ErrorHandler
+      # Default content type middleware
       use Tokumei.ContentLength
-      use Tokumei.CommonLogger
       use Tokumei.MethodOverride
       use Tokumei.Static
-      # NOTE static is using before compile so is infact wrapping after tokumei head
       use Tokumei.Head
-
+      use Tokumei.CommonLogger
     end
   end
 end
