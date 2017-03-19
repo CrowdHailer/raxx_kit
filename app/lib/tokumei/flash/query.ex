@@ -32,7 +32,7 @@ defmodule Tokumei.Flash.Query do
       def handle_request(request, config) do
         {messages, request} = unquote(__MODULE__).extract(request)
         request = Tokumei.Flash.write(request, messages)
-        response = %{headers: headers} = super(request, config)
+        response = super(request, config)
 
         messages = Tokumei.Flash.read(response)
         response = Tokumei.Flash.clear(response)
