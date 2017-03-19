@@ -12,6 +12,7 @@ defmodule Tokumei do
       use Tokumei.NotFound
       use Tokumei.Router
       use Tokumei.ErrorHandler
+      use Tokumei.Flash.Query
       # Default content type middleware
       use Tokumei.ContentLength
       use Tokumei.MethodOverride

@@ -39,6 +39,7 @@ visit [localhost:8080](localhost:8080])
 2. Documentation is available, [on hexdocs](https://hexdocs.pm/tokumei/), for all middleware modules.
     - `Tokumei.Router`
     - `Tokumei.ErrorHandler`
+    - `Tokumei.Flash.Query`
     - `Tokumei.ContentLength`
     - `Tokumei.MethodOverride`
     - `Tokumei.Static`
@@ -74,7 +75,7 @@ visit [localhost:8080](localhost:8080])
 - [ ] Extract starting as application from starting as supervised process
 - [ ] test starting as endpoint `start_link` and as application `start`
 
-- [ ] publish why raxx article
+- [x] publish why raxx article
 - [ ] publish build your own middleware article
 
 - [ ] chunked responses
@@ -94,7 +95,8 @@ visit [localhost:8080](localhost:8080])
 - [ ] remove redirect from patch
 - [ ] back(request) -> response
 
-- [ ] Cookies, Sessions and Flash
+- [ ] Cookies, Sessions
+- [x] Flash
 
 - [ ] Consider before and after filters, implemented as a raxx middleware
 
