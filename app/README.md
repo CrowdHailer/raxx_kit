@@ -40,6 +40,7 @@ visit [localhost:8080](localhost:8080])
     - `Tokumei.Router`
     - `Tokumei.ErrorHandler`
     - `Tokumei.Flash.Query`
+    - `Tokumei.session.SignedCookies`
     - `Tokumei.ContentLength`
     - `Tokumei.MethodOverride`
     - `Tokumei.Static`
