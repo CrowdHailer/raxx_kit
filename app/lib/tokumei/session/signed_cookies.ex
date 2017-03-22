@@ -2,9 +2,6 @@ defmodule Tokumei.Session.SignedCookies do
   @moduledoc """
   Cookie based session storage.
 
-  See `Tokumei.Session` for documentation on manipulating a sessions contents.
-
-  `Tokumei.Session.SignedCookies` is a storage implementation for `Tokumei.Session`.
   `Tokumei.Session.SignedCookies` can be added as a middleware.
 
   A session is a map of binary keys and values.
@@ -52,9 +49,6 @@ defmodule Tokumei.Session.SignedCookies do
 
   There are also limitations to the number and size of cookies that a browser will persist.
 
-  ## Extend
-
-  - remove unused keys for every session change
   """
 
   defmodule UnspecifiedSecretError do
@@ -200,14 +194,6 @@ defmodule Tokumei.Session.SignedCookies do
       ...> |> List.last
       {"set-cookie",
         "tokumei.session=foo -- yjdW%2BB03KKAjvcimIsCQbzc7eV4%3D; Path=/; HttpOnly"}
-
-      # # Embedding an empty session will delete the session cookie
-      # iex> Response.ok()
-      # ...> |> SignedCookies.embed(%{}, secret: "secret")
-      # ...> |> Map.get(:headers)
-      # ...> |> List.last
-      # {"set-cookie",
-      #   "tokumei.session=foo -- yjdW%2BB03KKAjvcimIsCQbzc7eV4%3D; Path=/; HttpOnly"}
   """
   def embed(response = %{headers: headers}, session, opts) do
     secret = case Keyword.get(opts, :secret) do
@@ -270,6 +256,7 @@ defmodule Tokumei.Session.SignedCookies do
   end
 
   # TODO move to Raxx.SetCookie
+  @doc false
   def expire_header(key) do
     value = Raxx.Cookie.new(key, "", path: "/", http_only: true, expires: {{1970,1,1}, {0,0,0}})
     |> Raxx.Cookie.set_cookie_string

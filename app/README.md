@@ -40,7 +40,7 @@ visit [localhost:8080](localhost:8080])
     - `Tokumei.Router`
     - `Tokumei.ErrorHandler`
     - `Tokumei.Flash.Query`
-    - `Tokumei.session.SignedCookies`
+    - `Tokumei.Session.SignedCookies`
     - `Tokumei.ContentLength`
     - `Tokumei.MethodOverride`
     - `Tokumei.Static`
@@ -96,7 +96,7 @@ visit [localhost:8080](localhost:8080])
 - [ ] remove redirect from patch
 - [ ] back(request) -> response
 
-- [ ] Cookies, Sessions
+- [x] Sessions
 - [x] Flash
 
 - [ ] Consider before and after filters, implemented as a raxx middleware
