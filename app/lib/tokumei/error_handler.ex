@@ -2,6 +2,7 @@ defmodule Tokumei.ErrorHandler do
   @moduledoc """
   Handle failures from request handlers.
 
+  Extension to the Raxx interface to provide better error handling.
   `Tokumei.ErrorHandler` modifies all responses of the form `{:error, reason}`.
   It will first match the reason against the appropriate failure handler.
   If no failure handler matches it will return a default 500 response.

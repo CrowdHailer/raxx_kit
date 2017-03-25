@@ -1,6 +1,6 @@
 defmodule Tokumei.Router do
   @moduledoc """
-  Simplest Router for Raxx Applications
+  Route incoming HTTP requests by path and method.
 
   Provides `route/2/3/4` to direct requests to handlers
 
