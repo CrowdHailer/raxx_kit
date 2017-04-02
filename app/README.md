@@ -49,25 +49,6 @@ visit [localhost:8080](localhost:8080])
 
 ## Development Goals
 
-- [x] Route by url
-- [x] Match segements with path variables
-- [x] Routing by HTTP method
-- [x] Access request in match
-- [x] Access server config in match
-- [x] Document chunked/SSE's
-- [x] Document static
-- [x] Document templates
-- [x] Add remaining HTTP method matchers.
-- [x] Test routing DSL
-- [x] Add error handling within actions
-- [x] Add logging layer
-
-- [x] named routes
-- [x] path/url helpers
-- [x] Draft designing a DSL
-
-- [x] mod docs routing
-- [x] all middleware mod docs
 - [ ] write overview article
 
 - [ ] Document and test templates
@@ -76,7 +57,8 @@ visit [localhost:8080](localhost:8080])
 - [ ] Extract starting as application from starting as supervised process
 - [ ] test starting as endpoint `start_link` and as application `start`
 
-- [x] publish why raxx article
+- [ ] HTTP/2 promises API, integration with raxx_chatterbox
+
 - [ ] publish build your own middleware article
 
 - [ ] chunked responses
@@ -92,32 +74,3 @@ visit [localhost:8080](localhost:8080])
 - [ ] Add wobserver
 
 - [ ] Handle Server Errors, url too long, request too slow, request too large
-
-- [ ] remove redirect from patch
-- [ ] back(request) -> response
-
-- [x] Sessions
-- [x] Flash
-
-- [ ] Consider before and after filters, implemented as a raxx middleware
-
-      ```elixir
-      before request, config do
-        request # OR {:error, reason}
-      end
-
-    after response, config do
-        request # OR {:error, reason}
-      end
-      ```
-- [ ] Sending files from action https://github.com/sinatra/sinatra/blob/master/lib/sinatra/base.rb#L384
-- [ ] Send file middleware, a return value of {:file, path} -> response
-- [ ] Send content as an attachment https://github.com/sinatra/sinatra/blob/master/lib/sinatra/base.rb#L373
-
-- [ ] HTTP/2 promises API, integration with raxx_chatterbox
-- [ ] layout and partials
-- [ ] Code reloading
-- [ ] Example with JS compilation, add to generator
-
-- [ ] Generate sitemap.xml from router
-- [ ] Basic Auth wrapper, with whitelist
