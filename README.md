@@ -21,7 +21,7 @@ Documentation is available on [hex.pm](https://hexdocs.pm/tokumei/readme.html).
 
 ## Guides
 
-- **[Why Raxx](./guides/Why Raxx.md)**, the rational behind building a web interface layer for Elixir.
+- [Why Raxx](guides/why-raxx.md), the rational behind building a web interface layer for Elixir.
 
 ## Community
 

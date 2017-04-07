@@ -12,7 +12,7 @@ defmodule Tokumei.Mixfile do
      docs: [
        main: "readme",
        source_url: "https://github.com/CrowdHailer/Tokumei/tree/master/app",
-       extras: ["README.md", "../guides/Why Raxx.md"]
+       extras: ["README.md", "../guides/why-raxx.md"]
      ],
      package: package()]
   end
