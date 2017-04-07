@@ -2,6 +2,14 @@
 
 **Tiny yet MIGHTY Elixir webframework**
 
+### Foundations not framework
+
+Tokumei is the foundation for building web interfaces.
+By focusing on **only** the web layer, it is adaptable to any application.
+
+This freedom enables to best application to be build for the domain.
+I call this principle XVC (Mind-your-own-business View Controller).
+
 ## Documentation
 
 Documentation is available on [hex.pm](https://hexdocs.pm/tokumei/readme.html).
@@ -10,6 +18,10 @@ Documentation is available on [hex.pm](https://hexdocs.pm/tokumei/readme.html).
 
 - **[WaterCooler](water_cooler)** simple chat room, application.
 - **[Fifteen](fifteen)** fifteen minute blog, built around umbrella applications.
+
+## Guides
+
+- **[Why Raxx](guides/Why Raxx.md)**, the rational behind building a web interface layer for Elixir.
 
 ## Community
 

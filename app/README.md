@@ -49,8 +49,6 @@ visit [localhost:8080](localhost:8080])
 
 ## Development Goals
 
-- [ ] write overview article
-
 - [ ] Document and test templates
 
 - [ ] Make server configurable
