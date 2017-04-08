@@ -37,10 +37,10 @@ Our greeting app now just requires logging.
 The naive solution is to add call to `Logger` in every action handler.
 
 There are a few reasons why this solution is poor.
-First we will be duplicating code in every action handler, which in turn means that it is easy to make a mistake so that one action handler ends up without the logging required.
+First we will be duplicating code in every action handler, which in turn means that it is easy to make a mistake so that one routes ends up without the logging required.
 Second the added code is bundled into that action handler and obscures the main purpose of that route.
 
-A desirable solution is one that adds logging to every action without modifying the action's code.
+A desirable solution is one that adds logging to every route without modifying the action handler's code.
 We can build this solution using `defoverridable/1`.
 This allows us to redefine a function. From this redefined function we can call back to the previous implementation using `super`.
 
@@ -49,7 +49,7 @@ In combination this allows us to add logging to our app without modifying or obs
 ```elixir
 defmodule GreetingApp do
 
-  # ... original actions the same
+  # ... original action handlers the same
 
   defoverridable [handle_request: 2]
 
@@ -83,7 +83,7 @@ After a few requests have been made to the server we can see the logs include ex
 
 Great. This logger does exactly what we need.
 
-Let's extract our logging functionality so it can be reused across all our project.
+Let's extract our logging functionality so it can be reused across all our projects.
 To implement this version we need to turn to Elixir macros.
 A Macro is just code that writes code.
 We want to write a `MyLogger` module that adds logging to any module it is used in.
@@ -133,7 +133,7 @@ end
 ## Combining middleware
 
 Any Raxx application can now have logging by using `MyLogger`.
-It is possible to override functions multiple times.
+It is possible to override a function multiple times.
 In this way multiple middleware can be defined and stacked to combine their behaviour.
 
 All functionality in Tokumei is contained in middleware, including routing.
