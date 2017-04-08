@@ -21,6 +21,7 @@ Documentation is available on [hex.pm](https://hexdocs.pm/tokumei/readme.html).
 
 ## Guides
 
+- [Writing middleware with macros](guides/writing-middleware-with-macros.md), extending applications with custom middleware.
 - [Why Raxx](guides/why-raxx.md), the rational behind building a web interface layer for Elixir.
 
 ## Community

@@ -57,8 +57,6 @@ visit [localhost:8080](localhost:8080])
 
 - [ ] HTTP/2 promises API, integration with raxx_chatterbox
 
-- [ ] publish build your own middleware article
-
 - [ ] chunked responses
 - [ ] Test streaming
 - [ ] Handle messages to server without sending a chunk

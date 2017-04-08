@@ -3,7 +3,7 @@ defmodule Tokumei.Mixfile do
 
   def project do
     [app: :tokumei,
-     version: "0.4.2",
+     version: "0.5.0",
      elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -12,7 +12,11 @@ defmodule Tokumei.Mixfile do
      docs: [
        main: "readme",
        source_url: "https://github.com/CrowdHailer/Tokumei/tree/master/app",
-       extras: ["README.md", "../guides/why-raxx.md"]
+       extras: [
+         "README.md",
+         "../guides/writing-middleware-with-macros.md",
+         "../guides/why-raxx.md"
+       ]
      ],
      package: package()]
   end
