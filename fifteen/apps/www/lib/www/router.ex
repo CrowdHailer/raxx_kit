@@ -1,6 +1,6 @@
 defmodule Fifteen.WWW.Router do
   import Tokumei.Router
-  alias Tokumei.Router.{NotImplementedError, MethodNotAllowedError, NotFoundError}
+  alias Tokumei.Router.{NotImplementedError, MethodNotAllowedError, NotFound}
   alias Raxx.Response
 
   #

@@ -1,4 +1,6 @@
 defmodule Tokumei do
+  @moduledoc false
+  # Just a aglomoration of other features
   defmacro __using__(_opts) do
     quote do
       alias Tokumei.ServerSentEvents, as: SSE

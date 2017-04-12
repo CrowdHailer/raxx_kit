@@ -14,6 +14,7 @@ defmodule Tokumei.Mixfile do
        source_url: "https://github.com/CrowdHailer/Tokumei/tree/master/app",
        extras: [
          "README.md",
+         "../guides/getting-started.md",
          "../guides/writing-middleware-with-macros.md",
          "../guides/why-raxx.md"
        ]

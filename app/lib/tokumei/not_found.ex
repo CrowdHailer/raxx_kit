@@ -15,7 +15,7 @@ defmodule Tokumei.NotFound do
   defmacro __before_compile__(_env) do
     quote do
       def handle_request(%{path: path}, _) do
-        {:error, %Tokumei.NotFoundError{path: path}}
+        {:error, %Tokumei.NotFound{path: path}}
       end
     end
   end

@@ -1,5 +1,6 @@
 # Tokumei
 
+
 **Tiny yet MIGHTY Elixir webframework**
 
 ### Foundations not framework
@@ -12,17 +13,18 @@ I call this principle XVC (Mind-your-own-business View Controller).
 
 ## Documentation
 
-Documentation is available on [hex.pm](https://hexdocs.pm/tokumei/readme.html).
-
-## Examples
-
-- **[WaterCooler](water_cooler)** simple chat room, application.
-- **[Fifteen](fifteen)** fifteen minute blog, built around umbrella applications.
+- Get going with the [getting started](guides/getting-started.md) guide.
+- Documentation is available on [hex.pm](https://hexdocs.pm/tokumei/readme.html).
 
 ## Guides
 
 - [Writing middleware with macros](guides/writing-middleware-with-macros.md), extending applications with custom middleware.
 - [Why Raxx](guides/why-raxx.md), the rational behind building a web interface layer for Elixir.
+
+## Examples
+
+- **[WaterCooler](water_cooler)** simple chat room, application.
+- **[Fifteen](fifteen)** fifteen minute blog, built around umbrella applications.
 
 ## Community
 

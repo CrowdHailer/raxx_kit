@@ -24,7 +24,7 @@ defmodule Tokumei.ErrorHandlerTest do
     assert "Unhandled failure: {:error, :unhandled_error}" = response.body
   end
 
-  error %NotFoundError{path: path} do
+  error %NotFound{path: path} do
     Response.not_found(path)
   end
 

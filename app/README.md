@@ -13,7 +13,7 @@ defmodule MyApp.WWW do
       ok("Hello, #{name}!")
   end
 
-  error %NotFoundError do
+  error %NotFound do
     not_found("Could not find what you were looking for!")
   end
 end

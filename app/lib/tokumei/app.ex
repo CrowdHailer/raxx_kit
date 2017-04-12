@@ -1,5 +1,8 @@
 # TODO should check that Ace.HTTP.server_name is implemented and that it is added to the message
 defmodule Tokumei.App do
+  @moduledoc false
+  # This module is experimental until the inclusion of a Tokumei.Endpoint or service module
+
   defmacro __using__(_opts) do
     quote do
       # @before_compile unquote(__MODULE__)

@@ -1,4 +1,6 @@
 defmodule Tokumei.Config do
+  @moduledoc false
+  # This module is effectivly deprecated until futher notice
   # config(:basic_auth, :whitelist, ["/"])
   # @basic_auth_config, %{@basic_auth_config | whitelist: value}
 

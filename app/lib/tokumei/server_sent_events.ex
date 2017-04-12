@@ -1,4 +1,7 @@
 defmodule Tokumei.ServerSentEvents do
+  @moduledoc false
+  # awaiting new Raxx.ChunkedResponse
+
   def stream(mod, config) do
     Raxx.Chunked.upgrade({mod, config}, headers: [
       {"cache-control", "no-cache"},

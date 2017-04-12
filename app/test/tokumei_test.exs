@@ -15,7 +15,7 @@ defmodule TokumeiTest do
       created("Onnit!")
   end
 
-  error %NotFoundError{path: path} do
+  error %NotFound{path: path} do
     path = "/" <> Enum.join(path, "/")
     not_found("Could not find #{path}")
   end

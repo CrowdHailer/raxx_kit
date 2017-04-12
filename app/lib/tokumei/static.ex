@@ -13,6 +13,8 @@ defmodule Tokumei.Static do
       end
 
   *build on top of `Raxx.Static`, TODO passing options such as pattern of files to serve as configuration*
+  static to assume "./public"
+  static needs to have an upper limit on file size
   """
 
   defmacro __using__(_opts) do

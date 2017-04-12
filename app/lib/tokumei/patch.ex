@@ -1,7 +1,6 @@
 defmodule Tokumei.Patch do
-  @moduledoc """
-  Home of functionality that should be contributed to the Raxx project
-  """
+  @moduledoc false
+  # Home of functionality that should be contributed to the Raxx project
 
   def request_to_url(%{host: host, port: port, path: path, mount: mount, scheme: scheme}) do
     %URI{
