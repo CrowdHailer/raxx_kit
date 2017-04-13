@@ -254,8 +254,32 @@ end
 ## Deployment
 
 ### Heroku
+1. create app
+```
+heroku apps:create eexperiment
+```
+
 1. Load up build pack
+```
+heroku buildpacks:set https://github.com/HashNuke/heroku-buildpack-elixir.git
+```
+
+2. make sure port is taken from env variable
+
+  ```elixir
+  {port, ""} = System.get_env("PORT") |> Integer.parse()
+
+  children = [
+    worker(Ace.HTTP, [server, [port: port, name: Tmp.WWW]])
+  ]
+  ```
+
 2. push
+```
+git add .
+git commit -m 'initial commit'
+git push heroku master
+```
 
 ### Release: Vagrant?
 
