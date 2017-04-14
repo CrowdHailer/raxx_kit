@@ -24,7 +24,7 @@ Add `:tokumei` to the list of dependencies.
 We will use `:ace_http` for a webserver.
 
 ```elixir
-# ./mix.exs
+# mix.exs
 
   defp deps do
     [
@@ -63,6 +63,8 @@ Once the application is defined it needs to be mounted on a server.
 Next we need a server to host it.
 
 ```elixir
+# lib/greetings_app.ex
+
 defmodule GreetingsApp do
   use Application
 
@@ -282,6 +284,53 @@ git push heroku master
 ```
 
 ### Release: Vagrant?
+
+## More
+
+### Code reloading
+
+*NOTE: On Linux you may need to install `inotify-tools`.*
+
+[ExSync](https://github.com/falood/exsync) is a general purpose code reloading facility.
+First add it to the list of dependencies.
+
+```elixir
+# mix.exs
+
+  defp deps do
+    [
+      # ... previous dependencies
+      {:exsync, "~> 0.1", only: :dev}
+    ]
+  end
+```
+
+Then modify the applications to run ExSync on startup.
+
+```elixir
+# lib/greetings_app.ex
+
+defmodule GreetingsApp.WWW do
+  use Application
+
+  def start(_type, _args) do
+    import Supervisor.Spec, warn: false
+
+    case Code.ensure_loaded(ExSync) do
+      {:module, ExSync} ->
+        ExSync.start()
+      {:error, :nofile} ->
+        :ok
+    end
+
+    # ... rest of applications start script.
+  end
+end
+```
+
+**Development dependencies**,
+are loaded only when working in the development environment.
+By using `ensure_loaded/1` we will only start code reloaded in the appropriate enviroments.
 
 ## Where next
 
