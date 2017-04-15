@@ -2,12 +2,13 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
 
   config.vm.define "development" do |dev|
-    dev.vm.synced_folder ".", "/vagrant"
-    dev.vm.hostname = "baobab"
+    dev.vm.synced_folder "..", "/vagrant"
+    dev.vm.hostname = "development"
 
     dev.vm.network "private_network", type: "dhcp"
 
     dev.vm.network "forwarded_port", guest: 8080, host: 8080
+    dev.vm.network "forwarded_port", guest: 8443, host: 8443
     dev.vm.provision "shell", path: "./provision.sh"
 
     dev.vm.provider "virtualbox" do |v|
@@ -18,22 +19,22 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define "dmz1" do |dmz|
-    dmz.vm.hostname = "dmz1"
+  config.vm.define "production_1" do |production|
+    production.vm.hostname = "production_1"
 
-    dmz.vm.network "private_network", type: "dhcp"
+    production.vm.network "private_network", type: "dhcp"
   end
 
-  config.vm.define "dmz2" do |dmz|
-    dmz.vm.hostname = "dmz2"
+  config.vm.define "production_2" do |production|
+    production.vm.hostname = "production_2"
 
-    dmz.vm.network "private_network", type: "dhcp"
+    production.vm.network "private_network", type: "dhcp"
   end
 
-  config.vm.define "dmz3" do |dmz|
-    dmz.vm.hostname = "dmz3"
+  config.vm.define "production_3" do |production|
+    production.vm.hostname = "production_3"
 
-    dmz.vm.network "private_network", type: "dhcp"
+    production.vm.network "private_network", type: "dhcp"
   end
 
 
