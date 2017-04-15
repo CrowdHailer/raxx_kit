@@ -19,20 +19,20 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define "production_1" do |production|
-    production.vm.hostname = "production_1"
+  config.vm.define "production1" do |production|
+    production.vm.hostname = "production1"
 
     production.vm.network "private_network", type: "dhcp"
   end
 
-  config.vm.define "production_2" do |production|
-    production.vm.hostname = "production_2"
+  config.vm.define "production2" do |production|
+    production.vm.hostname = "production2"
 
     production.vm.network "private_network", type: "dhcp"
   end
 
-  config.vm.define "production_3" do |production|
-    production.vm.hostname = "production_3"
+  config.vm.define "production3" do |production|
+    production.vm.hostname = "production3"
 
     production.vm.network "private_network", type: "dhcp"
   end

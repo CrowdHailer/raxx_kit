@@ -283,7 +283,11 @@ git commit -m 'initial commit'
 git push heroku master
 ```
 
-### Release: Vagrant?
+### Building releases
+
+Using releases is probably the recommended way to deploy elixir applications.
+Release can be build in Vagrant.
+This section of the getting started guide will use Vagrant, see `/vm_sandox` for setup.
 
 ## More
 
