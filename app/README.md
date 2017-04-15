@@ -49,8 +49,6 @@ visit [localhost:8080](localhost:8080])
 
 ## Development Goals
 
-- [ ] Document and test templates
-
 - [ ] Make server configurable
 - [ ] Extract starting as application from starting as supervised process
 - [ ] test starting as endpoint `start_link` and as application `start`
