@@ -17,11 +17,12 @@ defmodule Tokumei.Static do
   static needs to have an upper limit on file size
   """
 
-  defmacro __using__(_opts) do
+  defmacro __using__(opts) do
+    dir = Keyword.get(opts, :root, "./public")
     quote do
       require Raxx.Static
 
-      @static nil
+      @static unquote(dir)
 
       @before_compile unquote(__MODULE__)
     end
@@ -31,10 +32,8 @@ defmodule Tokumei.Static do
     quote do
       defoverridable [handle_request: 2]
 
-      if @static do
-        @external_resource @static
-        Raxx.Static.serve_dir(@static)
-      end
+      @external_resource @static
+      Raxx.Static.serve_dir(@static)
 
       def handle_request(request, config) do
         super(request, config)

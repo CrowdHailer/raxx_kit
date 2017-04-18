@@ -3,13 +3,10 @@ defmodule Tokumei do
   # Just a aglomoration of other features
   defmacro __using__(_opts) do
     quote do
-      alias Tokumei.ServerSentEvents, as: SSE
-      require SSE
-      import Tokumei.Config
       use Tokumei.Templates
-      import Tokumei.Patch
-      use Tokumei.App
-      import Raxx.Response
+
+      alias Tokumei.{Flash, Helpers}
+      alias Raxx.Response
 
       use Tokumei.NotFound
       use Tokumei.Router

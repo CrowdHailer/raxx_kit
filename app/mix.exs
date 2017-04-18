@@ -3,8 +3,8 @@ defmodule Tokumei.Mixfile do
 
   def project do
     [app: :tokumei,
-     version: "0.5.0",
-     elixir: "~> 1.3",
+     version: "0.6.0",
+     elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps(),
@@ -23,14 +23,14 @@ defmodule Tokumei.Mixfile do
   end
 
   def application do
-    [applications: [:logger]]
+    [extra_applications: [:logger]]
   end
 
   defp deps do
     [
-      {:raxx, "~> 0.10.5"},
+      {:raxx, "~> 0.11.0"},
       {:raxx_cookie, "~> 0.1.0"},
-      {:raxx_static, "~> 0.2.0"},
+      {:raxx_static, "~> 0.3.0"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end

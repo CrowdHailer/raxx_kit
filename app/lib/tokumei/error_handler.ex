@@ -31,7 +31,7 @@ defmodule Tokumei.ErrorHandler do
         end
 
         # Routing errors can also be intercepted
-        error %NotFound{path: path} do
+        error %NotFoundError{path: path} do
           path = "/" <> Enum.join(path, "/")
 
           # For example, to send a custom response message.
@@ -43,7 +43,7 @@ defmodule Tokumei.ErrorHandler do
   defmacro __using__(_opts) do
     quote do
       import unquote(__MODULE__)
-      alias Tokumei.NotFound
+      alias Tokumei.Exception.NotFoundError
 
       @before_compile unquote(__MODULE__)
     end

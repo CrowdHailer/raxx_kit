@@ -195,13 +195,13 @@ defmodule GreetingsApp.WWW do
     Response.bad_request("This request was no good.")
   end
 
-  error %NotFound{path: path} do
+  error %NotFoundError{path: path} do
     Response.not_found("Nothing here :-(")
   end
 end
 ```
 
-*A not `NotFound` exception is returned for any request that doesn't match to an action handler.*
+*A not `NotFoundError` exception is returned for any request that doesn't match to an action handler.*
 
 See `Tokumei.ErrorHandler` for more options to handle errors.
 
@@ -213,7 +213,7 @@ Lets rewrite our error handler so that users are redirected to the home page.
 
 ```elixir
   # :error handler
-  error %NotFound{path: path} do
+  error %NotFoundError{path: path} do
     redirect(path(:index))
     |> Flash.write(error: "Redirected from missing path")
   end

@@ -20,6 +20,8 @@ defmodule Tokumei.ContentLength do
             end
           upgrade = %Raxx.Chunked{} ->
             upgrade
+          other ->
+            other
         end
       end
     end

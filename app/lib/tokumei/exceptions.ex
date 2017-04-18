@@ -1,3 +1,3 @@
-defmodule Tokumei.Exception.NotFound do
+defmodule Tokumei.Exception.NotFoundError do
   defexception message: nil, path: nil
 end
