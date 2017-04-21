@@ -27,7 +27,12 @@ defmodule Tokumei.CommonLogger do
             timestamp = DateTime.to_string(responded_at)
             method = request.method |> to_string
             path = "/" <> (request.path |> Enum.join("/"))
-            query = "" # TODO
+            query = case request.query == %{} do
+              true ->
+                ""
+              false ->
+                "?" <> Plug.Conn.Query.encode(request.query)
+            end
             version = "HTTP/1.1"
             status = response.status |> to_string
 
