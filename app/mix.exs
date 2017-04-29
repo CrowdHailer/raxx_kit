@@ -10,7 +10,7 @@ defmodule Tokumei.Mixfile do
      deps: deps(),
      description: description(),
      docs: [
-       main: "readme",
+       main: "getting-started",
        source_url: "https://github.com/CrowdHailer/Tokumei/tree/master/app",
        extras: [
          "README.md",

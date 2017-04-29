@@ -2,23 +2,6 @@
 
 **Tiny but MIGHTY Elixir webframework**
 
-```elixir
-defmodule MyApp.WWW do
-  Use Tokumei
-
-  @static "./public"
-
-  route ["greeting", name] do
-    :GET ->
-      ok("Hello, #{name}!")
-  end
-
-  error %NotFoundError do
-    not_found("Could not find what you were looking for!")
-  end
-end
-```
-
 ## Dive in
 
 <!-- *Know all about mix and umbrella projects? [Jump onwards to add tokumei in an exitsting project]()* -->

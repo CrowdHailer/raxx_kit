@@ -22,16 +22,17 @@ I call this principle XVC (Mind-your-own-business View Controller).
 
 ## Examples
 
-- **[WaterCooler](water_cooler)** simple chat room, application.
+- **[WaterCooler](water_cooler)** simple chat application.
 - **[Fifteen](fifteen)** fifteen minute blog, built around umbrella applications.
 
 ## Community
 
-Open an issue to chat, FAQ comming soon.
+- [elixir-lang slack channel](https://elixir-lang.slack.com/messages/C56H3TBH8/)
+- *FAQ comming soon.*
 
 ## Development
 
-Local development requires Elixir 1.3+, OR use vagrant box provided.
+Local development requires Elixir 1.4+, OR use vagrant box provided.
 
 ## Testing
 
