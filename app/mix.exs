@@ -15,6 +15,7 @@ defmodule Tokumei.Mixfile do
        extras: [
          "README.md",
          "../guides/getting-started.md",
+         "../guides/security-with-https.md",
          "../guides/writing-middleware-with-macros.md",
          "../guides/why-raxx.md"
        ]
