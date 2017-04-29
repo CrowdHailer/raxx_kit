@@ -157,13 +157,13 @@ Render functions are available for each template and are called with a map of va
 ```elixir
 # :index action
 :GET ->
-  Response.ok(home_page(%{message: "Hello, World!"}))
+  Response.ok(render("home_page.html", %{message: "Hello, World!"}))
 ```
 
 **Content Type**,
 `Tokumei.Templates` will add a content type to the response generated from the render function.
 The content type is derived from the file extension.
-A file called `home_page.html.eex` will generate a render function `home_page/0,1` with a content type `text/html`.
+A file called `home_page.html.eex` will generate a render function setting content type to `text/html`.
 
 ### Static content
 
@@ -340,8 +340,8 @@ By using `ensure_loaded/1` we will only start code reloaded in the appropriate e
 
 - flash, see `Tokumei.Flash`
 - sessions, see `Tokumei.Session.SignedCookies`
-- HTTPS (In progress)
-- middleware, see guide [writing middleware with macros]()
+- HTTPS, see guide [security with HTTPS](https://hexdocs.pm/tokumei/security-with-https.html)
+- middleware, see guide [writing middleware with macros](https://hexdocs.pm/tokumei/writing-middleware-with-macros.html)
 - streaming (In progress, awaiting updated Raxx)
 - large projects router/action_handler/umbrellas
   overkill action handler and domain (In progress)
