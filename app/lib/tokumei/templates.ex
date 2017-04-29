@@ -19,6 +19,9 @@ defmodule Tokumei.Templates do
 
   - A name: filename without eex extension
   - A mime type: derived from the file extension
+
+  TODO a nice error message when a function is called and no files exits.
+  include path where file was looked for and use word diff to come up with a did you mean.
   """
 
   @doc false
