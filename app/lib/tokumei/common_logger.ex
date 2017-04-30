@@ -22,7 +22,7 @@ defmodule Tokumei.CommonLogger do
           %{body: _} ->
             responded_at = DateTime.utc_now
 
-            remote_address = "-" # TODO
+            remote_address = :inet_parse.ntoa(request.peer |> elem(0)) |> to_string()
             remote_user = "-" # TODO
             timestamp = DateTime.to_string(responded_at)
             method = request.method |> to_string
