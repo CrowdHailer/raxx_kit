@@ -3,7 +3,7 @@ defmodule Tokumei.Mixfile do
 
   def project do
     [app: :tokumei,
-     version: "0.6.2",
+     version: "0.6.3",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -32,6 +32,7 @@ defmodule Tokumei.Mixfile do
       {:raxx, "~> 0.11.1"},
       {:raxx_cookie, "~> 0.1.0"},
       {:raxx_static, "~> 0.3.0"},
+      {:ace_http, "~> 0.4.5", optional: true},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end

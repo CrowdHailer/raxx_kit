@@ -28,8 +28,8 @@ We will use `:ace_http` for a webserver.
 
   defp deps do
     [
-      {:tokumei, "~> 0.5"},
-      {:ace_http, "~> 0.2"}
+      {:tokumei, "~> 0.6"},
+      {:ace_http, "~> 0.4"}
     ]
   end
 ```
@@ -69,17 +69,7 @@ defmodule GreetingsApp do
   use Application
 
   def start(_type, _args) do
-    import Supervisor.Spec, warn: false
-
-    config = nil
-    server = {GreetingsApp.WWW, config}
-
-    children = [
-      worker(Ace.HTTP, [server, [port: 8080, name: GreetingsApp.WWW]])
-    ]
-
-    opts = [strategy: :one_for_one, name: GreetingsApp.Supervisor]
-    Supervisor.start_link(children, opts)
+    GreetingsApp.WWW.start_link([port: 8080, name: GreetingsApp.WWW])
   end
 end
 ```

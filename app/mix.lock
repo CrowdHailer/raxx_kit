@@ -1,5 +1,5 @@
-%{"ace": {:hex, :ace, "0.7.1", "bd84cde4653e5e141a4db115987ecca1f4f88821ba4fc988a57f63acfd6d3093", [:mix], []},
-  "ace_http": {:hex, :ace_http, "0.1.3", "808d4d11e7a43241ee88bec798becb186df8258e5b1ec91f9cae14bfeb4d24df", [:mix], [{:ace, "~> 0.7.1", [hex: :ace, optional: false]}, {:http_status, "~> 0.2.0", [hex: :http_status, optional: false]}, {:raxx, "~> 0.10.1", [hex: :raxx, optional: false]}]},
+%{"ace": {:hex, :ace, "0.9.0", "c7255dea811db3ec8b4d461c852f746896de800aba94d3a3afaa0e165edc34e7", [:mix], [], "hexpm"},
+  "ace_http": {:hex, :ace_http, "0.4.5", "3227ec8407f7eecbeeb9026b854c07b28c4f6b2f9617d99d1997788a8c962b46", [:mix], [{:ace, "~> 0.9.0", [hex: :ace, repo: "hexpm", optional: false]}, {:http_status, "~> 0.2.0", [hex: :http_status, repo: "hexpm", optional: false]}, {:raxx, "~> 0.11.1", [hex: :raxx, repo: "hexpm", optional: false]}], "hexpm"},
   "earmark": {:hex, :earmark, "1.2.0", "bf1ce17aea43ab62f6943b97bd6e3dc032ce45d4f787504e3adf738e54b42f3a", [:mix], [], "hexpm"},
   "ex_doc": {:hex, :ex_doc, "0.15.1", "d5f9d588fd802152516fccfdb96d6073753f77314fcfee892b15b6724ca0d596", [:mix], [{:earmark, "~> 1.1", [hex: :earmark, repo: "hexpm", optional: false]}], "hexpm"},
   "gproc": {:hex, :gproc, "0.3.1", "ec14f40cb941bde3f940de59c11e59beb2977e90dbae72fab3ddf77743fd4ea9", [:rebar], []},

@@ -4,6 +4,7 @@ defmodule Tokumei do
   defmacro __using__(_opts) do
     quote do
       use Tokumei.Templates
+      use Tokumei.Service
 
       alias Tokumei.{Flash, Helpers}
       alias Raxx.Response
