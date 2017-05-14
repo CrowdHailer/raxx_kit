@@ -95,7 +95,7 @@ defmodule Tokumei.Router do
   However the following extensions might be useful,
   and can be added if enough usecases are found.
 
-  - [ ] Don't create raxx_path for :unnamed routes
+  - [x] Don't create raxx_path for unnamed routes
   - [ ] Automatically add the 405 Method Not Implemented clause by inspecting matches
   - [ ] Being able to fetch a list of all the routes implemented.
     - simplest is to return all route names, MyRouter.routes() -> [:users, :user, :root]
@@ -151,7 +151,7 @@ defmodule Tokumei.Router do
       import unquote(__MODULE__), only: [route: 2, route: 3, route: 4]
       @before_compile unquote(__MODULE__)
 
-      @route_name :unnamed
+      @route_name nil
     end
   end
 
@@ -171,6 +171,11 @@ defmodule Tokumei.Router do
           handled ->
             handled
         end
+      end
+
+      defp raxx_path(route_name, vars) do
+        # TODO use mix word difference and list of all routes to provide suggestion
+        raise ArgumentError, "No route for #{inspect(route_name)} with path variables #{inspect(vars)}."
       end
 
       def path_to(name, vars \\ []) do
@@ -218,8 +223,10 @@ defmodule Tokumei.Router do
   defmacro route(match, request, config, do: actions) do
     args = Enum.reject(match, &(is_binary(&1)))
     quote do
-      defp raxx_path(@route_name, unquote(args)) do
-        unquote(match)
+      if @route_name do
+        defp raxx_path(@route_name, unquote(args)) do
+          unquote(match)
+        end
       end
       def handle_route(unquote(match), method, unquote(request), unquote(config)) do
         case method do

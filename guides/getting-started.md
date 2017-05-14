@@ -28,8 +28,8 @@ We will use `:ace_http` for a webserver.
 
   defp deps do
     [
-      {:tokumei, "~> 0.6"},
-      {:ace_http, "~> 0.4"}
+      {:tokumei, "~> 0.6.4"},
+      {:ace_http, "~> 0.4.5"}
     ]
   end
 ```
