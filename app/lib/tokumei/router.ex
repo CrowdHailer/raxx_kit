@@ -1,4 +1,35 @@
 defmodule Tokumei.Router do
+  defmodule ActionClauseError do
+    defexception [:block, :match, :request, :config]
+
+    def message(%{block: block, match: match, request: request, config: config}) do
+      block = quote do
+        route unquote(match), unquote(request), unquote(config) do
+          :GET ->
+            unquote(truncate_action(block))
+        end
+      end
+      |> Macro.to_string
+      |> String.split(~r/\R/)
+      |> Enum.map(fn(txt) -> "      " <> txt end)
+      |> Enum.join("\n")
+      |> String.replace("__not_a_function__()", "...")
+
+      """
+      Invalid action. Actions must be grouped by HTTP request method, did you mean.
+
+      #{block}
+      """
+    end
+
+    defp truncate_action({:__block__, env, [l1, l2 | _rest]}) do
+      {:__block__, env, [l1, l2, quote do: __not_a_function__()]}
+    end
+    defp truncate_action(action) do
+      action
+    end
+  end
+
   @moduledoc """
   Route incoming HTTP requests by path and method.
 
@@ -199,7 +230,7 @@ defmodule Tokumei.Router do
   """
   defmacro route(match, do: actions) do
     quote do
-      route unquote(match), _, _, do: unquote(actions)
+      route unquote(match), _request, _config, do: unquote(actions)
     end
   end
 
@@ -209,7 +240,7 @@ defmodule Tokumei.Router do
   """
   defmacro route(match, request, do: actions) do
     quote do
-      route unquote(match), unquote(request), _, do: unquote(actions)
+      route unquote(match), unquote(request), _config, do: unquote(actions)
     end
   end
 
@@ -220,7 +251,8 @@ defmodule Tokumei.Router do
   All incoming requests are tested against the routes in the order they are defined.
   If a request matches then the route action is invoked.
   """
-  defmacro route(match, request, config, do: actions) do
+  # TODO test for unexpected methods
+  defmacro route(match, request, config, do: actions = [{:->, _, _} | _]) do
     args = Enum.reject(match, &(is_binary(&1)))
     quote do
       if @route_name do
@@ -234,5 +266,8 @@ defmodule Tokumei.Router do
         end
       end
     end
+  end
+  defmacro route(match, request, config, do: block) do
+    raise %ActionClauseError{block: block, match: match, request: request, config: config}
   end
 end
