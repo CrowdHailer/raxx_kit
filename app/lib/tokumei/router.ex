@@ -30,6 +30,27 @@ defmodule Tokumei.Router do
     end
   end
 
+  defmodule UndefinedRouteError do
+    defexception [:attempt, :routes, :variables]
+
+    def message(%{attempt: attempt, variables: variables, routes: routes}) do
+      available = for {route, args} <- routes do
+        distance = String.jaro_distance("#{attempt}", "#{route}")
+        {distance, route, args}
+      end
+      |> Enum.sort(&elem(&1, 0) >= elem(&2, 0))
+      |> Enum.take(3)
+      |> Enum.map(fn({_diff, name, args}) -> "      - (:#{name}, #{args})" end)
+      |> Enum.join("\n")
+
+      """
+      route (#{attempt}, #{inspect(variables)} )is undefined. Did you mean one of:
+
+      #{available}
+      """
+    end
+  end
+
   @moduledoc """
   Route incoming HTTP requests by path and method.
 
@@ -128,7 +149,7 @@ defmodule Tokumei.Router do
 
   - [x] Don't create raxx_path for unnamed routes
   - [ ] Automatically add the 405 Method Not Implemented clause by inspecting matches
-  - [ ] Being able to fetch a list of all the routes implemented.
+  - [x] Being able to fetch a list of all the routes implemented.
     - simplest is to return all route names, MyRouter.routes() -> [:users, :user, :root]
     - useful to return representation of paths, but have to be built from match
       - :user "[\"users\", id]" # built using Macro.to_string
@@ -182,6 +203,7 @@ defmodule Tokumei.Router do
       import unquote(__MODULE__), only: [route: 2, route: 3, route: 4]
       @before_compile unquote(__MODULE__)
 
+      Module.register_attribute(__MODULE__, :routes, accumulate: true)
       @route_name nil
     end
   end
@@ -204,9 +226,8 @@ defmodule Tokumei.Router do
         end
       end
 
-      defp raxx_path(route_name, vars) do
-        # TODO use mix word difference and list of all routes to provide suggestion
-        raise ArgumentError, "No route for #{inspect(route_name)} with path variables #{inspect(vars)}."
+      defp raxx_path(attempt, variables) do
+        raise %UndefinedRouteError{attempt: attempt, variables: variables, routes: @routes}
       end
 
       def path_to(name, vars \\ []) do
@@ -220,6 +241,10 @@ defmodule Tokumei.Router do
         path = raxx_path(name, List.wrap(vars))
         request = %{request | path: path}
         Tokumei.Patch.request_to_url(request)
+      end
+
+      def routes do
+        @routes
       end
     end
   end
@@ -256,9 +281,11 @@ defmodule Tokumei.Router do
     args = Enum.reject(match, &(is_binary(&1)))
     quote do
       if @route_name do
+        @routes {@route_name, unquote(Macro.to_string(args))}
         defp raxx_path(@route_name, unquote(args)) do
           unquote(match)
         end
+        @route_name nil
       end
       def handle_route(unquote(match), method, unquote(request), unquote(config)) do
         case method do

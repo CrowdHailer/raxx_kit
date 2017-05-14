@@ -39,9 +39,9 @@ defmodule Tokumei.RouterTest do
   ## Variable path routing
 
   @route_name :user
-  route ["users", id] do
+  route ["users", user_id] do
     :GET ->
-      {:get_user, id}
+      {:get_user, user_id}
   end
 
   test "matches with path variables" do
@@ -78,5 +78,12 @@ defmodule Tokumei.RouterTest do
     request = Request.get("/system")
     config = :some_config
     assert {request, config} == handle_request(request, config)
+  end
+
+  # Enumerating routes
+
+  test "all named routes are listed" do
+    assert {:user, "[user_id]"} == routes |> List.keyfind(:user, 0)
+    assert {:users, "[]"} == routes |> List.keyfind(:users, 0)
   end
 end
