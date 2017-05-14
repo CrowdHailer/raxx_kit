@@ -83,7 +83,7 @@ defmodule Tokumei.RouterTest do
   # Enumerating routes
 
   test "all named routes are listed" do
-    assert {:user, "[user_id]"} == routes |> List.keyfind(:user, 0)
-    assert {:users, "[]"} == routes |> List.keyfind(:users, 0)
+    assert {:user, "[user_id]"} == routes() |> List.keyfind(:user, 0)
+    assert {:users, "[]"} == routes() |> List.keyfind(:users, 0)
   end
 end

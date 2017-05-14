@@ -192,7 +192,7 @@ defmodule Tokumei.Router do
         ```
     - Simplifies knowing about methods implemented if setup as kwlist not match
     - Perhaps belongs as separate dispatcher (or similar named module)
-  - [ ] handle situation where a super value is not defined
+  - [x] handle situation where a super value is not defined
     - `Module.defines?(__MODULE__, {:handle_request, 2})`
   - [ ] Gateway functionality for direct forwarding to {ip, port}, hashtag microservices
   - [ ] Handle globbing eg `["stuff" | rest]`.
@@ -215,15 +215,19 @@ defmodule Tokumei.Router do
         {:error, {unquote(__MODULE__), :not_found}}
       end
 
-      defoverridable [handle_request: 2]
-      def handle_request(request = %{path: path, method: method}, config) do
-        handle_route(path, method, request, config)
-        |> case do
-          {:error, {unquote(__MODULE__), :not_found}} ->
-            super(request, config)
-          handled ->
-            handled
+      if Module.defines?(__MODULE__, {:handle_request, 2}) do
+        defoverridable [handle_request: 2]
+        def handle_request(request = %{path: path, method: method}, config) do
+          case handle_route(path, method, request, config) do
+            {:error, {unquote(__MODULE__), :not_found}} ->
+              super(request, config)
+            handled ->
+              handled
+            end
         end
+      else
+        # TODO raise not found exception, then the combo of NotFound and ErrorHandler wrap router and router makes not assumptions about return shape.
+        raise "`handle_request/2` fallback must be implemented with Tokumei.Router, try using Tokumei.NotFound first."
       end
 
       defp raxx_path(attempt, variables) do
