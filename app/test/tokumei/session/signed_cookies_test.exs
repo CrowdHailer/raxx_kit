@@ -60,7 +60,7 @@ defmodule Tokumei.Session.SignedCookiesTest do
 
     response = handle_request(Request.delete("/session", headers), nil)
     headers = get_all_set_cookies(response)
-    assert "tokumei.session=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Path=/; HttpOnly" == List.last(headers)
+    assert "tokumei.session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; HttpOnly" == List.last(headers)
   end
 
   defp set_cookie_to_sent_cookie(value) do

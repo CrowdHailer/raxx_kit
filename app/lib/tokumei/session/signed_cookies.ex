@@ -49,6 +49,7 @@ defmodule Tokumei.Session.SignedCookies do
 
   There are also limitations to the number and size of cookies that a browser will persist.
 
+  *ALSO*, should cookie attribute be captialized Path=/ or path=/
   """
 
   defmodule UnspecifiedSecretError do
@@ -146,8 +147,8 @@ defmodule Tokumei.Session.SignedCookies do
   def extract(request, opts) do
     {:ok, secret} = Keyword.fetch(opts, :secret)
     cookies = :proplists.get_all_values("cookie", request.headers)
-    |> Enum.map(fn(cookie) ->
-      Plug.Conn.Cookies.decode(cookie)
+    |> Enum.map(fn(cookie_string) ->
+      Cookie.parse(cookie_string)
     end)
     |> Enum.reduce(%{}, fn(i, acc) -> Map.merge(acc, i) end)
 
@@ -185,7 +186,7 @@ defmodule Tokumei.Session.SignedCookies do
       ...> |> SignedCookies.embed(%{"foo" => "bar"}, secret: "secret")
       ...> |> Map.get(:headers)
       ...> |> List.first
-      {"set-cookie", "foo=bar; Path=/; HttpOnly"}
+      {"set-cookie", "foo=bar; path=/; HttpOnly"}
 
       # A signature is set as a final cookie
       iex> Response.ok()
@@ -193,7 +194,7 @@ defmodule Tokumei.Session.SignedCookies do
       ...> |> Map.get(:headers)
       ...> |> List.last
       {"set-cookie",
-        "tokumei.session=foo -- yjdW%2BB03KKAjvcimIsCQbzc7eV4%3D; Path=/; HttpOnly"}
+        "tokumei.session=foo -- yjdW%2BB03KKAjvcimIsCQbzc7eV4%3D; path=/; HttpOnly"}
   """
   def embed(response = %{headers: headers}, session, opts) do
     secret = case Keyword.get(opts, :secret) do
@@ -212,13 +213,10 @@ defmodule Tokumei.Session.SignedCookies do
 
     hallmark = Enum.join(keys, " ") <> " -- " <> signature
 
-    # CookieSpec/SetCookie struct should have to string implemented
-    session_cookie = Raxx.Cookie.new("tokumei.session", hallmark, path: "/", http_only: true)
-    |> Raxx.Cookie.set_cookie_string()
+    session_cookie = SetCookie.serialize("tokumei.session", hallmark)
 
-    cookie_headers = Enum.map(session, fn({k, v}) ->
-      cookie = Raxx.Cookie.new(k, v, path: "/", http_only: true)
-      {"set-cookie", Raxx.Cookie.set_cookie_string(cookie)}
+    cookie_headers = Enum.map(session, fn({key, value}) ->
+      {"set-cookie", SetCookie.serialize(key, value)}
     end) ++ [{"set-cookie", session_cookie}]
     %{response | headers: headers ++ cookie_headers}
   end
@@ -236,7 +234,7 @@ defmodule Tokumei.Session.SignedCookies do
       ...> |> Map.get(:headers)
       ...> |> List.last()
       {"set-cookie",
-        "tokumei.session=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Path=/; HttpOnly"}
+        "tokumei.session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; HttpOnly"}
 
       # Expire the cookie for each key.
       iex> Response.ok()
@@ -244,8 +242,7 @@ defmodule Tokumei.Session.SignedCookies do
       ...> |> Map.get(:headers)
       ...> |> List.first()
       {"set-cookie",
-        "foo=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Path=/; HttpOnly"}
-
+        "foo=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; HttpOnly"}
 
   """
   def delete(response = %{headers: headers}, keys, _opts) do
@@ -255,12 +252,9 @@ defmodule Tokumei.Session.SignedCookies do
     %{response | headers: headers ++ cookie_headers}
   end
 
-  # TODO move to Raxx.SetCookie
   @doc false
   def expire_header(key) do
-    value = Raxx.Cookie.new(key, "", path: "/", http_only: true, expires: {{1970,1,1}, {0,0,0}})
-    |> Raxx.Cookie.set_cookie_string
-    {"set-cookie", value}
+    {"set-cookie", SetCookie.expire(key)}
   end
 
   defp create_digest(signing_string, secret) do
