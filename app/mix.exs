@@ -3,7 +3,7 @@ defmodule Tokumei.Mixfile do
 
   def project do
     [app: :tokumei,
-     version: "0.6.4",
+     version: "0.6.5",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,

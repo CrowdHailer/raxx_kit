@@ -22,7 +22,7 @@ defmodule Tokumei.Router do
       """
     end
 
-    defp truncate_action({:__block__, env, [l1, l2 | _rest]}) do
+    defp truncate_action({:__block__, env, [l1, l2, _l3 | _rest]}) do
       {:__block__, env, [l1, l2, quote do: __not_a_function__()]}
     end
     defp truncate_action(action) do
@@ -282,6 +282,8 @@ defmodule Tokumei.Router do
   """
   # TODO test for unexpected methods
   defmacro route(match, request, config, do: actions = [{:->, _, _} | _]) do
+    # DEBT Only try to work out args if @route_name given,
+    # Trying to calculate args rules out certain classes of match
     args = Enum.reject(match, &(is_binary(&1)))
     quote do
       if @route_name do
