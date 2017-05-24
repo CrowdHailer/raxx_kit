@@ -1,4 +1,0 @@
-# Baobab
-
-**TODO: Add description**
-
