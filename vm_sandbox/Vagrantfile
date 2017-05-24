@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
 
     dev.vm.network "forwarded_port", guest: 8080, host: 8080
     dev.vm.network "forwarded_port", guest: 8443, host: 8443
-    dev.vm.provision "shell", path: "./provision.sh"
+    dev.vm.provision "shell", path: "./provision/development.sh"
 
     dev.vm.provider "virtualbox" do |v|
       # Running Dialyzer takes up a lot of memory and does not give useful errors if it runs out of memory.
