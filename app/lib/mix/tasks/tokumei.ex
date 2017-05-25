@@ -40,16 +40,16 @@ defmodule Mix.Tasks.Tokumei.New do
 
   defp generate(app_name, app_module, bindings) do
     this_dir = Path.dirname(__ENV__.file)
-    template_files = Path.expand("./**/*", this_dir) |> Path.wildcard
+    template_files = Path.expand("./**/*", this_dir) |> Path.wildcard(match_dot: true)
     for template_file <- template_files do
-      case String.split(template_file, ".eex") do
+      case String.split(template_file, ~r/\.eex$/) do
         [file_name, ""] ->
           path = Path.relative_to(file_name, Path.expand("./template", this_dir))
           case File.read(template_file) do
             {:ok, template} ->
+              path = String.replace(path, "app_name", app_name)
               File.mkdir_p!(Path.dirname(path))
               contents = EEx.eval_string(template, bindings)
-              path = String.replace(path, "app_name", app_name)
               File.write!(path, contents)
             {:error, :eisdir} ->
               :nope
@@ -58,8 +58,8 @@ defmodule Mix.Tasks.Tokumei.New do
           path = Path.relative_to(file_name, Path.expand("./template", this_dir))
           case File.read(template_file) do
             {:ok, contents} ->
-              File.mkdir_p!(Path.dirname(path))
               path = String.replace(path, "app_name", app_name)
+              File.mkdir_p!(Path.dirname(path))
               File.write!(path, contents)
             {:error, :eisdir} ->
               :nope

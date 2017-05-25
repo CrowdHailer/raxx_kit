@@ -1,12 +1,7 @@
 defmodule <%= app_module %> do
-  use Tokumei
 
-  config :port, 8080
-  config :static, "./public"
-  config :templates, "./templates"
-
-  route "/" do
-    get(_request) ->
-      ok("Hello <%= app_name %>")
+  def greet(entity, %{greeting: greeting}) do
+    "#{greeting}, #{entity}"
   end
+
 end

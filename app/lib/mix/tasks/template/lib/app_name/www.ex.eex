@@ -1,0 +1,17 @@
+defmodule <%= app_module %>.WWW do
+  use Tokumei
+
+  @route_name :home
+  route [], _request, config do
+    :GET ->
+      message = <%= app_module %>.greet("World", config)
+
+      body = render("home.html", %{message: message})
+      Response.ok(body)
+  end
+
+  error %NotFoundError{} do
+    body = render("404.html", %{link: path_to(:home, [])})
+    Response.not_found(body)
+  end
+end

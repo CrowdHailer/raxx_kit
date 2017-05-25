@@ -43,11 +43,12 @@ defmodule Tokumei.Templates do
       require Tokumei.Path
       require EEx
       dir = Tokumei.Path.to(unquote(root))
-      @external_resource unquote(root)
+      @external_resource dir
       Module.eval_quoted(__MODULE__, quote do
         def render(name, assigns)
       end)
 
+      # TODO handle when no templates
       file_paths = Path.expand("./*.eex", dir) |> Path.wildcard
       for file_path <- file_paths do
         case Tokumei.Templates.comprehend_path(file_path) do
