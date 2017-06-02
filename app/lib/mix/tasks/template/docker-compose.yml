@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  web:
+    build:
+      context: "."
+      dockerfile: "Dockerfile"
+    environment:
+      - PORT=8080
+      - SECURE_PORT=8443
+    ports:
+      - 80:8080
+      - 443:8443
+      - 4001:4001
+    volumes:
+      - .:/app
+    command: sh start.sh

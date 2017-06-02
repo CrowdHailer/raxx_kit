@@ -4,13 +4,18 @@ FROM elixir:1.4.4
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2017-06-01
+ENV REFRESHED_AT=2017-06-02
 
-COPY tokumei-0.6.5.ez /app/tokumei-0.6.5.ez
-RUN cd /app && mix archive.install --force tokumei-0.6.5.ez
+RUN apt-get update && apt-get install -y inotify-tools
 
-WORKDIR /tmp
+RUN mix local.hex --force && mix local.rebar --force
 
-RUN pwd
+COPY mix.* /app/
+COPY config /app/config
+RUN cd /app && mix deps.get && mix deps.compile
 
-ENTRYPOINT ["mix", "tokumei.new"]
+COPY . /app
+
+WORKDIR /app
+
+CMD iex -S mix

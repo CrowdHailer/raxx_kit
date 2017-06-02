@@ -18,22 +18,26 @@ visit [localhost:8080](localhost:8080])
 
 ## Usage
 
-1. Explore the water cooler example in this [repository](https://github.com/CrowdHailer/Tokumei/tree/master/water_cooler).
-2. Documentation is available, [on hexdocs](https://hexdocs.pm/tokumei/), for all middleware modules.
-    - `Tokumei.Router`
-    - `Tokumei.ErrorHandler`
-    - `Tokumei.Flash.Query`
-    - `Tokumei.Session.SignedCookies`
-    - `Tokumei.ContentLength`
-    - `Tokumei.MethodOverride`
-    - `Tokumei.Static`
-    - `Tokumei.Head`
-    - `Tokumei.CommonLogger`
 
 ```
+mix archive.build
 docker build . -t installer
 docker run -v $(pwd):/tmp installer mix tokumei.new my_app
 ```
-
 TODO need to `sudo chown $USER:$USER <project>`
 be nice to fix this although I think it is linux only.
+
+```
+cd my_app
+docker-compose up --build -d
+```
+There is code reloading but for ex files only at the moment
+
+```
+docker ps
+docker exec -it <container-d> iex --sname debug --cookie secret
+iex>
+Node.connect(:"web@172.19.0.4")
+```
+
+Containers can be named so don't need to lookup id. after that they can only scale to one instance
