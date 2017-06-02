@@ -29,3 +29,11 @@ visit [localhost:8080](localhost:8080])
     - `Tokumei.Static`
     - `Tokumei.Head`
     - `Tokumei.CommonLogger`
+
+```
+docker build . -t installer
+docker run -v $(pwd):/tmp installer mix tokumei.new my_app
+```
+
+TODO need to `sudo chown $USER:$USER <project>`
+be nice to fix this although I think it is linux only.

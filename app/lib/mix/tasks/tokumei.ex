@@ -19,9 +19,11 @@ defmodule Mix.Tasks.Tokumei.New do
     # if Mix.shell.yes?("continue?") do
     if true do
       File.mkdir_p!(project_path)
+      |> IO.inspect
       File.cd!(project_path, fn() ->
         generate(app_name, app_module, [app_name: app_name, app_module: app_module])
       end)
+      |> IO.inspect
       """
       Your Tokumei project was created successfully.
 
@@ -38,32 +40,38 @@ defmodule Mix.Tasks.Tokumei.New do
     end
   end
 
+  template_location = Path.join(__DIR__, "./**/*")
+  template_files = Path.wildcard(template_location, match_dot: true)
+  templates = for template_file <- template_files do
+    case File.read(template_file) do
+      {:ok, template} ->
+        path = Path.relative_to(template_file, Path.expand("./template", __DIR__))
+        case String.split(path, ~r/\.eex$/) do
+          [path, ""] ->
+            {:eex, path, template}
+          [path] ->
+            {:raw, path, template}
+        end
+      {:error, :eisdir} ->
+        :nope
+    end
+  end
+  @templates templates
+
   defp generate(app_name, app_module, bindings) do
-    this_dir = Path.dirname(__ENV__.file)
-    template_files = Path.expand("./**/*", this_dir) |> Path.wildcard(match_dot: true)
-    for template_file <- template_files do
-      case String.split(template_file, ~r/\.eex$/) do
-        [file_name, ""] ->
-          path = Path.relative_to(file_name, Path.expand("./template", this_dir))
-          case File.read(template_file) do
-            {:ok, template} ->
-              path = String.replace(path, "app_name", app_name)
-              File.mkdir_p!(Path.dirname(path))
-              contents = EEx.eval_string(template, bindings)
-              File.write!(path, contents)
-            {:error, :eisdir} ->
-              :nope
-          end
-        [file_name] ->
-          path = Path.relative_to(file_name, Path.expand("./template", this_dir))
-          case File.read(template_file) do
-            {:ok, contents} ->
-              path = String.replace(path, "app_name", app_name)
-              File.mkdir_p!(Path.dirname(path))
-              File.write!(path, contents)
-            {:error, :eisdir} ->
-              :nope
-          end
+    for template <- @templates do
+      case template do
+        :nope ->
+          :nope
+        {:eex, path, template} ->
+          path = String.replace(path, "app_name", app_name)
+          File.mkdir_p!(Path.dirname(path))
+          contents = EEx.eval_string(template, bindings)
+          File.write!(path, contents)
+        {:raw, path, contents} ->
+          path = String.replace(path, "app_name", app_name)
+          File.mkdir_p!(Path.dirname(path))
+          File.write!(path, contents)
       end
     end
   end
