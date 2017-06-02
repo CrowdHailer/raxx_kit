@@ -1,5 +1,6 @@
 version: '2'
 
+# Add commented out loadbalancer and instructions to remove ports for scaling
 services:
   web:
     build:
