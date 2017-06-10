@@ -40,6 +40,8 @@ defmodule Mix.Tasks.Embark do
     end
   end
 
+  {:module, _} = Code.ensure_loaded(Embark)
+  |> IO.inspect
   template_dir = Embark.template_dir()
   |> IO.inspect
   template_location = Path.join(template_dir, "./**/*")
