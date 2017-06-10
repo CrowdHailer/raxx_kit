@@ -1,14 +1,14 @@
-defmodule Mix.Tasks.Tokumei.New do
+defmodule Mix.Tasks.Embark do
   use Mix.Task
   @shortdoc "Shiny new Tokumei application. :-)"
   @moduledoc """
   ```
-  mix tokumei.new <app_dir>
+  mix embark <app_dir>
   ```
   """
 
   def run([]) do
-    Mix.Tasks.Help.run ["tokumei.new"]
+    Mix.Tasks.Help.run ["embark"]
   end
 
   @safe_app_name ~r/^[a-z][\w_]*$/
@@ -25,7 +25,7 @@ defmodule Mix.Tasks.Tokumei.New do
       end)
       |> IO.inspect
       """
-      Your Tokumei project was created successfully.
+      Your project was created successfully.
 
       Get started:
 
@@ -40,12 +40,16 @@ defmodule Mix.Tasks.Tokumei.New do
     end
   end
 
-  template_location = Path.join(__DIR__, "./**/*")
+  template_dir = Embark.template_dir()
+  |> IO.inspect
+  template_location = Path.join(template_dir, "./**/*")
+  |> IO.inspect
   template_files = Path.wildcard(template_location, match_dot: true)
+  |> IO.inspect
   templates = for template_file <- template_files do
     case File.read(template_file) do
       {:ok, template} ->
-        path = Path.relative_to(template_file, Path.expand("./template", __DIR__))
+        path = Path.relative_to(template_file, template_dir)
         case String.split(path, ~r/\.eex$/) do
           [path, ""] ->
             {:eex, path, template}
