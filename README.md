@@ -2,6 +2,13 @@
 
 **Tiny yet MIGHTY Elixir webframework**
 
+```
+docker run -v $(pwd):/tmp tokumei/embark hello_tokumei
+cd hello_tokumei
+docker-compose run web mix deps.get
+docker-compose up
+```
+
 ### Foundations not framework
 
 Tokumei is the foundation for building web interfaces.

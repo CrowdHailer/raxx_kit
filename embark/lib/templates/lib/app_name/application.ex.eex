@@ -20,7 +20,7 @@ defmodule <%= app_module %>.Application do
       worker(<%= app_module %>.WWW, [config, [port: secure_port, tls: tls_options]], id: :https)
     ]
 
-    opts = [strategy: :one_for_one, name: WaterCooler.Supervisor]
+    opts = [strategy: :one_for_one, name: <%= app_module %>.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
