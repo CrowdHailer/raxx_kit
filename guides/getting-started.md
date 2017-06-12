@@ -1,6 +1,27 @@
 # Getting started
 
-## Installation
+```
+docker run -v $(pwd):/tmp tokumei/embark hello_tokumei
+cd hello_tokumei
+docker-compose up
+```
+
+Visit [localhost:8080](http://localhost:8080) from your browser.
+
+See your new projects `README.md` for working with your new service.
+
+*Don't have docker installed? see Manual setup below.*
+
+#### For linux users
+
+The generated project will be created by the docker user.
+Run the following (before changing into project directory) to change permissions.
+
+```
+sudo chown -R $USER:$USER hello_tokumei
+```
+
+## Manual setup
 
 ### Create a new mix project
 

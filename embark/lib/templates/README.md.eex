@@ -1,19 +1,41 @@
 # <%= app_module %>
 
-**TODO: Add description**
+### Start services
 
-## Usage
+```
+docker-compose up
+```
+*Use `-d` to run in background.*
 
-  1. fetch dependencies
+- visit http://localhost:8080 for web service via HTTP.
+- visit https://localhost:8443 for web service via HTTPS. *Requires TLS certificate setup.*
+- visit http://localhost:4001 to view service metrics.
 
-    ```
-    mix deps.get
-    ```
+### Run tests
 
-  2. start application
+```
+docker-compose run web mix test
+```
 
-    ```
-    iex -S mix
-    ```
+### Rebuild services
 
-  3. visit application at [localhost:8080](localhost:8080)
+Most changes to the source code will automatically be reflected in the running service. However some changes, e.g. to templates and config files require the service to be rebuilt.
+
+```
+docker-compose build
+```
+
+### Fetch depenencies
+
+```
+docker-compose run web mix deps.get
+```
+
+*The service will need to be rebuilt after fetching new dependencies*
+
+### Connect to running node
+
+Look up container id for running service
+```
+docker exec -it <container-id> sh ./debug.sh
+```
