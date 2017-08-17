@@ -1,6 +1,0 @@
-[submodule "server/apps/raxx"]
-	path = server/apps/raxx
-	url = git@github.com:CrowdHailer/raxx.git
-[submodule "server/apps/ace"]
-	path = server/apps/ace
-	url = git@github.com:CrowdHailer/ace.git
