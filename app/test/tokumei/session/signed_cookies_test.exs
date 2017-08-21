@@ -49,7 +49,7 @@ defmodule Tokumei.Session.SignedCookiesTest do
     headers2 = get_all_set_cookies(response)
     |> Enum.map(&set_cookie_to_sent_cookie/1)
 
-    assert headers2 = [
+    assert headers2 == [
       {"cookie", "second="},
       {"cookie", "first=baz"},
       {"cookie", "tokumei.session=first -- UAz8f8syzn37Fn%2Fp8PvDyRa0zXk%3D"}]
