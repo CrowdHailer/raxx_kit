@@ -40,9 +40,8 @@ defmodule Tokumei.Templates do
     root = Keyword.get(opts, :at, "./templates")
 
     quote do
-      require Tokumei.Path
       require EEx
-      dir = Tokumei.Path.to(unquote(root))
+      dir = Path.join(__DIR__, unquote(root))
       @external_resource dir
       Module.eval_quoted(__MODULE__, quote do
         def render(name, assigns)
