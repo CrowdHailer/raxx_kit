@@ -18,6 +18,7 @@ defmodule Tokumei.ContentLength do
               {:error, :field_value_not_specified} ->
                 Raxx.ContentLength.set(response, :erlang.iolist_size(response.body))
             end
+          # TODO no chunked in latest
           upgrade = %Raxx.Chunked{} ->
             upgrade
           other ->

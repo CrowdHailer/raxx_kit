@@ -20,6 +20,7 @@ defmodule Tokumei.Head do
               %{response | body: ""}
 
             # TODO don't send chunked content just send the headers saying you would
+            # TODO no chunked in latest
             upgrade = %Raxx.Chunked{} ->
               upgrade
           end
