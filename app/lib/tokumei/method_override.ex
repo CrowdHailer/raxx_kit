@@ -1,5 +1,7 @@
 defmodule Tokumei.MethodOverride do
   @moduledoc """
+  Deprecated temporarily while migrating to raxx streaming.
+
   Allows browser submitted forms to use HTTP verbs other than `POST`.
 
   Only the `POST` method can be overridden,
@@ -89,6 +91,7 @@ defmodule Tokumei.MethodOverride do
   end
 
   defmacro __using__(_opts) do
+    raise "Deprecated temporarily while migrating to raxx streaming."
     quote do
       @before_compile unquote(__MODULE__)
     end

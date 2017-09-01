@@ -4,5 +4,6 @@ defmodule Tokumei.FlashTest do
   alias Raxx.Response
   alias Raxx.Request
   alias Tokumei.Flash
-  doctest Tokumei.Flash
+  # TODO reimplement flash
+  # doctest Tokumei.Flash
 end

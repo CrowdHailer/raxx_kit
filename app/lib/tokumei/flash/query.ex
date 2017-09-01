@@ -1,5 +1,7 @@
 defmodule Tokumei.Flash.Query do
   @moduledoc """
+  Deprecated temporarily while migrating to raxx streaming.
+
   Store flash messages as part of a url's query.
 
   See `Tokumei.Flash` for documentation on reading and writing flash messages.
@@ -21,6 +23,7 @@ defmodule Tokumei.Flash.Query do
   end
 
   defmacro __using__(_opts) do
+    raise "Deprecated temporarily while migrating to raxx streaming."
     quote do
       @before_compile unquote(__MODULE__)
     end

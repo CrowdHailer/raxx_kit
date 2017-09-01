@@ -1,17 +1,8 @@
 defmodule <%= app_module %>.WWW do
-  use Tokumei
+  use Raxx.BluePrint, Path.join(__DIR__, "www.apib")
+  use Raxx.Static, Path.join(__DIR__, "public")
 
-  @route_name :home
-  route [], _request, config do
-    :GET ->
-      message = <%= app_module %>.greet("World", config)
-
-      body = render("home.html", %{message: message})
-      Response.ok(body)
-  end
-
-  error %NotFoundError{} do
-    body = render("404.html", %{link: path_to(:home, [])})
-    Response.not_found(body)
+  def start_link(config, options) do
+    Ace.HTTP2.Service.start_link({__MODULE__, config}, options)
   end
 end

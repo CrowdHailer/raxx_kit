@@ -1,10 +1,13 @@
 defmodule Tokumei.Head do
   @moduledoc """
+  Deprecated temporarily while migrating to raxx streaming.
+
   Transform HEAD requests to GET requests.
 
   Returns responses with the body removed.
   """
   defmacro __using__(_opts) do
+    raise "Deprecated temporarily while migrating to raxx streaming."
     quote location: :keep do
       @before_compile unquote(__MODULE__)
     end

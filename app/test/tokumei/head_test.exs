@@ -4,23 +4,26 @@ defmodule Tokumei.HeadTest do
   alias Raxx.Request
   alias Raxx.Response
 
-  use Tokumei.Head
+  # use Tokumei.Head
 
   def handle_request(%{method: :GET}, _), do: Response.ok("GET")
   def handle_request(%{method: :POST}, _), do: Response.ok("POST")
 
+  @tag :skip
   test "head request returns get request without content" do
     response = Request.head("/") |> handle_request(:config)
     assert 200 == response.status
     assert "" == response.body
   end
 
+  @tag :skip
   test "GET requests are unmodified" do
     response = Request.get("/") |> handle_request(:config)
     assert 200 == response.status
     assert "GET" == response.body
   end
 
+  @tag :skip
   test "POST requests are unmodified" do
     response = Request.post("/") |> handle_request(:config)
     assert 200 == response.status

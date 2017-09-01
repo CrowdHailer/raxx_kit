@@ -1,11 +1,7 @@
-%{"ace": {:hex, :ace, "0.9.3", "02014d60aa5dae0350a7653e6658f25a4cab668accd56815f1d8bd757810ed58", [:mix], [], "hexpm"},
-  "ace_http": {:hex, :ace_http, "0.4.6", "2c87be7837a78bb6ae9406a09c54055936d812bf70215a6732cd949bbb66352a", [:mix], [{:ace, "~> 0.9.2", [hex: :ace, repo: "hexpm", optional: false]}, {:http_status, "~> 0.2.0", [hex: :http_status, repo: "hexpm", optional: false]}, {:raxx, "~> 0.11.1", [hex: :raxx, repo: "hexpm", optional: false]}], "hexpm"},
-  "cookie": {:hex, :cookie, "0.1.0", "4321c09d47db89c095cdee82afa44a6ccabf2755f2257d07a617d89f9d52715e", [:mix], [], "hexpm"},
+%{"cookie": {:hex, :cookie, "0.1.0", "4321c09d47db89c095cdee82afa44a6ccabf2755f2257d07a617d89f9d52715e", [:mix], [], "hexpm"},
   "earmark": {:hex, :earmark, "1.2.3", "206eb2e2ac1a794aa5256f3982de7a76bf4579ff91cb28d0e17ea2c9491e46a4", [:mix], [], "hexpm"},
   "ex_doc": {:hex, :ex_doc, "0.16.3", "cd2a4cfe5d26e37502d3ec776702c72efa1adfa24ed9ce723bb565f4c30bd31a", [:mix], [{:earmark, "~> 1.1", [hex: :earmark, repo: "hexpm", optional: false]}], "hexpm"},
-  "gproc": {:hex, :gproc, "0.3.1", "ec14f40cb941bde3f940de59c11e59beb2977e90dbae72fab3ddf77743fd4ea9", [:rebar], []},
-  "http_status": {:hex, :http_status, "0.2.1", "74fa942b5874966a25088162e5297ad52dd5e6a29b88ad4a73953aa55e58e3bb", [:mix], [], "hexpm"},
+  "http_status": {:hex, :http_status, "0.2.2", "9710b536e42aaf2eedf1a5c3543b16dc459088dcfa41f80998ea2ba3715f35e6", [:mix], [], "hexpm"},
   "mime": {:hex, :mime, "1.1.0", "01c1d6f4083d8aa5c7b8c246ade95139620ef8effb009edde934e0ec3b28090a", [:mix], [], "hexpm"},
   "plug": {:hex, :plug, "1.4.3", "236d77ce7bf3e3a2668dc0d32a9b6f1f9b1f05361019946aae49874904be4aed", [:mix], [{:cowboy, "~> 1.0.1 or ~> 1.1", [hex: :cowboy, repo: "hexpm", optional: true]}, {:mime, "~> 1.0", [hex: :mime, repo: "hexpm", optional: false]}], "hexpm"},
-  "raxx": {:hex, :raxx, "0.11.1", "9e2e8955fae9ecd33dc0a6d9cd50d083b209f3c859c548db0197ce39b9247146", [:mix], [{:http_status, "~> 0.2", [hex: :http_status, repo: "hexpm", optional: false]}, {:mime, "~> 1.0", [hex: :mime, repo: "hexpm", optional: false]}, {:plug, "~> 1.2", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
-  "raxx_static": {:hex, :raxx_static, "0.3.0", "1c49edf960227e7125a388355fcc8a2419fea52d6f36cc6cc09d9efb854b0a87", [:mix], [{:raxx, "~> 0.11.0", [hex: :raxx, repo: "hexpm", optional: false]}], "hexpm"}}
+  "raxx": {:hex, :raxx, "0.12.0", "7d9b94ca7ea77bd498de973780b1def799fb78906fe3007dc4acf47661940258", [:mix], [{:http_status, "~> 0.2", [hex: :http_status, repo: "hexpm", optional: false]}, {:mime, "~> 1.0", [hex: :mime, repo: "hexpm", optional: false]}, {:plug, "~> 1.2", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"}}

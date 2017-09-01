@@ -1,5 +1,6 @@
 defmodule Tokumei.Session.SignedCookies do
   @moduledoc """
+  Deprecated temporarily while migrating to raxx streaming.
   Cookie based session storage.
 
   `Tokumei.Session.SignedCookies` can be added as a middleware.
@@ -57,6 +58,7 @@ defmodule Tokumei.Session.SignedCookies do
   end
 
   defmacro __using__(_opts) do
+    raise "Deprecated temporarily while migrating to raxx streaming."
     quote do
       @before_compile unquote(__MODULE__)
       @secret nil

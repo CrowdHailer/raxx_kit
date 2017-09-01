@@ -42,10 +42,10 @@ defmodule Raxx.Static do
     # Should make use of Response.ok({file: filename})
     case File.read(filename) do
       {:ok, content} ->
-        response = Raxx.Response.ok(content, [
-          {"content-length", "#{:erlang.iolist_size(content)}"},
-          {"content-type", mime}
-        ])
+        response = Raxx.response(:ok)
+        |> Raxx.set_header("content-length", "#{:erlang.iolist_size(content)}")
+        |> Raxx.set_header("content-type", mime)
+        |> Raxx.set_body(content)
         quote do
           def handle_request(request = unquote(request_match), _) do
             case request.method do

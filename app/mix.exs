@@ -29,9 +29,8 @@ defmodule Tokumei.Mixfile do
 
   defp deps do
     [
-      {:raxx, "~> 0.11.1"},
+      {:raxx, "~> 0.12.0"},
       {:cookie, "~> 0.1.0"},
-      {:ace_http, "~> 0.4.5", optional: true},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end

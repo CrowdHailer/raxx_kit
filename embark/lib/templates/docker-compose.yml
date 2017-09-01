@@ -7,10 +7,8 @@ services:
       context: "."
       dockerfile: "Dockerfile"
     environment:
-      - PORT=8080
-      - SECURE_PORT=8443
+      - PORT=8443
     ports:
-      - 8080:8080
       - 8443:8443
       - 4001:4001
     volumes:
