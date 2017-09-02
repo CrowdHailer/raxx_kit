@@ -17,6 +17,7 @@ defmodule Tokumei.Flash.Query do
 
   *N.B. A location header must be on a response to embed flash messages.*
   """
+  @moduledoc false
 
   defmodule NoLocationError do
     defexception message: "A `location` header must be set, to embed flash messages with #{__MODULE__}"

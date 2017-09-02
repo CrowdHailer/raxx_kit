@@ -9,19 +9,20 @@ defmodule Tokumei.Helpers do
   ## Examples
 
       # redirects back to referrer if provided
-      iex> Request.get("/", [{"referer", "/foo"}])
+      iex> Raxx.request(:GET, "/")
+      ...> |> Raxx.set_header("referer", "/foo")
       ...> |> Helpers.back("/bar")
       ...> |> Map.get(:headers)
       [{"location", "/foo"}]
 
       # redirects to default path if none provided
-      iex> Request.get("/")
+      iex> Raxx.request(:GET, "/")
       ...> |> Helpers.back("/bar")
       ...> |> Map.get(:headers)
       [{"location", "/bar"}]
 
       # redirect is see other by default
-      iex> Request.get("/")
+      iex> Raxx.request(:GET, "/")
       ...> |> Helpers.back("/bar")
       ...> |> Map.get(:status)
       303

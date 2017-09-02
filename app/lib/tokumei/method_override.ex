@@ -75,6 +75,7 @@ defmodule Tokumei.MethodOverride do
   - Should the field be customisable? `_method` as default.*
   - Should it ever error for bad requests.*
   """
+  @moduledoc false
 
   def override_method(request = %{method: :POST, query: query}) do
     {method, query} = Map.pop(query, "_method")

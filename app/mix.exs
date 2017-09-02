@@ -3,12 +3,13 @@ defmodule Tokumei.Mixfile do
 
   def project do
     [app: :tokumei,
-     version: "0.7.1",
+     version: "0.8.0",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps(),
      description: description(),
+     erlc_paths: ["src"],
      docs: [
        main: "getting-started",
        source_url: "https://github.com/CrowdHailer/Tokumei/tree/master/app",

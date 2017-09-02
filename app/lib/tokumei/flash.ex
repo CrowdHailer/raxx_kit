@@ -54,6 +54,7 @@ defmodule Tokumei.Flash do
   - Log warnings when writing to a message that is not a redirect.
   - Configurable header name.
   """
+  @moduledoc false
 
   @tags [:danger, :warning, :success, :info]
   @header_name "tokumei-flash"

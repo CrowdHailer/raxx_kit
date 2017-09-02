@@ -52,6 +52,7 @@ defmodule Tokumei.Session.SignedCookies do
 
   *ALSO*, should cookie attribute be captialized Path=/ or path=/
   """
+  @moduledoc false
 
   defmodule UnspecifiedSecretError do
     defexception message: "A `:secret` must be set for signing cookies."

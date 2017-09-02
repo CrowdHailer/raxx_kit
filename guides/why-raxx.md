@@ -10,6 +10,8 @@ In summary: semantics, simplicity, history and purity (in that order).
 
 ## Semantics
 
+### SINCE RAXX 0.12.0 STREAMING INTERACTIONS ARE ALSO SUPPORTED.
+
 HTTP is a stateless request/response protocol.
 All the information required to generate a response is contained within the request.
 

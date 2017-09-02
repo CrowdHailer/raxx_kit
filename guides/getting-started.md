@@ -23,6 +23,10 @@ sudo chown -R $USER:$USER hello_tokumei
 
 ## Manual setup
 
+## Valid for version `0.7.1` and earlier only.
+
+Go to [Raxx channel](https://elixir-lang.slack.com/messages/C56H3TBH8/) for latest. 
+
 ### Create a new mix project
 
 First use mix to setup a new elixir project.

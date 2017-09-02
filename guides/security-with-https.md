@@ -90,9 +90,9 @@ Both modules provide the same interface with a few extra options required to sta
 certificate_path = Application.app_dir(:my_app, "priv/example.com/certificate.pem")
 certificate_key_path = Application.app_dir(:my_app, "priv/example.com/certificate_key.pem")
 
-Ace.HTTPS.start_link({MyApp, :noconfig}, [
-  certificate: certificate_path,
-  certificate_key: certificate_key_path,
+Ace.HTTP2.Service.start_link({MyApp, :noconfig}, [
+  certfile: certificate_path,
+  keyfile: certificate_key_path,
   port: 8443
 ])
 ```

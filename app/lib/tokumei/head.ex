@@ -6,6 +6,8 @@ defmodule Tokumei.Head do
 
   Returns responses with the body removed.
   """
+  @moduledoc false
+
   defmacro __using__(_opts) do
     raise "Deprecated temporarily while migrating to raxx streaming."
     quote location: :keep do
