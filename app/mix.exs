@@ -3,7 +3,7 @@ defmodule Tokumei.Mixfile do
 
   def project do
     [app: :tokumei,
-     version: "0.8.0",
+     version: "0.8.1",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -44,7 +44,7 @@ defmodule Tokumei.Mixfile do
 
   defp package do
     [# These are the default files included in the package
-     files: ["lib", "mix.exs", "README*", "LICENSE*", ],
+     files: ["lib", "mix.exs", "README*", "LICENSE*", "src"],
      maintainers: ["Peter Saxton"],
      licenses: ["Apache 2.0"],
      links: %{"GitHub" => "https://github.com/CrowdHailer/Tokumei/tree/master/app"}]
