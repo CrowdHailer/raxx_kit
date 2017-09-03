@@ -1,13 +1,15 @@
 FROM elixir:1.5.1
 
-# Important!  Update this no-op ENV variable when this Dockerfile
-# is updated with the current date. It will force refresh of all
-# of the base images and things like `apt-get update` won't be using
-# old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2017-09-02
+ARG CONTAINER_USER='elixir'
 
-COPY . /installer/
-WORKDIR /installer
+RUN useradd -m -u 1000 -s /usr/bin/bash "${CONTAINER_USER}"
+
+USER "${CONTAINER_USER}"
+
+WORKDIR /home/"${CONTAINER_USER}"
+
+COPY . /home/"${CONTAINER_USER}"
+
 RUN mix compile && mix archive.build && mix archive.install --force
 
 WORKDIR /tmp
