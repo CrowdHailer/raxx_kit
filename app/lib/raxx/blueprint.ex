@@ -54,6 +54,7 @@ defmodule Raxx.Blueprint do
     end
   end
 
+  # TODO calc path match before flat map
   defp blueprint_to_actions(parsed) do
     Enum.flat_map(parsed, fn({path, actions}) ->
       Enum.map(actions, fn({method, module}) ->
