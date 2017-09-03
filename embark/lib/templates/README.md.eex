@@ -7,8 +7,10 @@ docker-compose up
 ```
 *Use `-d` to run in background.*
 
-- visit http://localhost:8080 for web service via HTTP.
-- visit https://localhost:8443 for web service via HTTPS. *Requires TLS certificate setup.*
+- visit https://localhost:8443 *Accept certificate for localhost*
+
+##### For metrics visit
+
 - visit http://localhost:4001 to view service metrics.
 
 ### Run tests

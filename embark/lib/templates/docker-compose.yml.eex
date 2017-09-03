@@ -7,7 +7,9 @@ services:
       context: "."
       dockerfile: "Dockerfile"
     environment:
-      - PORT=8443
+      - SECURE_PORT=8443
+      - SERVICE_NAME=web
+      - ERLANG_COOKIE=<%= :crypto.strong_rand_bytes(64) |> Base.url_encode64 %>
     ports:
       - 8443:8443
       - 4001:4001

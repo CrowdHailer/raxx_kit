@@ -1,7 +1,2 @@
 defmodule <%= app_module %> do
-
-  def greet(entity, %{greeting: greeting}) do
-    "#{greeting}, #{entity}"
-  end
-
 end

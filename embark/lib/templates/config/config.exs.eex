@@ -1,9 +1,4 @@
 use Mix.Config
 
-config :<%= app_name %>,
-  port: {:system, :integer, "PORT", 8080},
-  secure_port: {:system, :integer, "SECURE_PORT", 8443},
-  session_secret_key: {:system, :string, "SESSION_SECRET_KEY", nil}
-
 config :<%= app_name %>, WWW,
-  %{greeting: "Hello"}
+  %{greeting: "Aloha"}

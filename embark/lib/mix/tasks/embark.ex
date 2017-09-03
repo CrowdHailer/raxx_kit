@@ -17,6 +17,7 @@ defmodule Mix.Tasks.Embark do
     app_name =~ @safe_app_name
     app_module = Macro.camelize(app_name)
     # if Mix.shell.yes?("continue?") do
+    IO.inspect(app_module)
     if true do
       File.mkdir_p!(project_path)
       |> IO.inspect
@@ -30,10 +31,9 @@ defmodule Mix.Tasks.Embark do
       Get started:
 
           cd #{project_path}
-          mix deps.get
-          iex -S mix
+          docker-compose up
 
-      View on localhost:8080
+      View on https://localhost:8443
       """
       |> String.trim_trailing
       |> Mix.shell.info

@@ -1,0 +1,13 @@
+defmodule <%= app_module %>.WWW.HomePage do
+  use Raxx.Server
+
+  require EEx
+
+  EEx.function_from_file(:defp, :home_page, Path.join(__DIR__, "./templates/home_page.html.eex"), [:greeting])
+
+  def handle_headers(_request, %{greeting: greeting}) do
+    Raxx.response(:ok)
+    |> Raxx.set_header("content-type", "text/html")
+    |> Raxx.set_body(home_page(greeting))
+  end
+end
