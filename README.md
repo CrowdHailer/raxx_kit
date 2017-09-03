@@ -3,11 +3,16 @@
 **Tiny yet MIGHTY Elixir webframework**
 
 ```
-docker run -v $(pwd):/tmp tokumei/embark hello_tokumei
-cd hello_tokumei
-docker-compose run web mix deps.get
+docker run -v $PWD:/tmp tokumei/embark my_app
+sudo chown -R $USER:$USER my_app # <- For linux users
+cd my_app
 docker-compose up
 ```
+
+Visit [https://localhost:8443](https://localhost:8443) from your browser.
+
+See your new projects `README.md` for working with your new service.
+
 
 ### Foundations not framework
 

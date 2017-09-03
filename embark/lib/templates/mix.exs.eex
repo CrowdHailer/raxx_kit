@@ -17,7 +17,7 @@ defmodule <%= app_module %>.Mixfile do
 
   defp deps do
     [
-      {:tokumei, "~> 0.8.1"},
+      {:tokumei, "~> 0.8.2"},
       {:ace, "~> 0.14.0"},
       {:exsync, "~> 0.2.0"},
       {:wobserver, "~> 0.1"}

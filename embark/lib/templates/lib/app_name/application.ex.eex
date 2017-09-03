@@ -14,7 +14,8 @@ defmodule <%= app_module %>.Application do
     options = [
       port: port,
       certfile: Application.app_dir(:<%= app_name %>, "priv/localhost/certificate.pem"),
-      keyfile: Application.app_dir(:<%= app_name %>, "priv/localhost/certificate_key.pem")
+      keyfile: Application.app_dir(:<%= app_name %>, "priv/localhost/certificate_key.pem"),
+      name: <%= app_module %>.WWW
     ]
 
     children = [
