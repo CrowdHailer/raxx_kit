@@ -26,6 +26,10 @@ defmodule Raxx.Blueprint do
       quote do
         @dispatch_module Module.concat(__MODULE__, unquote(module))
         def handle_headers(request = %{method: unquote(method), path: unquote(path)}, state) do
+          # TODO check dependency at compile time.
+          if !Code.ensure_loaded?(@dispatch_module) do
+            raise "Could not route to module #{@dispatch_module}"
+          end
           # DEBT live in a state, needs message monad
           Process.put({Raxx.Blueprint, :handler}, @dispatch_module)
           return = @dispatch_module.handle_headers(request, state)
@@ -36,6 +40,10 @@ defmodule Raxx.Blueprint do
     quote do
       use Raxx.Server
       unquote(routing_ast)
+      def handle_headers(request, _state) do
+        Raxx.response(:not_found)
+        |> Raxx.set_body("Not found: #{inspect(request.method)} #{inspect(request.path)}")
+      end
 
       def handle_fragment(fragment, state) do
         module = Process.get({Raxx.Blueprint, :handler})
