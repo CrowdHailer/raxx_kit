@@ -41,3 +41,5 @@ Look up container id for running service
 ```
 docker exec -it <container-id> sh ./debug.sh
 ```
+Containers can be named so don't need to lookup id.
+Named containers can only scale to one instance.

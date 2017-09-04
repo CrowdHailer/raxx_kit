@@ -4,7 +4,6 @@
 
 ```
 docker run -v $PWD:/tmp tokumei/embark my_app
-sudo chown -R $USER:$USER my_app # <- For linux users
 cd my_app
 docker-compose up
 ```

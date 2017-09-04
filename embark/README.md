@@ -4,8 +4,6 @@
 
 ```
 docker run -v $(pwd):/tmp tokumei/embark hello_tokumei
-
-sudo chown -R $USER:$USER hello_tokumei
 ```
 
 ## Contributing

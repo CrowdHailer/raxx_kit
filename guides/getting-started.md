@@ -12,20 +12,11 @@ See your new projects `README.md` for working with your new service.
 
 *Don't have docker installed? see Manual setup below.*
 
-#### For linux users
-
-The generated project will be created by the docker user.
-Run the following (before changing into project directory) to change permissions.
-
-```
-sudo chown -R $USER:$USER hello_tokumei
-```
-
 ## Manual setup
 
 ## Valid for version `0.7.1` and earlier only.
 
-Go to [Raxx channel](https://elixir-lang.slack.com/messages/C56H3TBH8/) for latest. 
+Go to [Raxx channel](https://elixir-lang.slack.com/messages/C56H3TBH8/) for latest.
 
 ### Create a new mix project
 
