@@ -1,6 +1,5 @@
 version: '2'
 
-# Add commented out loadbalancer and instructions to remove ports for scaling
 services:
   web:
     build:
@@ -14,5 +13,5 @@ services:
       - 8443:8443
       - 4001:4001
     volumes:
-      - .:/app
+      - .:/home/elixir/app
     command: sh start.sh
