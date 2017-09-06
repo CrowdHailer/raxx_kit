@@ -1,4 +1,5 @@
 defmodule <%= app_module %>.WWW do
+  @external_resource "lib/<%= app_name %>/www.apib"
   use Raxx.Blueprint, "./www.apib"
   use Raxx.Static, "./public"
 
