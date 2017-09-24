@@ -1,11 +1,11 @@
 # Interface design for HTTP streaming
 
 Raxx is a server interface originally based on Ruby's [Rack interface](https://rack.github.io/).
-To support streaming Raxx has fundamentally changed from version 0.12.0.
-These changes was necessary to support HTTP/2 in [Ace](https://hex.pm/packages/ace).
+To support streaming, Raxx has fundamentally changed from version 0.12.0.
+These changes were necessary to support HTTP/2 in [Ace](https://hex.pm/packages/ace).
 
 *If starting with Raxx after `0.12.0`,
-you can find latest the documentation [here](https://hexdocs.pm/raxx/).*
+you can find the latest documentation [here](https://hexdocs.pm/raxx/).*
 
 ### HTTP overview
 
@@ -15,27 +15,27 @@ The simplest representation would be a single function accepting a request and r
 Prior to `0.12.0` the Raxx interface was built on this simple concept.
 
 I have previously [talked](https://www.youtube.com/watch?v=80AXtvXFIA4)
-and [writen](https://hexdocs.pm/tokumei/why-raxx.html)
+and [written](https://hexdocs.pm/tokumei/why-raxx.html)
 about this implementation.
 
 This simple implementation has been deployed successfully.
-However the absense of a streaming solution is limitating for several usecases.
+However the absence of a streaming solution is limiting for several usecases.
 
 - Inefficient to hold complete messages in memory when the body is large.
 - Impossible to send a response after just reading the head of a request.
-- Unable to implement server streaming when data is sent indefinetly as it becomes available.
+- Unable to implement server streaming when data is sent indefinitely as it becomes available.
 - Limiting when working with HTTP/2 features such as push promises.
 
 ### HTTP streaming
 
-Streaming is when part of a message is acted upon without knowing rest.
-An HTTP message (request or response) consists of the following parts.
+Streaming is when part of a message is acted upon without knowing the rest.
+An HTTP message (request or response) consists of the following parts:
 
 - Message head: A start line with mandatory metadata about the message,
   i.e path of a request or status of a response;
   plus additional metadata in the form of headers, such as `content-type`.
 - Message fragment: A part of the message body,
-  there may be none up to an unlimited of these fragments.
+  there may be none up to an unlimited number of these fragments.
 - Message tail: The end of the message,
   which may include optional metadata in the form of trailers.
 
@@ -57,12 +57,12 @@ The final callback is for handling messages issued from other application proces
 - `handle_info/2`
 
 Acceptable return types are the same for every callback in this behaviour.
-Returned can be a tuple consisting of message parts to the client and the servers new state;
-Or a complete response that is the end of the servers interaction with a client.
+Returned can be a tuple consisting of message parts to the client and the servers new state or a complete response.
+That is the end of the servers interaction with a client.
 
 i.e.
 
-To send some more data
+To send some more data:
 ```elixir
 def handle_fragment(fragment, state) do
   # ... processing
@@ -70,7 +70,7 @@ def handle_fragment(fragment, state) do
 end
 ```
 
-To not send any data but keep running
+To not send any data but keep running:
 ```elixir
 def handle_fragment(fragment, state) do
   # ... processing
@@ -97,7 +97,7 @@ This update to Raxx keeps callbacks pure.
 *This is exactly the pattern of a `GenServer`,
 where all side effects, such as replying to a call, can be represented in the return values.*
 
-*My concern with the plug interface has always been that certain things can only be achived by directly causing side effects from within application code.
+*My concern with the plug interface has always been that certain things can only be achieved by directly causing side effects from within application code.
 It is my opinion that this leads to much of the complexity of the `Plug.Conn` object,*
 
 ## Examples
@@ -160,7 +160,7 @@ where each stream has one part.
 To make it easer to work with HTTP messages Raxx supports a canonical view for complete HTTP messages.
 
 The body of a request (or response) can be a boolean, or the full body as a binary.
-This allows a single request to be representated as a single object or a list of parts.
+This allows a single request to be represented as a single object or a list of parts.
 
 In this example these two representations are of the same request.
 ```elixir
@@ -177,13 +177,13 @@ complete_request = %Raxx.Response{status: 200, headers: [], body: "Hello, World!
 Note in a `Raxx.Server` `handle_headers/2` is always called as soon as the request head has been read.
 Therefore the request passed to this callback will always have a boolean value for the body.
 
-A server can collapse the parts of a request into its cannoncial version.
+A server can collapse the parts of a request into its cannonical version.
 This could be done before executing any business logic in some cases.
 This might be the simplest solution for a JSON API where neither request or response is ever very large.
 
-This allows simple behaviour to have a simple implementation, without making working with stream harder.
+This allows simple behaviour to have a simple implementation, without making working with streams harder.
 
-A simple server where all the requests are collapsed before being handled could look like the following.
+A simple server where all the requests are collapsed before being handled could look like the following:
 
 ```elixir
 defmodule Raxx.SimpleServer do
