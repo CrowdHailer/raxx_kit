@@ -1,5 +1,9 @@
 # Interface design for HTTP streaming
 
+- *[CrowdHailer](http://crowdhailer.me/) - 25 September 2017*
+
+---
+
 Raxx is a server interface originally based on Ruby's [Rack interface](https://rack.github.io/).
 To support streaming, Raxx has fundamentally changed from version 0.12.0.
 These changes were necessary to support HTTP/2 in [Ace](https://hex.pm/packages/ace).
