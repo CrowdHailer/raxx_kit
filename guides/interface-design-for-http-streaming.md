@@ -206,7 +206,7 @@ defmodule Raxx.SimpleServer do
 
   # Body expected start an empty buffer to collect data
   def handle_headers(request = %{body: true}, config) do
-    bufer = ""
+    buffer = ""
     {[], {request, buffer, config}}
   end
 
@@ -215,7 +215,7 @@ defmodule Raxx.SimpleServer do
   end
 
   # Always called for a request that has a body
-  def handle_trailer(trailers, {request = %{headers: headers}, body, config}) do
+  def handle_trailers(trailers, {request = %{headers: headers}, body, config}) do
     complete_headers = headers ++ trailers
     request = %{request | headers: complete_headers, body: body}
     handle_request(request, config)

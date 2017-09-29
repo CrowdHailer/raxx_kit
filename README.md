@@ -1,6 +1,10 @@
 # Tokumei
 
-**Tiny yet MIGHTY Elixir webframework**
+**Start with [10 minute introduction](https://elixirforum.com/t/getting-started-with-tokumei-cloud-native-web-applications/8454).**
+
+---
+
+## Getting started
 
 ```
 docker run -v $PWD:/tmp tokumei/embark my_app
