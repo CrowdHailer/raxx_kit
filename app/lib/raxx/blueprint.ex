@@ -18,52 +18,26 @@ defmodule Raxx.Blueprint do
     end
   end
   defmacro __using__(blueprint) when is_binary(blueprint) do
-    routes = parse(blueprint)
-    actions = blueprint_to_actions(routes)
+    {namespace, []} = Module.eval_quoted(__CALLER__, (quote do: __MODULE__))
 
-    routing_ast = for {method, path, module} <- actions do
+    routing_tree = parse(blueprint)
+    actions = routing_tree_to_actions(routing_tree)
+
+    routes = for {method, path, module} <- actions do
       path = path_template_to_match(path)
-      quote do
-        @dispatch_module Module.concat(__MODULE__, unquote(module))
-        def handle_headers(request = %{method: unquote(method), path: unquote(path)}, state) do
-          # TODO check dependency at compile time.
-          if !Code.ensure_loaded?(@dispatch_module) do
-            raise "Could not route to module #{@dispatch_module}"
-          end
-          # DEBT live in a state, needs message monad
-          Process.put({Raxx.Blueprint, :handler}, @dispatch_module)
-          return = @dispatch_module.handle_headers(request, state)
-        end
-      end
+      {quote do
+        %{method: unquote(method), path: unquote(path)}
+      end, Module.concat(namespace, module)}
     end
 
     quote do
       use Raxx.Server
-      unquote(routing_ast)
-      def handle_headers(request, _state) do
-        Raxx.response(:not_found)
-        |> Raxx.set_body("Not found: #{inspect(request.method)} #{inspect(request.path)}")
-      end
-
-      def handle_fragment(fragment, state) do
-        module = Process.get({Raxx.Blueprint, :handler})
-        module.handle_fragment(fragment, state)
-      end
-
-      def handle_trailers(trailers, state) do
-        module = Process.get({Raxx.Blueprint, :handler})
-        module.handle_trailers(trailers, state)
-      end
-
-      def handle_info(info, state) do
-        module = Process.get({Raxx.Blueprint, :handler})
-        module.handle_info(info, state)
-      end
+      use Raxx.Router, unquote(routes)
     end
   end
 
   # TODO calc path match before flat map
-  defp blueprint_to_actions(parsed) do
+  defp routing_tree_to_actions(parsed) do
     Enum.flat_map(parsed, fn({path, actions}) ->
       Enum.map(actions, fn({method, module}) ->
         {method, path, module}
