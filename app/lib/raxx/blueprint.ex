@@ -1,24 +1,36 @@
 defmodule Raxx.Blueprint do
   @moduledoc """
-  Route requests based on API Blueprint
+  Use an API Blueprint file as a router for Raxx server definitions.
 
+  *Because are you really going to write the documentation afterwards.*
+
+      defmodule MyApp do
+        use Raxx.Server
+        use Raxx.Blueprint, "./my_app.apib"
+      end
+
+  **Module lookup**
+
+  In a blueprint file actions can be given names.
+  To work with `Raxx.Blueprint` actions need to be named.
+  A module name is generated from these names and added as the handler for that route.
+  For example given the blueprint below the router will assume there exits a module `MyApp.CreateAMessage`
+  It will use this as the controller for all request to `POST /messages`.
+
+      FORMAT: 1A
+
+      # Messages [/messages]
+      ## Create a message [POST]
   """
 
-  # elements should be api elements in the future
-  defmacro __using__(path = {_, _, _}) do
-    quote do
-      blueprint = File.read!(unquote(path))
-
-      Module.eval_quoted(__ENV__, quote do: use Raxx.Blueprint, unquote(blueprint))
-    end
-  end
-  defmacro __using__(rel = "./" <> _) do
-    quote do
-      use Raxx.Blueprint, Path.join(__DIR__, unquote(rel))
-    end
-  end
-  defmacro __using__(blueprint) when is_binary(blueprint) do
+  defmacro __using__(path) when is_binary(path) do
+    # Expand whatever the user has done to their path
+    {path, []} = Module.eval_quoted(__CALLER__, path)
+    # If a relative path is given expand in relation to the callers file
+    path = Path.expand(path, Path.dirname(__CALLER__.file))
     {namespace, []} = Module.eval_quoted(__CALLER__, (quote do: __MODULE__))
+
+    blueprint = File.read!(path)
 
     routing_tree = parse(blueprint)
     actions = routing_tree_to_actions(routing_tree)

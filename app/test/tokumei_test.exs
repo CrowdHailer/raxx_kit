@@ -1,2 +1,0 @@
-defmodule TokumeiTest do
-end
