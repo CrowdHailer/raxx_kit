@@ -19,7 +19,7 @@ defmodule Raxx.Static do
 
   #### Extensions
 
-  These are possible extension to Raxx.Static
+  Proposed extensions to Raxx.Static:
 
   - Check accept header and return content error when appropriate
   - gzip encoding

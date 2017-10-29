@@ -28,6 +28,7 @@ defmodule Tokumei.Helpers do
       303
 
   """
+  @moduledoc false
   def back(request, default) do
     # DEBT would like to use `Raxx.Referrer.get(request, default)`
     case Raxx.Referrer.fetch(request) do

@@ -17,10 +17,12 @@ defmodule Raxx.Blueprint do
   For example given the blueprint below the router will assume there exits a module `MyApp.CreateAMessage`
   It will use this as the controller for all request to `POST /messages`.
 
-      FORMAT: 1A
+  ```md
+  FORMAT: 1A
 
-      # Messages [/messages]
-      ## Create a message [POST]
+  # Messages [/messages]
+  ## Create a message [POST]
+  ```
   """
 
   defmacro __using__(path) when is_binary(path) do
@@ -37,12 +39,12 @@ defmodule Raxx.Blueprint do
 
     routes = for {method, path, module} <- actions do
       path = path_template_to_match(path)
-      {quote do
+      {quote location: :keep do
         %{method: unquote(method), path: unquote(path)}
       end, Module.concat(namespace, module)}
     end
 
-    quote do
+    quote location: :keep do
       use Raxx.Server
       use Raxx.Router, unquote(routes)
     end
@@ -72,6 +74,7 @@ defmodule Raxx.Blueprint do
     end
   end
 
+  @doc false
   def parse(source) do
     source
     |> String.to_charlist()

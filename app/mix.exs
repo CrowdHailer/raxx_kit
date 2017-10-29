@@ -11,10 +11,10 @@ defmodule Tokumei.Mixfile do
      description: description(),
      erlc_paths: ["src"],
      docs: [
-       main: "getting-started",
+       main: "readme",
        source_url: "https://github.com/CrowdHailer/Tokumei/tree/master/app",
        extras: [
-         "README.md",
+         "../README.md",
          "../guides/getting-started.md",
          "../guides/interface-design-for-http-streaming.md",
          "../guides/security-with-https.md",
