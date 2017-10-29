@@ -1,2 +1,0 @@
-defmodule Tokumei do
-end

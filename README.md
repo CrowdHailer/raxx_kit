@@ -1,10 +1,22 @@
 # Tokumei
 
-**Start with [10 minute introduction](https://elixirforum.com/t/getting-started-with-tokumei-cloud-native-web-applications/8454).**
+**Toolkit for building cloud native web applications with Docker.**
 
----
+[![Hex pm](http://img.shields.io/hexpm/v/tokumei.svg?style=flat)](https://hex.pm/packages/tokumei)
+[![Build Status](https://secure.travis-ci.org/CrowdHailer/tokumei.svg?branch=master
+"Build Status")](https://travis-ci.org/CrowdHailer/tokumei)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
+*Tokumei can be used without making use of the generators described below. Simply require from hex as if it were any other library*
+
+- [Install from hex.pm](https://hex.pm/packages/tokumei)
+- [Documentation available on hexdoc](https://hexdocs.pm/tokumei)
 
 ## Getting started
+
+To use the Tokumei generator Docker must be installed.
+Docker is assumed as dependency for modern cloud native application development.
+Tokumei uses it to setup multiple instances of services allowing systems to be scalable and resiliant
 
 ```
 docker run -v $PWD:/tmp tokumei/embark my_app
