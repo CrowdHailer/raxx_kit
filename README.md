@@ -47,11 +47,6 @@ I call this principle XVC (Mind-your-own-business View Controller).
 - [Writing middleware with macros](guides/writing-middleware-with-macros.md), extending applications with custom middleware.
 - [Why Raxx](guides/why-raxx.md), the rational behind building a web interface layer for Elixir.
 
-## Examples
-
-- **[WaterCooler](water_cooler)** simple chat application.
-- **[Fifteen](fifteen)** fifteen minute blog, built around umbrella applications.
-
 ## Community
 
 - [elixir-lang slack channel](https://elixir-lang.slack.com/messages/C56H3TBH8/)
