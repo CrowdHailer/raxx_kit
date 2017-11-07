@@ -3,7 +3,7 @@ defmodule Tokumei.Mixfile do
 
   def project do
     [app: :tokumei,
-     version: "0.9.0",
+     version: "0.9.1",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -12,14 +12,14 @@ defmodule Tokumei.Mixfile do
      erlc_paths: ["src"],
      docs: [
        main: "readme",
-       source_url: "https://github.com/CrowdHailer/Tokumei/tree/master/app",
+       source_url: "https://github.com/CrowdHailer/Tokumei/",
        extras: [
-         "../README.md",
-         "../guides/getting-started.md",
-         "../guides/interface-design-for-http-streaming.md",
-         "../guides/security-with-https.md",
-         "../guides/writing-middleware-with-macros.md",
-         "../guides/why-raxx.md"
+         "README.md",
+         "guides/getting-started.md",
+         "guides/interface-design-for-http-streaming.md",
+         "guides/security-with-https.md",
+         "guides/writing-middleware-with-macros.md",
+         "guides/why-raxx.md"
        ]
      ],
      package: package()]
@@ -40,7 +40,7 @@ defmodule Tokumei.Mixfile do
 
   defp description do
     """
-    Tiny but MIGHTY Elixir webframework.
+    The Elixir web unframework
     """
   end
 

@@ -1,15 +1,21 @@
 # Tokumei
 
-**Toolkit for building cloud native web applications with Docker.**
+**The Elixir unframework.**
 
-[![Hex pm](http://img.shields.io/hexpm/v/tokumei.svg?style=flat)](https://hex.pm/packages/tokumei)
-[![Build Status](https://secure.travis-ci.org/CrowdHailer/tokumei.svg?branch=master
-"Build Status")](https://travis-ci.org/CrowdHailer/tokumei)
+[![Hex pm](http://img.shields.io/hexpm/v/Tokumei.svg?style=flat)](https://hex.pm/packages/Tokumei)
+[![Build Status](https://secure.travis-ci.org/CrowdHailer/Tokumei.svg?branch=master
+"Build Status")](https://travis-ci.org/CrowdHailer/Tokumei)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 - [Install from hex.pm](https://hex.pm/packages/tokumei)
 - [Documentation available on hexdoc](https://hexdocs.pm/tokumei)
 - [Join Raxx discussion on slack](https://elixir-lang.slack.com/messages/C56H3TBH8/)
+
+## Middleware
+
+- `Raxx.Static`
+- `Raxx.Blueprint`
+- `Raxx.MethodOverride`
 
 ### Foundations not framework
 

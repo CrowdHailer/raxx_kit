@@ -1,82 +1,86 @@
-defmodule Tokumei.MethodOverride do
+defmodule Raxx.MethodOverride do
   @moduledoc """
-  Deprecated temporarily while migrating to raxx streaming.
+  Allows browser to emulate using HTTP verbs other than `POST`.
 
-  Allows browser submitted forms to use HTTP verbs other than `POST`.
+  ## Usage
 
-  Only the `POST` method can be overridden,
-  It can be overridden to use any of these HTTP verbs.
+  Add to the module as part of a Raxx server middleware stack.
+
+      defmodule MyApp.WWW do
+        use Raxx.Server
+        use Raxx.MethodOverride
+      end
+
+  Only the `POST` method will be overridden,
+  It can be overridden to any of the listed HTTP verbs.
   - `PUT`
   - `PATCH`
   - `DELETE`
 
-  Override target is read from query parameters
+  The emulated method is is denoted by the `_method` parameter of the url query.
 
   ## Examples
 
       # override POST to PUT from query value
-      iex> post({"/", %{"_method" => "PUT"}})
+      iex> request(:POST, "/?_method=PUT")
       ...> |> override_method()
       ...> |> Map.get(:method)
       :PUT
 
       # override POST to PATCH from query value
-      iex> post({"/", %{"_method" => "PATCH"}})
+      iex> request(:POST, "/?_method=PATCH")
       ...> |> override_method()
       ...> |> Map.get(:method)
       :PATCH
 
       # override POST to DELETE from query value
-      iex> post({"/", %{"_method" => "DELETE"}})
+      iex> request(:POST, "/?_method=DELETE")
       ...> |> override_method()
       ...> |> Map.get(:method)
       :DELETE
 
       # overridding method removes the _method field from the query
-      iex> post({"/", %{"_method" => "PUT"}})
+      iex> request(:POST, "/?_method=PUT")
       ...> |> override_method()
       ...> |> Map.get(:query)
       %{}
 
       # override works with lowercase query value
-      iex> post({"/", %{"_method" => "delete"}})
+      iex> request(:POST, "/?_method=delete")
       ...> |> override_method()
       ...> |> Map.get(:method)
       :DELETE
 
       # # at the moment breaks deleberatly due to unknown method
       # # does not allow unknown methods
-      # iex> post({"/", %{"_method" => "PARTY"}})
+      # iex> request(:POST, "/?_method=PARTY")
       # ...> |> override_method()
       # ...> |> Map.get(:method)
       # :POST
 
       # leaves non-POST requests unmodified, e.g. GET
-      iex> get({"/", %{"_method" => "DELETE"}})
+      iex> request(:GET, "/?_method=DELETE")
       ...> |> override_method()
       ...> |> Map.get(:method)
       :GET
 
       # leaves non-POST requests unmodified, e.g. PUT
       # Not entirely sure of the logic here.
-      iex> put({"/", %{"_method" => "DELETE"}})
+      iex> request(:PUT, "/?_method=DELETE")
       ...> |> override_method()
       ...> |> Map.get(:method)
       :PUT
 
       # queries with out a _method field are a no-op
-      iex> post({"/", %{"other" => "PUT"}})
+      iex> request(:POST, "/?other=PUT")
       ...> |> override_method()
       ...> |> Map.get(:method)
       :POST
-
-  ## Extensions
-
-  - Should the field be customisable? `_method` as default.*
-  - Should it ever error for bad requests.*
   """
-  @moduledoc false
 
+  @doc """
+  Modify a requests method based on query parameters
+  """
   def override_method(request = %{method: :POST, query: query}) do
     {method, query} = Map.pop(query, "_method")
     case method && String.upcase(method) do
@@ -92,7 +96,6 @@ defmodule Tokumei.MethodOverride do
   end
 
   defmacro __using__(_opts) do
-    raise "Deprecated temporarily while migrating to raxx streaming."
     quote do
       @before_compile unquote(__MODULE__)
     end
@@ -100,9 +103,11 @@ defmodule Tokumei.MethodOverride do
 
   defmacro __before_compile__(_env) do
     quote location: :keep do
-      defoverridable [handle_request: 2]
 
-      def handle_request(request, config) do
+      defoverridable Raxx.Server
+
+      @impl Raxx.Server
+      def handle_head(request, state) do
         request = unquote(__MODULE__).override_method(request)
         super(request, config)
       end
