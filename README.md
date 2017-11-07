@@ -12,23 +12,6 @@
 - [Install from hex.pm](https://hex.pm/packages/tokumei)
 - [Documentation available on hexdoc](https://hexdocs.pm/tokumei)
 
-## Getting started
-
-To use the Tokumei generator Docker must be installed.
-Docker is assumed as dependency for modern cloud native application development.
-Tokumei uses it to setup multiple instances of services allowing systems to be scalable and resiliant
-
-```
-docker run -v $PWD:/tmp tokumei/embark my_app
-cd my_app
-docker-compose up
-```
-
-Visit [https://localhost:8443](https://localhost:8443) from your browser.
-
-See your new projects `README.md` for working with your new service.
-
-
 ### Foundations not framework
 
 Tokumei is the foundation for building web interfaces.
@@ -37,15 +20,6 @@ By focusing on **only** the web layer, it is adaptable to any application.
 This freedom enables to best application to be build for the domain.
 I call this principle XVC (Mind-your-own-business View Controller).
 
-## Documentation
-
-- Get going with the [getting started](guides/getting-started.md) guide.
-- Documentation is available on [hex.pm](https://hexdocs.pm/tokumei/readme.html).
-
-## Guides
-
-- [Writing middleware with macros](guides/writing-middleware-with-macros.md), extending applications with custom middleware.
-- [Why Raxx](guides/why-raxx.md), the rational behind building a web interface layer for Elixir.
 
 ## Community
 
@@ -54,7 +28,7 @@ I call this principle XVC (Mind-your-own-business View Controller).
 
 ## Development
 
-Local development requires Elixir 1.4+, OR use vagrant box provided.
+Local development requires Elixir 1.4+
 
 ## Testing
 
