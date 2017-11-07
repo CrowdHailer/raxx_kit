@@ -7,10 +7,9 @@
 "Build Status")](https://travis-ci.org/CrowdHailer/tokumei)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-*Tokumei can be used without making use of the generators described below. Simply require from hex as if it were any other library*
-
 - [Install from hex.pm](https://hex.pm/packages/tokumei)
 - [Documentation available on hexdoc](https://hexdocs.pm/tokumei)
+- [Join Raxx discussion on slack](https://elixir-lang.slack.com/messages/C56H3TBH8/)
 
 ### Foundations not framework
 
@@ -19,16 +18,6 @@ By focusing on **only** the web layer, it is adaptable to any application.
 
 This freedom enables to best application to be build for the domain.
 I call this principle XVC (Mind-your-own-business View Controller).
-
-
-## Community
-
-- [elixir-lang slack channel](https://elixir-lang.slack.com/messages/C56H3TBH8/)
-- *FAQ comming soon.*
-
-## Development
-
-Local development requires Elixir 1.4+
 
 ## Testing
 
