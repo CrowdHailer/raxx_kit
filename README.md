@@ -11,12 +11,6 @@
 - [Documentation available on hexdoc](https://hexdocs.pm/tokumei)
 - [Join Raxx discussion on slack](https://elixir-lang.slack.com/messages/C56H3TBH8/)
 
-## Middleware
-
-- `Raxx.Static`
-- `Raxx.Blueprint`
-- `Raxx.MethodOverride`
-
 ### Foundations not framework
 
 Tokumei is the foundation for building web interfaces.
