@@ -19,6 +19,8 @@ erl_crash.dump
 # Also ignore archive artifacts (built via "mix archive.build").
 *.ez
 
+# The latest archive is part of the repository for startup
+!raxx_kit.ez
+
 # Ignore package tarball (built via "mix hex.build").
 raxx_kit-*.tar
-

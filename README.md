@@ -5,7 +5,7 @@
 ### Installation
 
 ```sh
-$ mix archive.install
+$ mix archive.install https://github.com/CrowdHailer/raxx_kit/raw/master/raxx_kit.ez
 ```
 
 ### Create a project
