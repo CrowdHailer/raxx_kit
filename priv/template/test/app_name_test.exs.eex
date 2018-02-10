@@ -3,7 +3,6 @@ defmodule <%= @module %>Test do
   doctest <%= @module %>
 
   test "the truth" do
-    # TODO better test than this
     assert 1 + 1 == 2
   end
 end

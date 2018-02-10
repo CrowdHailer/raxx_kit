@@ -17,14 +17,14 @@ defmodule Mix.Tasks.Raxx.Kit do
       {switches, [name]} ->
         Raxx.Kit.generate([{:name, name} | switches])
         """
-        Your project was created successfully.
+        Your Raxx project was created successfully.
 
         Get started:
 
-        cd #{name}
-        docker-compose up
+            cd #{name}
+            iex -S mix
 
-        View on https://localhost:8443
+        View on https://localhost:8080
         """
         |> String.trim_trailing
         |> Mix.shell.info

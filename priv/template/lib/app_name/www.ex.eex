@@ -2,7 +2,8 @@ defmodule <%= @module %>.WWW do
   use Ace.HTTP.Service, [port: 8080, cleartext: true]
 
   use Raxx.Router, [
-    {%{method: :GET, path: []}, <%= @module %>.WWW.HomePage}
+    {%{method: :GET, path: []}, <%= @module %>.WWW.HomePage},
+    {_, <%= @module %>.WWW.NotFoundPage}
   ]
   use Raxx.Static, "./public"
   use Raxx.Logger, level: :info
