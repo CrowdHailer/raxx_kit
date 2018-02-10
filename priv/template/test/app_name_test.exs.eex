@@ -1,6 +1,6 @@
-defmodule EmbarkTest do
+defmodule <%= @module %>Test do
   use ExUnit.Case
-  doctest Embark
+  doctest <%= @module %>
 
   test "the truth" do
     assert 1 + 1 == 2

@@ -1,10 +1,10 @@
-defmodule <%= app_module %>.Mixfile do
+defmodule <%= @module %>.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :<%= app_name %>,
+    [app: :<%= @name %>,
      version: "0.1.0",
-     elixir: "~> 1.4",
+     elixir: "~> <%= System.version %>",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps()]
@@ -12,15 +12,14 @@ defmodule <%= app_module %>.Mixfile do
 
   def application do
     [extra_applications: [:logger],
-      mod: {<%= app_module %>.Application, []}]
+      mod: {<%= @module %>.Application, []}]
   end
 
   defp deps do
     [
-      {:tokumei, "~> 0.8.2"},
-      {:ace, "~> 0.14.0"},
+      {:ace, "~> 0.15.10"},
+      {:raxx_static, "~> 0.6.0"},
       {:exsync, "~> 0.2.0"},
-      {:wobserver, "~> 0.1"}
     ]
   end
 end
