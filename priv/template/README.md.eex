@@ -2,6 +2,7 @@
 
 - Install dependencies with `mix deps.get`
 - Start your service with `iex -S mix`
+- Run project test suite with `mix test`
 
 ## Learn more
 

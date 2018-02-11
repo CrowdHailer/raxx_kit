@@ -7,6 +7,7 @@ Includes:
 - Isolated web layer with [Raxx](https://github.com/crowdhailer/raxx)
 - HTTP/2 support with [Ace](https://github.com/CrowdHailer/Ace) server
 - Middleware for request logging and static content.
+- Controller unit tests
 - Code reloading with [ExSync](https://github.com/falood/exsync)
 
 ### Installation
