@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Unit test for HomePage action in project template.
 - API Blueprint router using the `--apib` option.
+- SSL certificates for an https endpoint, default port 8443.
 
 ## [0.2.0](https://github.com/CrowdHailer/raxx_kit/tree/0.2.0) - 2018-02-11
 

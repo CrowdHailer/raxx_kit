@@ -32,8 +32,9 @@ $ cd my_app
 $ iex -S mix
 ```
 
-By default, the new project will accept connections on port `8080`.
-Visiting https://localhost:8080 should show the homepage.
+By default, the new project will accept http connections on port `8080` and https connections on port `8443`.
+Visiting http://localhost:8080 should show the homepage.
+Visiting https://localhost:8443 will use HTTP/2 but you will need to accept the self signed certificate or generate a new one.
 
 ### Next
 
