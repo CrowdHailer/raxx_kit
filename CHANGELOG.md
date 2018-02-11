@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Unit test for HomePage action in project template.
+- API Blueprint router using the `--apib` option.
 
 ## [0.2.0](https://github.com/CrowdHailer/raxx_kit/tree/0.2.0) - 2018-02-11
 

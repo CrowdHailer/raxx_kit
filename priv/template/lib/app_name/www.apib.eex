@@ -1,6 +1,6 @@
-FORMAT: 1A
+<%= if @api_blueprint do %>FORMAT: 1A
 
-# Water Cooler
+# <%= @module %>
 
 Application generated with [Raxx.Kit](https://github.com/CrowdHailer/raxx_kit)
 
@@ -8,4 +8,4 @@ Application generated with [Raxx.Kit](https://github.com/CrowdHailer/raxx_kit)
 
 ## Home Page [GET]
 
-Our first endpoint.
+Our first endpoint.<% end %>

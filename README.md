@@ -6,6 +6,7 @@ Includes:
 
 - Isolated web layer with [Raxx](https://github.com/crowdhailer/raxx)
 - HTTP/2 support with [Ace](https://github.com/CrowdHailer/Ace) server
+- API documentation with API Blueprint, use `--apib`.
 - Middleware for request logging and static content.
 - Controller unit tests
 - Code reloading with [ExSync](https://github.com/falood/exsync)
@@ -43,12 +44,14 @@ Visiting https://localhost:8080 should show the homepage.
 
 - The `--module` option can be used to name the top level module used in the generated project. Without this option the module name will be generated from path option.
 
-```sh
-$ mix raxx.kit my_app
+  ```sh
+  $ mix raxx.kit my_app
 
-# Is equivalent to
-$ mix raxx.kit my_app --module MyApp
-```
+  # Is equivalent to
+  $ mix raxx.kit my_app --module MyApp
+  ```
+
+- The `--apib` option will generate an API Blueprint file which is used as the project router.
 
 ## Copyright and License
 
