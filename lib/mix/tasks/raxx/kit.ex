@@ -4,7 +4,7 @@ defmodule Mix.Tasks.Raxx.Kit do
   require Mix.Generator
 
   @shortdoc "Create a new Raxx project for browsers"
-  @switches [docker: :boolean, "apib": :boolean, module: :string]
+  @switches [docker: :boolean, apib: :boolean, module: :string]
 
   @impl Mix.Task
   def run([]) do

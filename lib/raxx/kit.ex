@@ -49,13 +49,20 @@ defmodule Raxx.Kit do
         Mix.Generator.create_directory(file)
       {:ok, template} ->
         path = Path.relative_to(file, root)
-        case String.split(path, ~r/\.eex$/) do
+        {path, contents} = case String.split(path, ~r/\.eex$/) do
           [path, ""] ->
             path = String.replace(path, "app_name", assigns.name)
-            Mix.Generator.create_file(path, EEx.eval_string(template, [assigns: assigns]))
+            contents = EEx.eval_string(template, [assigns: assigns])
+            {path, contents}
           [path] ->
             path = String.replace(path, "app_name", assigns.name)
-            Mix.Generator.create_file(path, template)
+            contents = template
+            {path, contents}
+        end
+        if String.trim(contents) == "" do
+          :ok
+        else
+          Mix.Generator.create_file(path, contents)
         end
     end
   end

@@ -6,7 +6,9 @@ Includes:
 
 - Isolated web layer with [Raxx](https://github.com/crowdhailer/raxx)
 - HTTP/2 support with [Ace](https://github.com/CrowdHailer/Ace) server
+- API documentation with API Blueprint, use `--apib`.
 - Middleware for request logging and static content.
+- Controller unit tests
 - Code reloading with [ExSync](https://github.com/falood/exsync)
 
 ### Installation
@@ -30,8 +32,9 @@ $ cd my_app
 $ iex -S mix
 ```
 
-By default, the new project will accept connections on port `8080`.
-Visiting https://localhost:8080 should show the homepage.
+By default, the new project will accept http connections on port `8080` and https connections on port `8443`.
+Visiting http://localhost:8080 should show the homepage.
+Visiting https://localhost:8443 will use HTTP/2 but you will need to accept the self signed certificate or generate a new one.
 
 ### Next
 
@@ -42,12 +45,14 @@ Visiting https://localhost:8080 should show the homepage.
 
 - The `--module` option can be used to name the top level module used in the generated project. Without this option the module name will be generated from path option.
 
-```sh
-$ mix raxx.kit my_app
+  ```sh
+  $ mix raxx.kit my_app
 
-# Is equivalent to
-$ mix raxx.kit my_app --module MyApp
-```
+  # Is equivalent to
+  $ mix raxx.kit my_app --module MyApp
+  ```
+
+- The `--apib` option will generate an API Blueprint file which is used as the project router.
 
 ## Copyright and License
 
