@@ -32,7 +32,7 @@ This will oversee a webserver for the application.
 
 **Umbrella applications**,
 A Tokumei application can be part of an umbrella or run independently.
-For larger project umbrella applications are reccommended.
+For larger project umbrella applications are recommended.
 
 ### Add Tokumei and webserver
 
