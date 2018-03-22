@@ -43,10 +43,10 @@ Visiting https://localhost:8443 will use HTTP/2 but you will need to accept the 
 
 ### Options
 
-- The `--docker` option will add the files `Dockerfile` and `docker-compose.yml`.
+- `--docker`: Create `Dockerfile` and `docker-compose.yml` in template.
   This allows local development to be conducted completly in docker.
 
-- The `--module` option can be used to name the top level module used in the generated project. Without this option the module name will be generated from path option.
+- `--module`: Used to name the top level module used in the generated project. Without this option the module name will be generated from path option.
 
   ```sh
   $ mix raxx.kit my_app
@@ -55,7 +55,7 @@ Visiting https://localhost:8443 will use HTTP/2 but you will need to accept the 
   $ mix raxx.kit my_app --module MyApp
   ```
 
-- The `--apib` option will generate an API Blueprint file which is used as the project router.
+- `--apib`: Generate an API Blueprint file which is used as the project router.
 
 ## Copyright and License
 

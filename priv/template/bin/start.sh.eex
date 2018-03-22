@@ -1,0 +1,6 @@
+<%= if @docker do %>mix deps.get
+
+<%= if @node_assets do %>(cd lib/<%= @name %>/www ; npm install)<% end %>
+
+elixir --sname app -S mix run --no-halt
+<% end %>

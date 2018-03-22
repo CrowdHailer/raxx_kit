@@ -1,1 +1,5 @@
 use Mix.Config
+<%= if @node_assets do %>
+config :exsync,
+  extensions: [".erl", ".hrl", ".ex", ".eex", ".js", ".css"]
+<% end %>

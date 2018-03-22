@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Sensible Docker configuration created when using the `--docker` option.
+- Add supervised npm scripts to template project with `--node-assets` option.
 
 ## [0.3.0](https://github.com/CrowdHailer/raxx_kit/tree/0.3.0) - 2018-02-11
 

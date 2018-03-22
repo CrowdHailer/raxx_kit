@@ -1,6 +1,5 @@
 defmodule <%= @module %>.WWW do
   use Ace.HTTP.Service, [port: 8080, cleartext: true]
-
   <%= if @api_blueprint do %>
   @external_resource "lib/<%= @name %>/www.apib"
   use Raxx.ApiBlueprint, "./www.apib"
@@ -10,6 +9,8 @@ defmodule <%= @module %>.WWW do
     {_, <%= @module %>.WWW.NotFoundPage}
   ]
   <% end %>
+  @external_resource "lib/<%= @name %>/public/main.css"
+  @external_resource "lib/<%= @name %>/public/main.js"
   use Raxx.Static, "./public"
   use Raxx.Logger, level: :info
 end

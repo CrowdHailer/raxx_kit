@@ -1,0 +1,10 @@
+<%= if @node_assets do %>{
+  "name": "<%= @name %>",
+  "scripts": {
+    "watch:js": "rollup -w -i assets/main.js -o public/main.js -f iife -n main"
+  },
+  "devDependencies": {
+    "rollup": "^0.56.5"
+  }
+}
+<% end %>

@@ -5,7 +5,8 @@ WORKDIR /opt/app
 
 # Add tools needed for development
 # inotify-tools: gives filesystem events that are used to trigger recompilation
-RUN apt-get update && apt-get install -y inotify-tools
+<%= if @node_assets do %>RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -<% end %>
+RUN apt-get update && apt-get install -y inotify-tools <%= if @node_assets do %>nodejs<% end %>
 
 # Build hex and rebar as a separate Docker layer
 RUN mix local.hex --force && mix local.rebar --force
@@ -13,11 +14,11 @@ RUN mix local.hex --force && mix local.rebar --force
 # Build all dependencies separately to the application code
 RUN mkdir config
 COPY config/* config/
-COPY mix.exs mix.lock ./
+COPY mix.* ./
 RUN mix do deps.get, deps.compile
 
 # Add application code as final layer
 COPY . .
 
-CMD ["elixir", "--sname", "app", "-S", "mix", "run", "--no-halt"]
+CMD ["sh", "./bin/start.sh"]
 <% end %>

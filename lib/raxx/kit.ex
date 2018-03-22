@@ -3,7 +3,8 @@ defmodule Raxx.Kit do
     :name,
     :module,
     :docker,
-    :api_blueprint
+    :api_blueprint,
+    :node_assets
   ]
 
   defstruct @enforce_keys
@@ -22,8 +23,18 @@ defmodule Raxx.Kit do
       |> Path.wildcard(match_dot: true)
       |> Enum.each(&copy_template(&1, template_dir(), assigns))
 
-      Mix.shell.cmd("mix deps.get")
+      # If using docker elixir and mix might not be installed so this should be run in docker
+      if !config.docker do
+        Mix.shell.cmd("mix deps.get")
+      end
     end)
+    # If using docker node might not be installed so this should be run in docker
+    if !config.docker && config.node_assets do
+      File.cd!(config.name <> "/lib/" <> config.name <> "/www", fn() ->
+        Mix.shell.cmd("nodejs -v")
+        Mix.shell.cmd("npm install")
+      end)
+    end
     message = """
     Your Raxx project was created successfully.
 
@@ -43,13 +54,15 @@ defmodule Raxx.Kit do
     {:ok, name} = Keyword.fetch(options, :name)
     module = Keyword.get(options, :module, Macro.camelize(name))
     docker = Keyword.get(options, :docker, false)
+    node_assets = Keyword.get(options, :node_assets, false)
     api_blueprint = Keyword.get(options, :apib, false)
 
     %__MODULE__{
       name: name,
       module: module,
       docker: docker,
-      api_blueprint: api_blueprint
+      api_blueprint: api_blueprint,
+      node_assets: node_assets
     }
   end
 

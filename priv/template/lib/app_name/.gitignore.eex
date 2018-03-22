@@ -1,0 +1,4 @@
+<%= if @node_assets do %>node_modules
+public/*.js
+public/*.css
+<% end %>

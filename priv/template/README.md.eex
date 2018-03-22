@@ -5,11 +5,11 @@
 - Run project test suite with `docker-compose run <%= @name %> mix test`
 - Start IEx session in running service
       # Find a container id using docker ps
-      docker exec -it <container-id> sh
+      docker exec -it <container-id> bash
 
       # In container
       iex --sname debug --remsh app@$(hostname)
-<%= else %>
+<% else %>
 - Install dependencies with `mix deps.get`
 - Start your service with `iex -S mix`
 - Run project test suite with `mix test`
