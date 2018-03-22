@@ -14,39 +14,45 @@ defmodule Raxx.Kit do
     config = check_config!(options)
 
     :ok = Mix.Generator.create_directory(config.name)
-    File.cd!(config.name, fn() ->
+
+    File.cd!(config.name, fn ->
       assigns = Map.from_struct(config)
       IO.inspect(assigns)
 
-      :ok = template_dir()
-      |> Path.join("./**/*")
-      |> Path.wildcard(match_dot: true)
-      |> Enum.each(&copy_template(&1, template_dir(), assigns))
+      :ok =
+        template_dir()
+        |> Path.join("./**/*")
+        |> Path.wildcard(match_dot: true)
+        |> Enum.each(&copy_template(&1, template_dir(), assigns))
 
       # If using docker elixir and mix might not be installed so this should be run in docker
       if !config.docker do
-        Mix.shell.cmd("mix deps.get")
+        Mix.shell().cmd("mix deps.get")
       end
     end)
+
     # If using docker node might not be installed so this should be run in docker
     if !config.docker && config.node_assets do
-      File.cd!(config.name <> "/lib/" <> config.name <> "/www", fn() ->
-        Mix.shell.cmd("nodejs -v")
-        Mix.shell.cmd("npm install")
+      File.cd!(config.name <> "/lib/" <> config.name <> "/www", fn ->
+        Mix.shell().cmd("nodejs -v")
+        Mix.shell().cmd("npm install")
       end)
     end
-    message = """
-    Your Raxx project was created successfully.
 
-    Get started:
+    message =
+      """
+      Your Raxx project was created successfully.
 
-        cd #{config.name}
-        #{if config.docker, do: "docker-compose up", else: "iex -S mix"}
+      Get started:
 
-    View on http://localhost:8080
-    View on https://localhost:8443 (NOTE: uses a self signed certificate)
-    """
-    |> String.trim_trailing
+          cd #{config.name}
+          #{if config.docker, do: "docker-compose up", else: "iex -S mix"}
+
+      View on http://localhost:8080
+      View on https://localhost:8443 (NOTE: uses a self signed certificate)
+      """
+      |> String.trim_trailing()
+
     {:ok, message}
   end
 
@@ -74,18 +80,23 @@ defmodule Raxx.Kit do
     case File.read(file) do
       {:error, :eisdir} ->
         Mix.Generator.create_directory(file)
+
       {:ok, template} ->
         path = Path.relative_to(file, root)
-        {path, contents} = case String.split(path, ~r/\.eex$/) do
-          [path, ""] ->
-            path = String.replace(path, "app_name", assigns.name)
-            contents = EEx.eval_string(template, [assigns: assigns])
-            {path, contents}
-          [path] ->
-            path = String.replace(path, "app_name", assigns.name)
-            contents = template
-            {path, contents}
-        end
+
+        {path, contents} =
+          case String.split(path, ~r/\.eex$/) do
+            [path, ""] ->
+              path = String.replace(path, "app_name", assigns.name)
+              contents = EEx.eval_string(template, assigns: assigns)
+              {path, contents}
+
+            [path] ->
+              path = String.replace(path, "app_name", assigns.name)
+              contents = template
+              {path, contents}
+          end
+
         if String.trim(contents) == "" do
           :ok
         else
