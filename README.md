@@ -43,6 +43,9 @@ Visiting https://localhost:8443 will use HTTP/2 but you will need to accept the 
 
 ### Options
 
+- `--node-assets`: Add JavaScript compilation as part of a generated project.
+  Works with or without docker.
+
 - `--docker`: Create `Dockerfile` and `docker-compose.yml` in template.
   This allows local development to be conducted completly in docker.
 
