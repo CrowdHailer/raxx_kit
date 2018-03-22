@@ -1,9 +1,19 @@
 # <%= @module %>
+<%= if @docker do %>
+- Install dependencies with `docker-compose run <%= @name %> mix deps.get`
+- Start your service with `docker-compose up`
+- Run project test suite with `docker-compose run <%= @name %> mix test`
+- Start IEx session in running service
+      # Find a container id using docker ps
+      docker exec -it <container-id> sh
 
+      # In container
+      iex --sname debug --remsh app@$(hostname)
+<%= else %>
 - Install dependencies with `mix deps.get`
 - Start your service with `iex -S mix`
 - Run project test suite with `mix test`
-
+<% end %>
 ## Learn more
 
 - Raxx documentation: https://hexdocs.pm/raxx

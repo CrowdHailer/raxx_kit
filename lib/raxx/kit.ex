@@ -15,6 +15,7 @@ defmodule Raxx.Kit do
     :ok = Mix.Generator.create_directory(config.name)
     File.cd!(config.name, fn() ->
       assigns = Map.from_struct(config)
+      IO.inspect(assigns)
 
       :ok = template_dir()
       |> Path.join("./**/*")
@@ -23,6 +24,19 @@ defmodule Raxx.Kit do
 
       Mix.shell.cmd("mix deps.get")
     end)
+    message = """
+    Your Raxx project was created successfully.
+
+    Get started:
+
+        cd #{config.name}
+        #{if config.docker, do: "docker-compose up", else: "iex -S mix"}
+
+    View on http://localhost:8080
+    View on https://localhost:8443 (NOTE: uses a self signed certificate)
+    """
+    |> String.trim_trailing
+    {:ok, message}
   end
 
   defp check_config!(options) do

@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## master
+
+### Added
+
+- Sensible Docker configuration created when using the `--docker` option.
+
 ## [0.3.0](https://github.com/CrowdHailer/raxx_kit/tree/0.3.0) - 2018-02-11
 
 ### Added

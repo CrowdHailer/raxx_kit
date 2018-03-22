@@ -1,0 +1,13 @@
+<%= if @docker do %>version: '2'
+
+services:
+  <%= @name %>:
+    build:
+      context: "."
+      dockerfile: "Dockerfile"
+    ports:
+      - 8080:8080
+      - 8443:8443
+    volumes:
+      - .:/opt/app
+<% end %>

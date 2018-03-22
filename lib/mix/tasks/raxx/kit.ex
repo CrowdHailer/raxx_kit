@@ -15,19 +15,9 @@ defmodule Mix.Tasks.Raxx.Kit do
       {_, []} ->
         Mix.raise("raxx.kit must be given a name `mix raxx.kit <name>`")
       {switches, [name]} ->
-        Raxx.Kit.generate([{:name, name} | switches])
-        """
-        Your Raxx project was created successfully.
+        {:ok, message} = Raxx.Kit.generate([{:name, name} | switches])
 
-        Get started:
-
-            cd #{name}
-            iex -S mix
-
-        View on https://localhost:8080
-        """
-        |> String.trim_trailing
-        |> Mix.shell.info
+        Mix.shell.info(message)
     end
   end
 end
