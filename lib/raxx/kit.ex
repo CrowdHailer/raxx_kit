@@ -17,7 +17,6 @@ defmodule Raxx.Kit do
 
     File.cd!(config.name, fn ->
       assigns = Map.from_struct(config)
-      IO.inspect(assigns)
 
       :ok =
         template_dir()

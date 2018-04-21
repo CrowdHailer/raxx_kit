@@ -60,6 +60,16 @@ Visiting https://localhost:8443 will use HTTP/2 but you will need to accept the 
 
 - `--apib`: Generate an API Blueprint file which is used as the project router.
 
+## Contributing
+
+### Building a new archive
+
+**NOTE: dotfiles in the priv directory are not automatically included in an archive.**
+
+```
+mix archive.build --include-dot-files -o raxx_kit.ez
+```
+
 ## Copyright and License
 
 Raxx.Kit source code is released under [Apache License 2.0](License).
