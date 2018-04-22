@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - dotfiles, such as `.gitignore` are prefixed in template to fix issues with priv dir and archives.
 
+## [0.4.2](https://github.com/CrowdHailer/raxx_kit/tree/0.4.2) - 2018-04-21
+
+### Added
+
+- Project information for release on hex.pm.
+
 ## [0.4.1](https://github.com/CrowdHailer/raxx_kit/tree/0.4.1) - 2018-04-21
 
 ### Added
