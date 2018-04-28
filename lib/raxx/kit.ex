@@ -21,7 +21,7 @@ defmodule Raxx.Kit do
       :ok =
         template_dir()
         |> Path.join("./**/*")
-        |> Path.wildcard(match_dot: true)
+        |> Path.wildcard()
         |> Enum.each(&copy_template(&1, template_dir(), assigns))
 
       # If using docker elixir and mix might not be installed so this should be run in docker
@@ -87,11 +87,13 @@ defmodule Raxx.Kit do
           case String.split(path, ~r/\.eex$/) do
             [path, ""] ->
               path = String.replace(path, "app_name", assigns.name)
+              |> String.replace("_DOTFILE", "")
               contents = EEx.eval_string(template, assigns: assigns)
               {path, contents}
 
             [path] ->
               path = String.replace(path, "app_name", assigns.name)
+              |> String.replace("_DOTFILE", "")
               contents = template
               {path, contents}
           end
