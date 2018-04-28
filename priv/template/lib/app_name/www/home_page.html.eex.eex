@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title><%= @name %></title>
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
-    <link rel="stylesheet" href="/main.css">
-    <script type="text/javascript" src="/main.js"> </script>
-  </head>
-  <body>
-    <main class="centered">
-      <section class="accent">
-        <h1>Raxx.Kit</h1>
-        <h2>Simply cloud native</h2>
-        <nav>
-          <a href="https://github.com/CrowdHailer/raxx">SOURCE CODE</a>
-          <a href="https://elixir-lang.slack.com/messages/C56H3TBH8/">CHAT</a>
-        </nav>
-      </section>
-    </main>
-  </body>
-</html>
+<main class="centered">
+  <section class="accent">
+    <h1>Raxx.Kit</h1>
+    <h2>Simply cloud native</h2>
+    <nav>
+      <a href="https://github.com/CrowdHailer/raxx">SOURCE CODE</a>
+      <a href="https://elixir-lang.slack.com/messages/C56H3TBH8/">CHAT</a>
+    </nav>
+  </section>
+</main>

@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## safe-view
+
+### Added
+
+- New `HTMLView` module handles templates and HTML escaping
+
 ## [0.4.4](https://github.com/CrowdHailer/raxx_kit/tree/0.4.4) - 2018-04-23
 
 ### Fixed

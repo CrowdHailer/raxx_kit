@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title><%= @name %> | Not found</title>
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
-    <link rel="stylesheet" href="/main.css">
-  </head>
-  <body>
-    <main class="centered">
-      <section class="accent">
-        <h1>Nothing here!</h1>
-      </section>
-    </main>
-  </body>
-</html>
+<main class="centered">
+  <section class="accent">
+    <h1>Nothing here!</h1>
+  </section>
+</main>
