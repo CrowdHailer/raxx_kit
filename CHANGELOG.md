@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.5.1](https://github.com/CrowdHailer/raxx_kit/tree/0.5.1) - 2018-04-29
+
+### Added
+
+- Environment configuration for ports.
+
 ## [0.5.0](https://github.com/CrowdHailer/raxx_kit/tree/0.5.0) - 2018-04-28
 
 ### Added
