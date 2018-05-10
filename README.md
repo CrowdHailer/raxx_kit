@@ -1,5 +1,7 @@
 # Raxx.Kit
 
+[Tutorial for building a distributed chatroom with Raxx.Kit](http://crowdhailer.me/2018-05-01/building-a-distributed-chatroom-with-raxx-kit/)
+
 **Get started with Raxx + Elixir**
 
 ```sh
