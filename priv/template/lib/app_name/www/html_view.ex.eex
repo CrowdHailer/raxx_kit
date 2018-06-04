@@ -10,7 +10,7 @@ defmodule <%= @module %>.WWW.HTMLView do
         [path_and_name, ""] ->
           path_and_name <> ".html.eex"
         _ ->
-          raise "Needs to be an `.ex` file"
+          raise "#{__MODULE__} needs to be used from a `.ex` or `.exs` file"
       end
 
       require EEx
