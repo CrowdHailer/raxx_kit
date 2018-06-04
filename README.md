@@ -25,7 +25,8 @@ Includes:
 - `--docker`: Create `Dockerfile` and `docker-compose.yml` in template.
   This allows local development to be conducted completly in docker.
 
-- `--module`: Used to name the top level module used in the generated project. Without this option the module name will be generated from path option.
+- `--module`: Used to name the top level module used in the generated project.
+  Without this option the module name will be generated from path option.
 
   ```sh
   $ mix raxx.kit my_app
