@@ -1,0 +1,3 @@
+defmodule <%= @module %>.WWW.Layout do
+  use Raxx.Layout
+end
