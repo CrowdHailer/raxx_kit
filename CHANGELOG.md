@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.5.5](https://github.com/CrowdHailer/raxx_kit/tree/0.5.5) - 2018-09-04
+
+### Added
+
+- Home page template demonstrates using variables in a template.
+- Setting JavaScript variables is done on the home page.
+
+### Changed
+
+- `--docker` option uses latest (elixir:1.7.3) as base image.
+
 ## [0.5.4](https://github.com/CrowdHailer/raxx_kit/tree/0.5.4) - 2018-09-03
 
 ### Changed
