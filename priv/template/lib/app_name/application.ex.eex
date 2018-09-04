@@ -6,8 +6,8 @@ defmodule <%= @module %>.Application do
   def start(_type, _args) do
 
     config = %{}
-    cleartext_options = [port: port, cleartext: true]
-    secure_options = [port: secure_port, cleartext: :false, certfile: certificate_path(), keyfile: certificate_key_path()]
+    cleartext_options = [port: port(), cleartext: true]
+    secure_options = [port: secure_port(), cleartext: :false, certfile: certificate_path(), keyfile: certificate_key_path()]
 
     children = [
       Supervisor.child_spec({<%= @module %>.WWW, [config, cleartext_options]}, id: :www_cleartext),

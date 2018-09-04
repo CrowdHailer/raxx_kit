@@ -5,7 +5,7 @@ defmodule <%= @module %>.WWW do
   use Raxx.ApiBlueprint, "./www.apib"
   <% else %>
   use Raxx.Router, [
-    {%{method: :GET, path: []}, <%= @module %>.WWW.HomePage},
+    {%{path: []}, <%= @module %>.WWW.HomePage},
     {_, <%= @module %>.WWW.NotFoundPage}
   ]
   <% end %>

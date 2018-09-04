@@ -17,7 +17,8 @@ html {
 
 body {
   font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  font-size: 1.6em // Currently ems cause chrome bug misinterpreting rems on body element;
+  /* Currently ems cause chrome bug misinterpreting rems on body element */
+  font-size: 1.6em;
   font-weight: 300;
   letter-spacing: .01em;
   line-height: 1.6;
@@ -52,8 +53,9 @@ h1 {
 }
 
 nav {
-  letter-spacing: 3.5em
+  letter-spacing: 1.5em
 }
+
 nav a {
   color: #00ff9c;
   letter-spacing: 0.05em
