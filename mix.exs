@@ -4,7 +4,7 @@ defmodule RaxxKit.MixProject do
   def project do
     [
       app: :raxx_kit,
-      version: "0.5.5",
+      version: "0.6.0",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -28,7 +28,7 @@ defmodule RaxxKit.MixProject do
 
   defp description do
     """
-    Framework for web applications with Raxx and Ace
+    Micro framework for web applications with Raxx and Ace.
     """
   end
 

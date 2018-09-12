@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.6.0](https://github.com/CrowdHailer/raxx_kit/tree/0.6.0) - 2018-09-12
+
+### Changed
+
+- Use Ace `0.17.0`.
+
 ## [0.5.5](https://github.com/CrowdHailer/raxx_kit/tree/0.5.5) - 2018-09-04
 
 ### Added
