@@ -1,8 +1,8 @@
 defmodule <%= @module %>.WWW.HomePage do
-  use Raxx.Server
+  use Raxx.SimpleServer
   use <%= @module %>.WWW.Layout, arguments: [:title]
 
-  @impl Raxx.Server
+  @impl Raxx.SimpleServer
   def handle_request(_request = %{method: :GET}, _state) do
     title = "Raxx.Kit"
 

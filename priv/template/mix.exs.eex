@@ -17,9 +17,9 @@ defmodule <%= @module %>.Mixfile do
 
   defp deps do
     [
-      {:ace, "~> 0.17.0"},<%= if @api_blueprint do %>
+      {:ace, "~> 0.18.0"},<%= if @api_blueprint do %>
       {:raxx_api_blueprint, "~> 0.1.0"},<% end %>
-      {:raxx_static, "~> 0.6.2"},
+      {:raxx_static, "~> 0.7.0"},
       {:exsync, "~> 0.2.3", only: :dev},
     ]
   end

@@ -1,8 +1,8 @@
 defmodule <%= @module %>.WWW.NotFoundPage do
-  use Raxx.Server
+  use Raxx.SimpleServer
   use <%= @module %>.WWW.Layout, arguments: []
 
-  @impl Raxx.Server
+  @impl Raxx.SimpleServer
   def handle_request(_request, _state) do
     response(:not_found)
     |> render()

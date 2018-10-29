@@ -191,7 +191,7 @@ A simple server where all the requests are collapsed before being handled could 
 
 ```elixir
 defmodule Raxx.SimpleServer do
-  use Raxx.Server
+  use Raxx.SimpleServer
 
   # Not a Raxx.Server callback
   def handle_request(request, config) do
