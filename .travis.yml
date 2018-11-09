@@ -1,7 +1,14 @@
 language: elixir
+sudo: required
+services:
+  - docker
 elixir:
-  - 1.6.4
+  - 1.7.3
 otp_release:
-  - 19.2
   - 20.0
-script: "MIX_ENV=test mix local.hex --force && MIX_ENV=test mix do deps.get, test"
+before_script:
+  - "MIX_ENV=test mix local.hex --force && MIX_ENV=test mix deps.get"
+script:
+  - MIX_ENV=test mix test
+  - mix format --check-formatted
+  - ./scripts/docker_test.sh

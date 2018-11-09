@@ -24,3 +24,6 @@ erl_crash.dump
 
 # Ignore package tarball (built via "mix hex.build").
 raxx_kit-*.tar
+
+# Where, by convention, test projects are created.
+/demo/

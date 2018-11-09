@@ -78,7 +78,8 @@ defmodule Raxx.Kit do
   defp copy_template(file, root, assigns) do
     case File.read(file) do
       {:error, :eisdir} ->
-        Mix.Generator.create_directory(file)
+        path = Path.relative_to(file, root)
+        Mix.Generator.create_directory(path)
 
       {:ok, template} ->
         path = Path.relative_to(file, root)
@@ -86,14 +87,18 @@ defmodule Raxx.Kit do
         {path, contents} =
           case String.split(path, ~r/\.eex$/) do
             [path, ""] ->
-              path = String.replace(path, "app_name", assigns.name)
-              |> String.replace("_DOTFILE", "")
+              path =
+                String.replace(path, "app_name", assigns.name)
+                |> String.replace("_DOTFILE", "")
+
               contents = EEx.eval_string(template, assigns: assigns)
               {path, contents}
 
             [path] ->
-              path = String.replace(path, "app_name", assigns.name)
-              |> String.replace("_DOTFILE", "")
+              path =
+                String.replace(path, "app_name", assigns.name)
+                |> String.replace("_DOTFILE", "")
+
               contents = template
               {path, contents}
           end

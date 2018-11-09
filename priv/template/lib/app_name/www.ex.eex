@@ -1,5 +1,5 @@
 defmodule <%= @module %>.WWW do
-  use Ace.HTTP.Service, [port: 8080, cleartext: true]
+  use Ace.HTTP.Service, port: 8080, cleartext: true
   use Raxx.Server
   <%= if @api_blueprint do %>
   @external_resource "lib/<%= @name %>/www.apib"
