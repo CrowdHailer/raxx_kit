@@ -6,7 +6,7 @@ defmodule Raxx.Kit do
     :api_blueprint,
     :node_assets,
     :exsync,
-    :ecto,
+    :ecto
   ]
 
   defstruct @enforce_keys
@@ -116,7 +116,7 @@ defmodule Raxx.Kit do
 
   defp translate_path(path, assigns) do
     path
-    |> String.replace("app_name", assigns.name, [global: true])
+    |> String.replace("app_name", assigns.name, global: true)
     |> String.replace("_DOTFILE", "")
   end
 end
