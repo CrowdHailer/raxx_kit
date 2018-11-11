@@ -9,7 +9,8 @@ defmodule Mix.Tasks.Raxx.Kit do
     apib: :boolean,
     module: :string,
     node_assets: :boolean,
-    no_exsync: :boolean
+    no_exsync: :boolean,
+    ecto: :boolean
   ]
 
   @moduledoc """
@@ -17,9 +18,14 @@ defmodule Mix.Tasks.Raxx.Kit do
 
   It expects the name of the project as the argument.
 
-      mix raxx.kit NAME [--node-assets] [--docker] [--module ModuleName] [--apib]
+      mix raxx.kit NAME [--ecto] [--node-assets] [--docker] [--module ModuleName]
+        [--apib] [--no-exsync]
 
   ## Options
+
+  - `--ecto`: Adds Ecto as a dependency and configures project to use
+    a Postgres database. If used with `--docker` flag, a docker-compose service
+    with the database will get generated.
 
   - `--node-assets`: Add JavaScript compilation as part of a generated project.
     Works with or without docker.
@@ -30,15 +36,15 @@ defmodule Mix.Tasks.Raxx.Kit do
   - `--module`: Used to name the top level module used in the generated project.
     Without this option the module name will be generated from path option.
 
-  - `--no-exsync`: Doesn't include exsync in the generated project. Changed
-    files won't be rebuilt on the fly when the app is running.
-
   ```sh
   $ mix raxx.kit my_app
 
   # Is equivalent to
   $ mix raxx.kit my_app --module MyApp
   ```
+
+  - `--no-exsync`: Doesn't include exsync in the generated project. Changed
+    files won't be rebuilt on the fly when the app is running.
 
   - `--apib`: Generate an API Blueprint file which is used as the project router.
 

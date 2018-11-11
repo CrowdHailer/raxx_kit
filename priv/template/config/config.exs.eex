@@ -1,5 +1,23 @@
 use Mix.Config
 
+<%= if @ecto do %>
+config :<%= @name %>,
+  ecto_repos: [<%= @module %>.Repo]
+
+config :<%= @name %>, <%= @module %>.Repo,
+  username: "now",
+  password: "kith",
+  database: "<%= @name %>",
+  hostname: "localhost",
+  port: 5555,
+  pool_size: 10
+
+if Mix.env() == :test do
+config :<%= @name %>, <%= @module %>.Repo,
+  pool: Ecto.Adapters.SQL.Sandbox
+end
+<% end %>
+
 <%= if @exsync do %>
 if Mix.env() == :dev do
   config :exsync,

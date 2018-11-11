@@ -6,9 +6,11 @@ defmodule <%= @module %>.Mixfile do
       app: :<%= @name %>,
       version: "0.1.0",
       elixir: "~> <%= System.version %>",
+      elixirc_paths: elixirc_paths(Mix.env()),
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
-      deps: deps()
+      deps: deps(),
+      aliases: aliases()
     ]
   end
 
@@ -16,12 +18,23 @@ defmodule <%= @module %>.Mixfile do
     [extra_applications: [:logger], mod: {<%= @module %>.Application, []}]
   end
 
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
   defp deps do
     [
       {:ace, "~> 0.18.0"},<%= if @api_blueprint do %>
       {:raxx_api_blueprint, "~> 0.1.0"},<% end %>
       {:raxx_static, "~> 0.7.0"},<%= if @exsync do %>
-      {:exsync, "~> 0.2.3", only: :dev},<% end %>
+      {:exsync, "~> 0.2.3", only: :dev},<% end %><%= if @ecto do %>
+      {:postgrex, ">= 0.0.0"},
+      {:ecto_sql, "~> 3.0.0"}<% end %>
+    ]
+  end
+
+  defp aliases() do
+    [<%= if @ecto do %>
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]<% end %>
     ]
   end
 end

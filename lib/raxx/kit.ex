@@ -5,7 +5,8 @@ defmodule Raxx.Kit do
     :docker,
     :api_blueprint,
     :node_assets,
-    :exsync
+    :exsync,
+    :ecto,
   ]
 
   defstruct @enforce_keys
@@ -63,6 +64,7 @@ defmodule Raxx.Kit do
     node_assets = Keyword.get(options, :node_assets, false)
     api_blueprint = Keyword.get(options, :apib, false)
     exsync = !Keyword.get(options, :no_exsync, false)
+    ecto = Keyword.get(options, :ecto, false)
 
     %__MODULE__{
       name: name,
@@ -70,7 +72,8 @@ defmodule Raxx.Kit do
       docker: docker,
       api_blueprint: api_blueprint,
       node_assets: node_assets,
-      exsync: exsync
+      exsync: exsync,
+      ecto: ecto
     }
   end
 
@@ -81,7 +84,10 @@ defmodule Raxx.Kit do
   defp copy_template(file, root, assigns) do
     case File.read(file) do
       {:error, :eisdir} ->
-        path = Path.relative_to(file, root)
+        path =
+          Path.relative_to(file, root)
+          |> translate_path(assigns)
+
         Mix.Generator.create_directory(path)
 
       {:ok, template} ->
@@ -90,18 +96,12 @@ defmodule Raxx.Kit do
         {path, contents} =
           case String.split(path, ~r/\.eex$/) do
             [path, ""] ->
-              path =
-                String.replace(path, "app_name", assigns.name)
-                |> String.replace("_DOTFILE", "")
-
+              path = translate_path(path, assigns)
               contents = EEx.eval_string(template, assigns: assigns)
               {path, contents}
 
             [path] ->
-              path =
-                String.replace(path, "app_name", assigns.name)
-                |> String.replace("_DOTFILE", "")
-
+              path = translate_path(path, assigns)
               contents = template
               {path, contents}
           end
@@ -112,5 +112,11 @@ defmodule Raxx.Kit do
           Mix.Generator.create_file(path, contents)
         end
     end
+  end
+
+  defp translate_path(path, assigns) do
+    path
+    |> String.replace("app_name", assigns.name, [global: true])
+    |> String.replace("_DOTFILE", "")
   end
 end
