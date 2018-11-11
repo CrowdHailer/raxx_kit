@@ -1,4 +1,8 @@
 use Mix.Config
 
-config :exsync,
-  extra_extensions: [".js", ".css"]
+<%= if @exsync do %>
+if Mix.env() == :dev do
+  config :exsync,
+    extra_extensions: [".js", ".css"]
+end
+<% end %>

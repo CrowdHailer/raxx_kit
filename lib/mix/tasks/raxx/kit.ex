@@ -4,7 +4,13 @@ defmodule Mix.Tasks.Raxx.Kit do
   require Mix.Generator
 
   @shortdoc "Creates a new Raxx project for browsers"
-  @switches [docker: :boolean, apib: :boolean, module: :string, node_assets: :boolean]
+  @switches [
+    docker: :boolean,
+    apib: :boolean,
+    module: :string,
+    node_assets: :boolean,
+    no_exsync: :boolean
+  ]
 
   @moduledoc """
   Creates a new Raxx project for browsers.
@@ -22,7 +28,10 @@ defmodule Mix.Tasks.Raxx.Kit do
     This allows local development to be conducted completly in docker.
 
   - `--module`: Used to name the top level module used in the generated project.
-  Without this option the module name will be generated from path option.
+    Without this option the module name will be generated from path option.
+
+  - `--no-exsync`: Doesn't include exsync in the generated project. Changed
+    files won't be rebuilt on the fly when the app is running.
 
   ```sh
   $ mix raxx.kit my_app

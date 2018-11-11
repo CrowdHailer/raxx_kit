@@ -4,7 +4,8 @@ defmodule Raxx.Kit do
     :module,
     :docker,
     :api_blueprint,
-    :node_assets
+    :node_assets,
+    :exsync
   ]
 
   defstruct @enforce_keys
@@ -61,13 +62,15 @@ defmodule Raxx.Kit do
     docker = Keyword.get(options, :docker, false)
     node_assets = Keyword.get(options, :node_assets, false)
     api_blueprint = Keyword.get(options, :apib, false)
+    exsync = !Keyword.get(options, :no_exsync, false)
 
     %__MODULE__{
       name: name,
       module: module,
       docker: docker,
       api_blueprint: api_blueprint,
-      node_assets: node_assets
+      node_assets: node_assets,
+      exsync: exsync
     }
   end
 
