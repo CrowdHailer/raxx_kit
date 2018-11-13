@@ -27,6 +27,7 @@ defmodule Raxx.Kit do
       # If using docker elixir and mix might not be installed so this should be run in docker
       if !config.docker do
         Mix.shell().cmd("mix deps.get")
+        Mix.shell().cmd("mix format")
       end
     end)
 
