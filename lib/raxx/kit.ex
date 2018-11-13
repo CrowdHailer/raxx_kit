@@ -33,7 +33,7 @@ defmodule Raxx.Kit do
         Mix.shell().cmd("mix format")
 
         if config.node_assets do
-          File.cd!(config.name <> "/lib/" <> config.name <> "/www", fn ->
+          File.cd!("lib/" <> config.name <> "/www", fn ->
             Mix.shell().cmd("npm install")
           end)
         end

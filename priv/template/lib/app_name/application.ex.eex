@@ -19,6 +19,7 @@ defmodule <%= @module %>.Application do
       Supervisor.child_spec({<%= @module %>.WWW, [config, secure_options]}, id: :www_secure),
       <%= if @node_assets do %>
       Supervisor.child_spec({Task, fn() -> System.cmd("npm", ["run", "watch:js"], cd: "lib/<%= @name %>/www") end}, id: :watch_js),
+      Supervisor.child_spec({Task, fn() -> System.cmd("npm", ["run", "watch:css"], cd: "lib/<%= @name %>/www") end}, id: :watch_css),
       <% end %>
     ]
 
