@@ -26,5 +26,10 @@ RUN MIX_ENV=test mix deps.compile
 #   This will skip the _build and deps directories as per .dockerignore
 COPY . .
 
+# Make sure the Docker image can be started without waiting for the project to compile
+# mix deps.get is needed to update the freshly copied mix.lock
+RUN mix do deps.get, compile
+RUN MIX_ENV=test mix do deps.get, compile
+
 CMD ["sh", "./bin/start.sh"]
 <% end %>

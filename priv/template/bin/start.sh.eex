@@ -2,5 +2,7 @@
 
 <%= if @node_assets do %>(cd lib/<%= @name %>/www ; npm install)<% end %>
 
+# TODO: do database creation and migrations
+
 elixir --sname app -S mix run --no-halt
 <% end %>
