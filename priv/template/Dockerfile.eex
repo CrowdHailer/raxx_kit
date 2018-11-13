@@ -1,4 +1,4 @@
-<%= if @docker do %>FROM elixir:1.7.3
+<%= if @docker do %>FROM elixir:1.7.4
 
 # NOTE the WORKDIR should not be the users home dir as the will copy container cookie into host machine
 WORKDIR /opt/app
@@ -6,18 +6,24 @@ WORKDIR /opt/app
 # Add tools needed for development
 # inotify-tools: gives filesystem events that are used to trigger recompilation
 <%= if @node_assets do %>RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -<% end %>
-RUN apt-get update && apt-get install -y inotify-tools <%= if @node_assets do %>nodejs<% end %>
+RUN apt-get update && apt-get install -y inotify-tools<%= if @node_assets do %>nodejs<% end %>
+
+WORKDIR /opt/app
+ENV INSIDE_CONTAINER=1
 
 # Build hex and rebar as a separate Docker layer
 RUN mix local.hex --force && mix local.rebar --force
+RUN mkdir ../deps && mkdir ../_build
 
 # Build all dependencies separately to the application code
 RUN mkdir config
 COPY config/* config/
 COPY mix.* ./
 RUN mix do deps.get, deps.compile
+RUN MIX_ENV=test mix deps.compile
 
 # Add application code as final layer
+#   This will skip the _build and deps directories as per .dockerignore
 COPY . .
 
 CMD ["sh", "./bin/start.sh"]

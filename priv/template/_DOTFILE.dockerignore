@@ -1,0 +1,8 @@
+<%= if @docker do %># container builds its own artifacts
+_build
+deps
+
+# SEE docker-compose.yml for details
+_build_docker
+deps_docker
+<% end %>

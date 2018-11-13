@@ -11,7 +11,8 @@ defmodule <%= @module %>.Mixfile do
       start_permanent: Mix.env == :prod,
       deps: deps(),
       aliases: aliases()
-    ]
+    ]<%= if @docker do %>
+    |> Keyword.merge(docker_specific_project_opts())<% end %>
   end
 
   def application do
@@ -37,4 +38,17 @@ defmodule <%= @module %>.Mixfile do
       test: ["ecto.create --quiet", "ecto.migrate", "test"]<% end %>
     ]
   end
+<%= if @docker do %>
+  # makes sure that if the project is run by docker-compose inside a container,
+  # its artifacts won't pollute the host's checkout directory
+  defp docker_specific_project_opts() do
+    if System.get_env("INSIDE_CONTAINER") do
+      [
+        build_path: "../_build",
+        deps_path: "../deps"
+      ]
+    else
+      []
+    end
+  end<% end %>
 end
