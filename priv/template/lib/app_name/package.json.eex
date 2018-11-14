@@ -1,10 +1,13 @@
 <%= if @node_assets do %>{
   "name": "<%= @name %>",
   "scripts": {
-    "watch:js": "rollup -w -i assets/main.js -o public/main.js -f iife -n main"
+    "watch:js": "rollup -w -i assets/main.js -o public/main.js -f iife -n main",
+    "watch:css": "node-sass -w assets/main.scss public/main.css",
+    "prewatch:css": "node-sass assets/main.scss public/main.css"
   },
   "devDependencies": {
-    "rollup": "^0.56.5"
+    "rollup": "^0.67.1",
+    "node-sass": "^4.10.0"
   }
 }
 <% end %>
