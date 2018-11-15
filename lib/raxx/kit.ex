@@ -133,4 +133,11 @@ defmodule Raxx.Kit do
     |> String.replace("app_name", assigns.name, global: true)
     |> String.replace("_DOTFILE", "")
   end
+
+  def generate_password(length) do
+    :crypto.strong_rand_bytes(length)
+    |> Base.encode64
+    |> binary_part(0, length)
+    |> String.replace(["+", "/"], "_")
+  end
 end
