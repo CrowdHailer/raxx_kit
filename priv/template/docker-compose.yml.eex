@@ -15,10 +15,9 @@ services:
     volumes:
       - .:/opt/app
       ## uncomment the below lines if you want to see the contents of the
-      ## container's deps and _build directories in your local checkout,
-      ## under deps_docker/ and _build_docker/
-      # - ./deps_docker:/opt/deps
-      # - ./_build_docker:/opt/_build
+      ## container's deps/ and _build/ directories in your local project,
+      ## under container_mix
+      # - ./container_mix_artifacts:/opt/mix_artifacts
 
   db:
     image: "postgres:9.6.11"

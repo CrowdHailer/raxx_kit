@@ -9,11 +9,11 @@ WORKDIR /opt/app
 RUN apt-get update && apt-get install -y inotify-tools<%= if @node_assets do %> nodejs<% end %>
 
 WORKDIR /opt/app
-ENV INSIDE_CONTAINER=1
+ENV MIX_ARTIFACTS_DIRECTORY=../mix_artifacts
 
 # Build hex and rebar as a separate Docker layer
 RUN mix local.hex --force && mix local.rebar --force
-RUN mkdir ../deps && mkdir ../_build
+RUN mkdir -p ${MIX_ARTIFACTS_DIRECTORY}/deps && mkdir -p ${MIX_ARTIFACTS_DIRECTORY}/_build
 
 # Build all dependencies separately to the application code
 RUN mkdir config
@@ -28,9 +28,8 @@ RUN MIX_ENV=test mix deps.compile
 COPY . .
 
 # Make sure the Docker image can be started without waiting for the project to compile
-# mix deps.get is needed to update the freshly copied mix.lock
+# NOTE: mix deps.get is needed to update the freshly copied mix.lock file
 RUN mix do deps.get, compile
-RUN MIX_ENV=test mix do deps.get, compile
 
 CMD ["sh", "./bin/start.sh"]
 <% end %>

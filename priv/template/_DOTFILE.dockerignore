@@ -3,6 +3,5 @@ _build
 deps
 
 # SEE docker-compose.yml for details
-_build_docker
-deps_docker
+container_mix_artifacts
 <% end %>

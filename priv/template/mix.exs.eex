@@ -12,7 +12,7 @@ defmodule <%= @module %>.Mixfile do
       deps: deps(),
       aliases: aliases()
     ]<%= if @docker do %>
-    |> Keyword.merge(docker_specific_project_opts())<% end %>
+    |> Keyword.merge(custom_artifacts_directory_opts())<% end %>
   end
 
   def application do
@@ -40,15 +40,16 @@ defmodule <%= @module %>.Mixfile do
   end
 <%= if @docker do %>
   # makes sure that if the project is run by docker-compose inside a container,
-  # its artifacts won't pollute the host's checkout directory
-  defp docker_specific_project_opts() do
-    if System.get_env("INSIDE_CONTAINER") do
-      [
-        build_path: "../_build",
-        deps_path: "../deps"
-      ]
-    else
-      []
+  # its artifacts won't pollute the host's project directory
+  defp custom_artifacts_directory_opts() do
+    case System.get_env("MIX_ARTIFACTS_DIRECTORY") do
+      unset when unset in [nil, ""] ->
+        []
+      directory ->
+        [
+          build_path: Path.join(directory, "_build"),
+          deps_path: Path.join(directory, "deps")
+        ]
     end
   end<% end %>
 end
