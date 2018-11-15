@@ -5,6 +5,7 @@ config :<%= @name %>,
   ecto_repos: [<%= @module %>.Repo]
 
 config :<%= @name %>, <%= @module %>.Repo,
+  # it can be overridden using the DATABASE_URL environment variable
   url: "ecto://<%= @ecto.db_username %>:<%= @ecto.db_password %>@localhost:6543/<%= @ecto.db_name %>?ssl=false&pool_size=10"
 
 if Mix.env() == :test do
