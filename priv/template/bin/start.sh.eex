@@ -1,7 +1,7 @@
-#!/usr/bin/env sh
+<%= if @docker do %>#!/usr/bin/env sh
 set -eu
 
-<%= if @docker do %>mix deps.get
+mix deps.get
 <%= if @node_assets do %>
 (cd lib/<%= @name %>/www ; npm install)<% end %>
 <%= if @ecto do %>
