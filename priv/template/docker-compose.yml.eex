@@ -7,6 +7,8 @@ services:
       dockerfile: "Dockerfile"
     depends_on:
       - db
+    environment:
+      - "DATABASE_URL=ecto://now:kith@db:5432/<%= @name %>?ssl=false&pool_size=10"
     ports:
       - 8080:8080
       - 8443:8443

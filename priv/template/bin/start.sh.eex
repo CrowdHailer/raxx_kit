@@ -1,8 +1,10 @@
+#!/usr/bin/env sh
+
 <%= if @docker do %>mix deps.get
 
-<%= if @node_assets do %>(cd lib/<%= @name %>/www ; npm install)<% end %>
-
-# TODO: do database creation and migrations
-
+<%= if @node_assets do %>(cd lib/<%= @name %>/www ; npm install)
+<% end %>
+<%= if @ecto %>mix do ecto.create, ecto.migrate
+<% end %>
 elixir --sname app -S mix run --no-halt
 <% end %>
