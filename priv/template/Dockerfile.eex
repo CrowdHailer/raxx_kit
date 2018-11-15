@@ -17,9 +17,10 @@ RUN mkdir ../deps && mkdir ../_build
 
 # Build all dependencies separately to the application code
 RUN mkdir config
-COPY config/* config/
 COPY mix.* ./
-RUN mix do deps.get, deps.compile
+RUN mix do deps.get
+COPY config/* config/
+RUN mix deps.compile
 RUN MIX_ENV=test mix deps.compile
 
 # Add application code as final layer
