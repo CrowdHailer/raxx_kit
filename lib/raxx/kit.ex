@@ -93,13 +93,20 @@ defmodule Raxx.Kit do
         Mix.Generator.create_directory(path)
 
       {:ok, template} ->
-        path = Path.relative_to(file, root)
+        original_path = Path.relative_to(file, root)
 
         {path, contents} =
-          case String.split(path, ~r/\.eex$/) do
+          case String.split(original_path, ~r/\.eex$/) do
             [path, ""] ->
               path = translate_path(path, assigns)
-              contents = EEx.eval_string(template, assigns: assigns)
+              contents =
+                try do
+                  EEx.eval_string(template, assigns: assigns)
+                rescue
+                  e in EEx.SyntaxError ->
+                    Mix.shell().error("Generator could not evaluate template under path '#{original_path}'")
+                    reraise e, __STACKTRACE__
+                end
               {path, contents}
 
             [path] ->
