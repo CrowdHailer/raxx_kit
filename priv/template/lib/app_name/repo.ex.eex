@@ -12,6 +12,7 @@
         url ->
           Keyword.put(config, :url, url)
       end
+    {:ok, config}
   end
 end
 <% end %>
