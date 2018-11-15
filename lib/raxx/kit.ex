@@ -99,14 +99,19 @@ defmodule Raxx.Kit do
           case String.split(original_path, ~r/\.eex$/) do
             [path, ""] ->
               path = translate_path(path, assigns)
+
               contents =
                 try do
                   EEx.eval_string(template, assigns: assigns)
                 rescue
                   e in EEx.SyntaxError ->
-                    Mix.shell().error("Generator could not evaluate template under path '#{original_path}'")
+                    Mix.shell().error(
+                      "Generator could not evaluate template under path '#{original_path}'"
+                    )
+
                     reraise e, __STACKTRACE__
                 end
+
               {path, contents}
 
             [path] ->
