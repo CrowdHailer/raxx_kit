@@ -136,7 +136,7 @@ defmodule Raxx.Kit do
 
   def generate_password(length) do
     :crypto.strong_rand_bytes(length)
-    |> Base.encode64
+    |> Base.encode64()
     |> binary_part(0, length)
     |> String.replace(["+", "/"], "_")
   end
