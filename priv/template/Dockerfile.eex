@@ -5,8 +5,8 @@ WORKDIR /opt/app
 
 # Add tools needed for development
 # inotify-tools: gives filesystem events that are used to trigger recompilation
-<%= if @node_assets do %>RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -<% end %>
-RUN apt-get update && apt-get install -y inotify-tools<%= if @node_assets do %>nodejs<% end %>
+<%= if @node_assets do %>RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -<% end %>
+RUN apt-get update && apt-get install -y inotify-tools<%= if @node_assets do %> nodejs<% end %>
 
 WORKDIR /opt/app
 ENV INSIDE_CONTAINER=1

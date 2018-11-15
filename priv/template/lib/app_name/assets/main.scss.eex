@@ -1,4 +1,4 @@
-/* Reset */
+<%= if @node_assets do %>/* Reset */
 body {
   margin: 0;
 }
@@ -59,4 +59,4 @@ nav {
 nav a {
   color: #00ff9c;
   letter-spacing: 0.05em
-}
+}<% end %>

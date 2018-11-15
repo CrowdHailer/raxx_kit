@@ -26,19 +26,21 @@ defmodule Raxx.Kit do
         |> Path.wildcard()
         |> Enum.each(&copy_template(&1, template_dir(), assigns))
 
-      # If using docker elixir and mix might not be installed so this should be run in docker
-      if !config.docker do
+      if config.docker do
+        # Getting npm and mix dependencies is handled in start.sh/Dockerfile
+        Mix.shell().cmd("docker-compose run #{config.name} mix format")
+      else
+        # If using Docker mix/node/npm might not be available on host machine
         Mix.shell().cmd("mix deps.get")
+        Mix.shell().cmd("mix format")
+
+        if config.node_assets do
+          File.cd!("lib/" <> config.name <> "/www", fn ->
+            Mix.shell().cmd("npm install")
+          end)
+        end
       end
     end)
-
-    # If using docker node might not be installed so this should be run in docker
-    if !config.docker && config.node_assets do
-      File.cd!(config.name <> "/lib/" <> config.name <> "/www", fn ->
-        Mix.shell().cmd("nodejs -v")
-        Mix.shell().cmd("npm install")
-      end)
-    end
 
     message =
       """
