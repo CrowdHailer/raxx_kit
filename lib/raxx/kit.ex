@@ -66,7 +66,17 @@ defmodule Raxx.Kit do
     node_assets = Keyword.get(options, :node_assets, false)
     api_blueprint = Keyword.get(options, :apib, false)
     exsync = !Keyword.get(options, :no_exsync, false)
-    ecto = Keyword.get(options, :ecto, false)
+
+    ecto =
+      if Keyword.get(options, :ecto, false) do
+        %{
+          db_name: name,
+          db_username: generate_password(8),
+          db_password: generate_password(18)
+        }
+      else
+        false
+      end
 
     %__MODULE__{
       name: name,
