@@ -10,6 +10,7 @@
       iex --sname debug --remsh app@$(hostname)
 
 Alternatively, you can still run the project directly, without docker:
+
 <%= if @ecto do %>- Start just the database service with `docker-compose up db`
 <% end %>- Install dependencies with `mix deps.get`<%= if @ecto do %>
 - prepare the database using `mix do ecto.create, ecto.migrate`

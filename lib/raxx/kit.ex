@@ -42,6 +42,25 @@ defmodule Raxx.Kit do
       end
     end)
 
+    run_instructions =
+      case {config.docker, !!config.ecto} do
+        {true, _} ->
+          "    docker-compose up"
+
+        {false, false} ->
+          "    iex -S mix"
+
+        {false, true} ->
+          # the backslash at the end is not a typo, it's removing
+          # the newline from the end of the heredoc
+          """
+              nano config/config.exs # configure the #{config.module}.Repo database
+              mix ecto.create
+              mix ecto.migrate
+              iex -S mix\
+          """
+      end
+
     message =
       """
       Your Raxx project was created successfully.
@@ -49,7 +68,7 @@ defmodule Raxx.Kit do
       Get started:
 
           cd #{config.name}
-          #{if config.docker, do: "docker-compose up", else: "iex -S mix"}
+      #{run_instructions}
 
       View on http://localhost:8080
       View on https://localhost:8443 (NOTE: uses a self signed certificate)
