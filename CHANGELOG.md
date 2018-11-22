@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Master
+
+### Added
+
+- Ecto 3.0 boilerplate and postgres service when specifying `--ecto` flag.
+- Disabling code reloading with `--no-exsync` flag.
+- Code formatting run after the project is generated.
+
+### Changed
+
+- Compilation artifacts no longer pollute the host machine when using `--docker`.
+- `--docker` option uses elixir:1.7.4 as base image.
+
 ## [0.7.1](https://github.com/CrowdHailer/raxx_kit/tree/0.7.1) - 2018-11-14
 
 ### Added
