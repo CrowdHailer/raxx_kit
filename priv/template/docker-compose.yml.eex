@@ -5,11 +5,25 @@ services:
     build:
       context: "."
       dockerfile: "Dockerfile"
+    depends_on:
+      - db
+    environment:
+      - "DATABASE_URL=ecto://<%= @ecto.db_username %>:<%= @ecto.db_password %>@db:5432/<%= @ecto.db_name %>?ssl=false&pool_size=10"
     ports:
       - 8080:8080
       - 8443:8443
     volumes:
       - .:/opt/app
-      - ./deps_docker:/opt/app/deps
-      - ./_build_docker:/opt/app/_build
+      ## uncomment the below lines if you want to see the contents of the
+      ## container's deps/ and _build/ directories in your local project,
+      ## under container_mix
+      # - ./container_mix_artifacts:/opt/mix_artifacts
+
+  db:
+    image: "postgres:9.6.11"
+    environment:
+      - POSTGRES_USER=<%= @ecto.db_username %>
+      - POSTGRES_PASSWORD=<%= @ecto.db_password %>
+    ports:
+      - 6543:5432
 <% end %>

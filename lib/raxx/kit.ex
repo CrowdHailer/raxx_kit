@@ -4,7 +4,9 @@ defmodule Raxx.Kit do
     :module,
     :docker,
     :api_blueprint,
-    :node_assets
+    :node_assets,
+    :exsync,
+    :ecto
   ]
 
   defstruct @enforce_keys
@@ -40,6 +42,25 @@ defmodule Raxx.Kit do
       end
     end)
 
+    run_instructions =
+      case {config.docker, !!config.ecto} do
+        {true, _} ->
+          "    docker-compose up"
+
+        {false, false} ->
+          "    iex -S mix"
+
+        {false, true} ->
+          # the backslash at the end is not a typo, it's removing
+          # the newline from the end of the heredoc
+          """
+              nano config/config.exs # configure the #{config.module}.Repo database
+              mix ecto.create
+              mix ecto.migrate
+              iex -S mix\
+          """
+      end
+
     message =
       """
       Your Raxx project was created successfully.
@@ -47,7 +68,7 @@ defmodule Raxx.Kit do
       Get started:
 
           cd #{config.name}
-          #{if config.docker, do: "docker-compose up", else: "iex -S mix"}
+      #{run_instructions}
 
       View on http://localhost:8080
       View on https://localhost:8443 (NOTE: uses a self signed certificate)
@@ -63,13 +84,27 @@ defmodule Raxx.Kit do
     docker = Keyword.get(options, :docker, false)
     node_assets = Keyword.get(options, :node_assets, false)
     api_blueprint = Keyword.get(options, :apib, false)
+    exsync = !Keyword.get(options, :no_exsync, false)
+
+    ecto =
+      if Keyword.get(options, :ecto, false) do
+        %{
+          db_name: name,
+          db_username: generate_random(8),
+          db_password: generate_random(18)
+        }
+      else
+        false
+      end
 
     %__MODULE__{
       name: name,
       module: module,
       docker: docker,
       api_blueprint: api_blueprint,
-      node_assets: node_assets
+      node_assets: node_assets,
+      exsync: exsync,
+      ecto: ecto
     }
   end
 
@@ -80,27 +115,36 @@ defmodule Raxx.Kit do
   defp copy_template(file, root, assigns) do
     case File.read(file) do
       {:error, :eisdir} ->
-        path = Path.relative_to(file, root)
+        path =
+          Path.relative_to(file, root)
+          |> translate_path(assigns)
+
         Mix.Generator.create_directory(path)
 
       {:ok, template} ->
-        path = Path.relative_to(file, root)
+        original_path = Path.relative_to(file, root)
 
         {path, contents} =
-          case String.split(path, ~r/\.eex$/) do
+          case String.split(original_path, ~r/\.eex$/) do
             [path, ""] ->
-              path =
-                String.replace(path, "app_name", assigns.name)
-                |> String.replace("_DOTFILE", "")
+              path = translate_path(path, assigns)
 
-              contents = EEx.eval_string(template, assigns: assigns)
+              contents =
+                try do
+                  EEx.eval_string(template, assigns: assigns)
+                rescue
+                  e in EEx.SyntaxError ->
+                    Mix.shell().error(
+                      "Generator could not evaluate template under path '#{original_path}'"
+                    )
+
+                    reraise e, __STACKTRACE__
+                end
+
               {path, contents}
 
             [path] ->
-              path =
-                String.replace(path, "app_name", assigns.name)
-                |> String.replace("_DOTFILE", "")
-
+              path = translate_path(path, assigns)
               contents = template
               {path, contents}
           end
@@ -111,5 +155,18 @@ defmodule Raxx.Kit do
           Mix.Generator.create_file(path, contents)
         end
     end
+  end
+
+  defp translate_path(path, assigns) do
+    path
+    |> String.replace("app_name", assigns.name, global: true)
+    |> String.replace("_DOTFILE", "")
+  end
+
+  def generate_random(length) do
+    :crypto.strong_rand_bytes(length)
+    |> Base.encode64()
+    |> binary_part(0, length)
+    |> String.replace(["+", "/"], "_")
   end
 end

@@ -1,0 +1,11 @@
+<%= if @ecto do %>defmodule <%= @module %>.DatabaseTest do
+  use <%= @module %>.RepoCase
+  alias <%= @module %>.Repo
+
+  test "connecting to the database" do
+    assert {:ok, result} = Repo.query("SELECT 42")
+    assert %{rows: [[42]]} = result
+    :ok
+  end
+end
+<% end %>

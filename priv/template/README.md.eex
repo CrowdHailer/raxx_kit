@@ -1,6 +1,5 @@
 # <%= @module %>
 <%= if @docker do %>
-- Install dependencies with `docker-compose run <%= @name %> mix deps.get`
 - Start your service with `docker-compose up`
 - Run project test suite with `docker-compose run <%= @name %> mix test`
 - Start IEx session in running service
@@ -9,9 +8,18 @@
 
       # In container
       iex --sname debug --remsh app@$(hostname)
+
+Alternatively, you can still run the project directly, without docker:
+
+<%= if @ecto do %>- Start just the database service with `docker-compose up db`
+<% end %>- Install dependencies with `mix deps.get`<%= if @ecto do %>
+- prepare the database using `mix do ecto.create, ecto.migrate`
+<% end %>- Start your service with `iex -S mix`
 <% else %>
-- Install dependencies with `mix deps.get`
-- Start your service with `iex -S mix`
+- Install dependencies with `mix deps.get`<%= if @ecto do %>
+- make sure your postgres db is running and configured correctly in `config/config.exs`
+- prepare the database using `mix do ecto.create, ecto.migrate`
+<% end %>- Start your service with `iex -S mix`
 - Run project test suite with `mix test`
 <% end %>
 ## Learn more

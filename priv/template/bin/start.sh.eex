@@ -1,6 +1,25 @@
-<%= if @docker do %>mix deps.get
+<%= if @docker do %>#!/usr/bin/env sh
+set -eu
 
-<%= if @node_assets do %>(cd lib/<%= @name %>/www ; npm install)<% end %>
+mix deps.get
+<%= if @node_assets do %>
+(cd lib/<%= @name %>/www ; npm install)<% end %>
+<%= if @ecto do %>
+# NOTE there is a race condition between the db service starting
+# and the project itself starting. This code will retry until the db can be connected to.
+attempts=20
+for i in `seq $attempts`; do
+    mix ecto.create >/dev/null && break
+    echo "Attempt $i / $attempts - failed to create db for the Repo"
+    sleep 1
+done
 
+if [ $i -eq $attempts ]; then
+    echo "Could not connect to the database, exiting"
+    exit 2;
+fi
+
+mix ecto.migrate
+<% end %>
 elixir --sname app -S mix run --no-halt
 <% end %>

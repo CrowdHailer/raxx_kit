@@ -15,6 +15,9 @@ defmodule <%= @module %>.Application do
     ]
 
     children = [
+      <%= if @ecto do %>
+      <%= @module %>.Repo,
+      <% end %>
       Supervisor.child_spec({<%= @module %>.WWW, [config, cleartext_options]}, id: :www_cleartext),
       Supervisor.child_spec({<%= @module %>.WWW, [config, secure_options]}, id: :www_secure),
       <%= if @node_assets do %>
