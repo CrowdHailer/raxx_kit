@@ -90,8 +90,8 @@ defmodule Raxx.Kit do
       if Keyword.get(options, :ecto, false) do
         %{
           db_name: name,
-          db_username: generate_password(8),
-          db_password: generate_password(18)
+          db_username: generate_random(8),
+          db_password: generate_random(18)
         }
       else
         false
@@ -163,7 +163,7 @@ defmodule Raxx.Kit do
     |> String.replace("_DOTFILE", "")
   end
 
-  def generate_password(length) do
+  def generate_random(length) do
     :crypto.strong_rand_bytes(length)
     |> Base.encode64()
     |> binary_part(0, length)
