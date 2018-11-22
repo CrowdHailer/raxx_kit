@@ -1,6 +1,7 @@
 # Raxx.Kit
 
-[Tutorial for building a distributed chatroom with Raxx.Kit](http://crowdhailer.me/2018-05-01/building-a-distributed-chatroom-with-raxx-kit/)
+Raxx.Kit is a project generator for creating boilerplate code for an Elixir web project and
+getting started with [Raxx](https://github.com/crowdhailer/raxx)/[Ace](https://github.com/CrowdHailer/Ace).
 
 **Get started with Raxx + Elixir**
 
@@ -14,10 +15,17 @@ Includes:
 - Isolated web layer with [Raxx](https://github.com/crowdhailer/raxx)
 - HTTP/2 support with [Ace](https://github.com/CrowdHailer/Ace) server
 - Middleware for request logging and static content.
+- [Ecto 3.0](https://github.com/elixir-ecto/ecto_sql) and PostgreSQL integration
 - Controller unit tests
 - Code reloading with [ExSync](https://github.com/falood/exsync)
 
+[Tutorial for building a distributed chatroom with Raxx.Kit](http://crowdhailer.me/2018-05-01/building-a-distributed-chatroom-with-raxx-kit/)
+
 ### Options
+
+- `--ecto`: Adds Ecto as a dependency and configures project to use
+  a Postgres database. If used with `--docker` flag, a docker-compose service
+  with the database will get generated.
 
 - `--node-assets`: Add JavaScript compilation as part of a generated project.
   Works with or without docker.
@@ -34,6 +42,9 @@ Includes:
   # Is equivalent to
   $ mix raxx.kit my_app --module MyApp
   ```
+
+- `--no-exsync`: Doesn't include exsync in the generated project. Changed
+  files won't be rebuilt on the fly when the app is running.
 
 - `--apib`: Generate an API Blueprint file which is used as the project router.
 
