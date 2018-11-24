@@ -1,0 +1,4 @@
+<%= if @ecto do %>
+# This .gitignore file makes sure the priv/repo/migrations/ directory gets picked up by git.
+# Empty directories are ignored by git.
+<% end %>
