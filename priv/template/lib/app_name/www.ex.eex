@@ -1,11 +1,13 @@
 defmodule <%= @module %>.WWW do
   use Ace.HTTP.Service, port: 8080, cleartext: true
-  use Raxx.Server
   <%= if @api_blueprint do %>
+  use Raxx.Server
   @external_resource "lib/<%= @name %>/www.apib"
   use Raxx.ApiBlueprint, "./www.apib"
   <% else %>
-  use Raxx.Router, [
+  use Raxx.Router
+
+  section [], [
     {%{path: []}, <%= @module %>.WWW.HomePage},
     {_, <%= @module %>.WWW.NotFoundPage}
   ]
