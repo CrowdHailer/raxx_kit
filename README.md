@@ -46,8 +46,6 @@ Includes:
 - `--no-exsync`: Doesn't include exsync in the generated project. Changed
   files won't be rebuilt on the fly when the app is running.
 
-- `--apib`: Generate an API Blueprint file which is used as the project router.
-
 ### Next
 
 - [Check Raxx documentation on hexdocs](https://hexdocs.pm/raxx)

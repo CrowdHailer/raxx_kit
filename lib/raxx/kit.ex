@@ -3,7 +3,6 @@ defmodule Raxx.Kit do
     :name,
     :module,
     :docker,
-    :api_blueprint,
     :node_assets,
     :exsync,
     :ecto
@@ -83,7 +82,6 @@ defmodule Raxx.Kit do
     module = Keyword.get(options, :module, Macro.camelize(name))
     docker = Keyword.get(options, :docker, false)
     node_assets = Keyword.get(options, :node_assets, false)
-    api_blueprint = Keyword.get(options, :apib, false)
     exsync = !Keyword.get(options, :no_exsync, false)
 
     ecto =
@@ -101,7 +99,6 @@ defmodule Raxx.Kit do
       name: name,
       module: module,
       docker: docker,
-      api_blueprint: api_blueprint,
       node_assets: node_assets,
       exsync: exsync,
       ecto: ecto
