@@ -4,13 +4,14 @@ defmodule RaxxKit.MixProject do
   def project do
     [
       app: :raxx_kit,
-      version: "0.8.3",
+      version: "0.8.4",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: description(),
       docs: [extras: ["README.md"], main: "readme"],
-      package: package()
+      package: package(),
+      aliases: aliases()
     ]
   end
 
@@ -37,6 +38,12 @@ defmodule RaxxKit.MixProject do
       maintainers: ["Peter Saxton"],
       licenses: ["Apache 2.0"],
       links: %{"GitHub" => "https://github.com/crowdhailer/raxx_kit"}
+    ]
+  end
+
+  defp aliases do
+    [
+      "raxx.new": ["raxx.kit"]
     ]
   end
 end
