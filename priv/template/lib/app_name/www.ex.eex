@@ -9,12 +9,16 @@ defmodule <%= @module %>.WWW do
     }
   end
 
+  @external_resource "lib/<%= @name %>/public/main.css"
+  @external_resource "lib/<%= @name %>/public/main.js"
+  @static_setup Raxx.Static.setup(source: Path.join(__DIR__, "public"))
+
   def start_link(config, server_options) do
     stack =
       Raxx.Stack.new(
         [
+          {Raxx.Static, @static_setup}
           # See open PR's for these implementations
-          # {Raxx.Static, @static_setup}
           # {Raxx.Logger, level: :info}
         ],
         {__MODULE__, config}
@@ -30,8 +34,5 @@ defmodule <%= @module %>.WWW do
     {_, <%= @module %>.WWW.NotFoundPage}
   ]
 
-  @external_resource "lib/<%= @name %>/public/main.css"
-  @external_resource "lib/<%= @name %>/public/main.js"
-  use Raxx.Static, "./public"
   use Raxx.Logger, level: :info
 end
