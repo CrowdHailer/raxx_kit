@@ -21,18 +21,9 @@ defmodule <%= @module %>.WWW do
           # See open PR's for these implementations
           # {Raxx.Logger, level: :info}
         ],
-        {__MODULE__, config}
+        {__MODULE__.Router, config}
       )
 
     Ace.HTTP.Service.start_link(stack, server_options)
   end
-
-  use Raxx.Router
-
-  section [], [
-    {%{path: []}, <%= @module %>.WWW.HomePage},
-    {_, <%= @module %>.WWW.NotFoundPage}
-  ]
-
-  use Raxx.Logger, level: :info
 end

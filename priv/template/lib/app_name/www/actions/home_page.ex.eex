@@ -1,4 +1,4 @@
-defmodule <%= @module %>.WWW.HomePage do
+defmodule <%= @module %>.WWW.Actions.HomePage do
   use Raxx.SimpleServer
   use <%= @module %>.WWW.Layout, arguments: [:title]
 
