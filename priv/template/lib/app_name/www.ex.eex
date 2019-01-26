@@ -1,5 +1,28 @@
 defmodule <%= @module %>.WWW do
-  use Ace.HTTP.Service, port: 8080, cleartext: true
+
+  def child_spec([config, server_options]) do
+    {:ok, port} = Keyword.fetch(server_options, :port)
+    %{
+      id: {__MODULE__, port},
+      start: {__MODULE__, :start_link, [config, server_options]},
+      type: :supervisor
+    }
+  end
+
+  def start_link(config, server_options) do
+    stack =
+      Raxx.Stack.new(
+        [
+          # See open PR's for these implementations
+          # {Raxx.Static, @static_setup}
+          # {Raxx.Logger, level: :info}
+        ],
+        {__MODULE__, config}
+      )
+
+    Ace.HTTP.Service.start_link(stack, server_options)
+  end
+
   use Raxx.Router
 
   section [], [
