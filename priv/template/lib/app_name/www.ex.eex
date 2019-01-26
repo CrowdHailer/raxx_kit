@@ -18,8 +18,6 @@ defmodule <%= @module %>.WWW do
       Raxx.Stack.new(
         [
           {Raxx.Static, @static_setup}
-          # See open PR's for these implementations
-          # {Raxx.Logger, level: :info}
         ],
         {__MODULE__.Router, config}
       )
