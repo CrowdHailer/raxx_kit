@@ -1,0 +1,23 @@
+<main class="centered">
+  <section class="accent">
+    <h1><%= title %></h1>
+    <form action="/" method="post">
+      <label>
+        <span>tell us your name</span>
+        <input type="text" name="name" value="" autofocus>
+      </label>
+      <button type="submit">Submit</button>
+    </form>
+    <h2>Find out more</h2>
+    <nav>
+      <a href="https://github.com/CrowdHailer/raxx">SOURCE CODE</a>
+      <a href="https://elixir-lang.slack.com/messages/C56H3TBH8/">CHAT</a>
+    </nav>
+    <%= javascript_variables title: title %>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function () {
+        app.show(title)
+      })
+    </script>
+  </section>
+</main>

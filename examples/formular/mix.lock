@@ -1,0 +1,13 @@
+%{
+  "ace": {:hex, :ace, "0.18.2", "ce2c9bf26f51354b55ea726e6a04317b3833d80d1ca3336f7e9936c46c48cf1d", [:mix], [{:hpack, "~> 0.2.3", [hex: :hpack_erl, repo: "hexpm", optional: false]}, {:raxx, "~> 0.17.0", [hex: :raxx, repo: "hexpm", optional: false]}], "hexpm"},
+  "cookie": {:hex, :cookie, "0.1.1", "89438362ee0f0ed400e9f076d617d630f82d682e3fbcf767072a46a6e1ed5781", [:mix], [], "hexpm"},
+  "eex_html": {:hex, :eex_html, "0.2.0", "7f9da3e8ec2ecda2658a0443c65321e161c7c89897f2011e3d8a70f4f68341cb", [:mix], [{:jason, "~> 1.0", [hex: :jason, repo: "hexpm", optional: false]}], "hexpm"},
+  "exsync": {:hex, :exsync, "0.2.3", "a1ac11b4bd3808706003dbe587902101fcc1387d9fc55e8b10972f13a563dd15", [:mix], [{:file_system, "~> 0.2", [hex: :file_system, repo: "hexpm", optional: false]}], "hexpm"},
+  "file_system": {:hex, :file_system, "0.2.6", "fd4dc3af89b9ab1dc8ccbcc214a0e60c41f34be251d9307920748a14bf41f1d3", [:mix], [], "hexpm"},
+  "hpack": {:hex, :hpack_erl, "0.2.3", "17670f83ff984ae6cd74b1c456edde906d27ff013740ee4d9efaa4f1bf999633", [:rebar3], [], "hexpm"},
+  "jason": {:hex, :jason, "1.1.2", "b03dedea67a99223a2eaf9f1264ce37154564de899fd3d8b9a21b1a6fd64afe7", [:mix], [{:decimal, "~> 1.0", [hex: :decimal, repo: "hexpm", optional: true]}], "hexpm"},
+  "mime": {:hex, :mime, "1.3.1", "30ce04ab3175b6ad0bdce0035cba77bba68b813d523d1aac73d9781b4d193cf8", [:mix], [], "hexpm"},
+  "raxx": {:git, "https://github.com/crowdhailer/raxx.git", "ffff1f4d5eefe8d48511044fa41b3620eaf44a64", [branch: "extract-logger"]},
+  "raxx_logger": {:git, "https://github.com/crowdhailer/raxx_kit.git", "468811ac073060fad25edeb69d621af5b9a39826", [branch: "runtime-raxx-logger", sparse: "extensions/raxx_logger"]},
+  "raxx_static": {:git, "https://github.com/crowdhailer/raxx_kit.git", "d8f0150a97850e8817292afa7fd65589906278fb", [branch: "runtime-static-middleware", sparse: "extensions/raxx_static"]},
+}
