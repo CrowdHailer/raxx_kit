@@ -34,6 +34,8 @@ defmodule Formular.Mixfile do
        github: "crowdhailer/raxx_kit",
        branch: "runtime-static-middleware",
        sparse: "extensions/raxx_static"},
+      {:ecto, "~> 3.0"},
+      {:ok, "~> 2.0"},
       {:exsync, "~> 0.2.3", only: :dev}
     ]
   end
