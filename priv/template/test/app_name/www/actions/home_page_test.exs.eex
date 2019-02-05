@@ -1,7 +1,7 @@
-defmodule <%= @module %>.WWW.HomePageTest do
+defmodule <%= @module %>.WWW.Actions.HomePageTest do
   use ExUnit.Case
 
-  alias <%= @module %>.WWW.HomePage
+  alias <%= @module %>.WWW.Actions.HomePage
 
   test "returns the Raxx.Kit home page" do
     request = Raxx.request(:GET, "/")

@@ -1,4 +1,4 @@
-defmodule <%= @module %>.WWW.NotFoundPage do
+defmodule <%= @module %>.WWW.Actions.NotFoundPage do
   use Raxx.SimpleServer
   use <%= @module %>.WWW.Layout, arguments: []
 

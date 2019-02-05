@@ -25,7 +25,9 @@ defmodule <%= @module %>.Mixfile do
   defp deps do
     [
       {:ace, "~> 0.18.0"},
-      {:raxx_static, "~> 0.7.0"},<%= if @exsync do %>
+      {:raxx_logger, "~> 0.2.0"},
+      {:raxx_view, "~> 0.1.0"},
+      {:raxx_static, "~> 0.8.0"},<%= if @exsync do %>
       {:exsync, "~> 0.2.3", only: :dev},<% end %><%= if @ecto do %>
       {:postgrex, ">= 0.0.0"},
       {:ecto_sql, "~> 3.0.0"}<% end %>
