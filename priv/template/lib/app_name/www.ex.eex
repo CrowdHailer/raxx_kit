@@ -9,9 +9,9 @@ defmodule <%= @module %>.WWW do
     }
   end
 
-  @external_resource "lib/<%= @name %>/public/main.css"
-  @external_resource "lib/<%= @name %>/public/main.js"
-  @static_setup Raxx.Static.setup(source: Path.join(__DIR__, "public"))
+  @external_resource "lib/<%= @name %>/www/public/main.css"
+  @external_resource "lib/<%= @name %>/www/public/main.js"
+  @static_setup Raxx.Static.setup(source: Path.join(__DIR__, "www/public"))
 
   def start_link(config, server_options) do
     stack =
