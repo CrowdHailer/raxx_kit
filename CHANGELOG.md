@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.9.0](https://github.com/CrowdHailer/raxx_kit/tree/0.9.0) - 2019-01-06
+
+### Changed
+
+- Use `Raxx.Stack` for runtime middleware.
+- Move assets and public files into `www` directory.
+- Clean up `child_spec` functions for each service.
+- Namespace all action modules under `Actions` module.
+- Create a separate `WWW.Router` module.
+- Add an example integration test using `:httpc`
+
 ## [0.8.4](https://github.com/CrowdHailer/raxx_kit/tree/0.8.4) - 2019-01-06
 
 ### Added
