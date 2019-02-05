@@ -26,8 +26,10 @@ defmodule <%= @module %>.Mixfile do
     [
       {:ace, "~> 0.18.0"},
       # temporary while working on middleware branches
-      {:raxx, "~> 0.17.5"},
+      # {:raxx, "~> 0.17.5"},
+      {:raxx, github: "crowdhailer/raxx", branch: "extract-view", override: true},
       {:raxx_logger, github: "crowdhailer/raxx", branch: "logger-runtime", sparse: "extensions/raxx_logger"},
+      {:raxx_view, github: "crowdhailer/raxx", branch: "extract-view", sparse: "extensions/raxx_view"},
       {:raxx_static, github: "crowdhailer/raxx_static", branch: "runtime"},<%= if @exsync do %>
       {:exsync, "~> 0.2.3", only: :dev},<% end %><%= if @ecto do %>
       {:postgrex, ">= 0.0.0"},
