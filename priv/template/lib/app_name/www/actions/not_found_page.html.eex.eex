@@ -1,5 +1,8 @@
 <main class="centered">
   <section class="accent">
-    <h1>Nothing here!</h1>
+    <%%= page_header("Nothing here!") %>
+    <p>
+      <%%= home_page_link() %>
+    </p>
   </section>
 </main>
