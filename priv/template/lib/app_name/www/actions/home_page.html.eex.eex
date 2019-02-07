@@ -1,6 +1,6 @@
 <main class="centered">
   <section class="accent">
-    <h1><%%= title %></h1>
+    <%%= page_header(title) %>
     <form action="/" method="post">
       <label>
         <span>tell us your name</span>

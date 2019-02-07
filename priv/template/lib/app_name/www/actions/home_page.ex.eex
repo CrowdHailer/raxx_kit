@@ -22,4 +22,7 @@ defmodule <%= @module %>.WWW.Actions.HomePage do
         |> render("Bad Request")
     end
   end
+
+  # Template helper functions.
+  # Add shared helper functions to <%= @module %>.WWW.Layout.
 end
