@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.9.1](https://github.com/CrowdHailer/raxx_kit/tree/0.9.1) - 2019-01-10
+
+### Fixed
+
+- Using both `--docker` and `--ecto` now correctly creates the `docker-compose.yml` filed.
+
 ## [0.9.1](https://github.com/CrowdHailer/raxx_kit/tree/0.9.1) - 2019-01-07
 
 ### Added

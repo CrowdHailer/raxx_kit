@@ -5,11 +5,11 @@ services:
     build:
       context: "."
       dockerfile: "Dockerfile"
-    depends_on:
+    <%= if @ecto do %>depends_on:
       - db
     environment:
       - "DATABASE_URL=ecto://<%= @ecto.db_username %>:<%= @ecto.db_password %>@db:5432/<%= @ecto.db_name %>?ssl=false&pool_size=10"
-    ports:
+    <% end %>ports:
       - 8080:8080
       - 8443:8443
     volumes:
@@ -18,12 +18,12 @@ services:
       ## container's deps/ and _build/ directories in your local project,
       ## under container_mix
       # - ./container_mix_artifacts:/opt/mix_artifacts
-
+  <%= if @ecto do %>
   db:
     image: "postgres:9.6.11"
     environment:
       - POSTGRES_USER=<%= @ecto.db_username %>
       - POSTGRES_PASSWORD=<%= @ecto.db_password %>
     ports:
-      - 6543:5432
+      - 6543:5432<% end %>
 <% end %>
