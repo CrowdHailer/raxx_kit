@@ -1,25 +1,11 @@
 # Raxx.Kit
 
-Raxx.Kit is a project generator for creating boilerplate code for an Elixir web project and
-getting started with [Raxx](https://github.com/crowdhailer/raxx)/[Ace](https://github.com/CrowdHailer/Ace).
-
-**Get started with Raxx + Elixir**
+**Get started with [Raxx](https://github.com/crowdhailer/raxx)/[Ace](https://github.com/CrowdHailer/Ace).**
 
 ```sh
 $ mix archive.install hex raxx_kit
 $ mix raxx.new my_app
 ```
-
-Includes:
-
-- Isolated web layer with [Raxx](https://github.com/crowdhailer/raxx)
-- HTTP/2 support with [Ace](https://github.com/CrowdHailer/Ace) server
-- Middleware for request logging and static content.
-- [Ecto 3.0](https://github.com/elixir-ecto/ecto_sql) and PostgreSQL integration
-- Controller unit tests
-- Code reloading with [ExSync](https://github.com/falood/exsync)
-
-[Tutorial for building a distributed chatroom with Raxx.Kit](http://crowdhailer.me/2018-05-01/building-a-distributed-chatroom-with-raxx-kit/)
 
 ### Options
 
@@ -51,10 +37,13 @@ Includes:
 - [Check Raxx documentation on hexdocs](https://hexdocs.pm/raxx)
 - [Join Raxx discussion on slack](https://elixir-lang.slack.com/messages/C56H3TBH8/)
 
-## Contributing
+### Features
 
-**NOTE: dotfiles in the priv directory are not automatically included in an archive.**
+- Isolated web layer with [Raxx](https://github.com/crowdhailer/raxx)
+- HTTP/2 support with [Ace](https://github.com/CrowdHailer/Ace) server
+- Middleware for request logging and static content.
+- [Ecto 3.0](https://github.com/elixir-ecto/ecto_sql) and PostgreSQL integration
+- Controller unit tests
+- Code reloading with [ExSync](https://github.com/falood/exsync)
 
-## Copyright and License
-
-Raxx.Kit source code is released under [Apache License 2.0](License).
+[Tutorial for building a distributed chatroom with Raxx.Kit](http://crowdhailer.me/2018-05-01/building-a-distributed-chatroom-with-raxx-kit/)
