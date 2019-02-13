@@ -7,7 +7,7 @@ getting started with [Raxx](https://github.com/crowdhailer/raxx)/[Ace](https://g
 
 ```sh
 $ mix archive.install hex raxx_kit
-$ mix raxx.kit my_app
+$ mix raxx.new my_app
 ```
 
 Includes:
@@ -37,10 +37,10 @@ Includes:
   Without this option the module name will be generated from path option.
 
   ```sh
-  $ mix raxx.kit my_app
+  $ mix raxx.new my_app
 
   # Is equivalent to
-  $ mix raxx.kit my_app --module MyApp
+  $ mix raxx.new my_app --module MyApp
   ```
 
 - `--no-exsync`: Doesn't include exsync in the generated project. Changed
