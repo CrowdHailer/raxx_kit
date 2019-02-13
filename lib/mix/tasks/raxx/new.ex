@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Raxx.Kit do
+defmodule Mix.Tasks.Raxx.New do
   use Mix.Task
 
   require Mix.Generator
@@ -17,7 +17,7 @@ defmodule Mix.Tasks.Raxx.Kit do
 
   It expects the name of the project as the argument.
 
-      mix raxx.kit NAME [--ecto] [--node-assets] [--docker] [--module ModuleName]
+      mix raxx.new NAME [--ecto] [--node-assets] [--docker] [--module ModuleName]
         [--no-exsync]
 
   ## Options
@@ -36,10 +36,10 @@ defmodule Mix.Tasks.Raxx.Kit do
     Without this option the module name will be generated from path option.
 
   ```sh
-  $ mix raxx.kit my_app
+  $ mix raxx.new my_app
 
   # Is equivalent to
-  $ mix raxx.kit my_app --module MyApp
+  $ mix raxx.new my_app --module MyApp
   ```
 
   - `--no-exsync`: Doesn't include exsync in the generated project. Changed
@@ -49,13 +49,13 @@ defmodule Mix.Tasks.Raxx.Kit do
 
   @impl Mix.Task
   def run([]) do
-    Mix.Tasks.Help.run(["raxx.kit"])
+    Mix.Tasks.Help.run(["raxx.new"])
   end
 
   def run(options) do
     case OptionParser.parse!(options, strict: @switches) do
       {_, []} ->
-        Mix.raise("raxx.kit must be given a name `mix raxx.kit <name>`")
+        Mix.raise("raxx.new must be given a name `mix raxx.new <name>`")
 
       {switches, [name]} ->
         {:ok, message} = Raxx.Kit.generate([{:name, name} | switches])

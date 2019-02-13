@@ -10,7 +10,7 @@ echo ""
 
 pushd $DIR/..
 mix compile
-mix raxx.kit --docker --ecto demo
+mix raxx.new --docker --ecto demo
 popd
 
 pushd $DIR/../demo

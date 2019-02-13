@@ -10,8 +10,7 @@ defmodule RaxxKit.MixProject do
       deps: deps(),
       description: description(),
       docs: [extras: ["README.md"], main: "readme"],
-      package: package(),
-      aliases: aliases()
+      package: package()
     ]
   end
 
@@ -38,12 +37,6 @@ defmodule RaxxKit.MixProject do
       maintainers: ["Peter Saxton"],
       licenses: ["Apache 2.0"],
       links: %{"GitHub" => "https://github.com/crowdhailer/raxx_kit"}
-    ]
-  end
-
-  defp aliases do
-    [
-      "raxx.new": ["raxx.kit"]
     ]
   end
 end
