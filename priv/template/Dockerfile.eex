@@ -3,9 +3,9 @@
 # NOTE the WORKDIR should not be the users home dir as the will copy container cookie into host machine
 WORKDIR /opt/app
 
-# Add tools needed for development
+<%= if @node_assets do %>RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
+<% end %># Add tools needed for development
 # inotify-tools: gives filesystem events that are used to trigger recompilation
-<%= if @node_assets do %>RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -<% end %>
 RUN apt-get update && apt-get install -y inotify-tools<%= if @node_assets do %> nodejs<% end %>
 
 ENV MIX_ARTIFACTS_DIRECTORY=../mix_artifacts
@@ -21,7 +21,7 @@ COPY config/* config/
 RUN mix deps.compile && MIX_ENV=test mix deps.compile
 
 # Add application code as final layer
-#   This will skip the _build and deps directories as per .dockerignore
+# This will skip the _build and deps directories as per .dockerignore
 COPY . .
 
 # Make sure the Docker image can be started without waiting for the project to compile

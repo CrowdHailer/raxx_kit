@@ -1,6 +1,8 @@
 <%= if @docker do %>version: '2'
 
-services:
+<%= if @node_assets do %>volumes:
+  node_modules:
+<% end %>services:
   <%= @name %>:
     build:
       context: "."
@@ -14,7 +16,8 @@ services:
       - 8443:8443
     volumes:
       - .:/opt/app
-      ## uncomment the below lines if you want to see the contents of the
+      <%= if @node_assets do %>- node_modules:/opt/app/lib/<%= @name %>/www/node_modules
+      <% end %>## uncomment the below lines if you want to see the contents of the
       ## container's deps/ and _build/ directories in your local project,
       ## under container_mix
       # - ./container_mix_artifacts:/opt/mix_artifacts
