@@ -1,5 +1,6 @@
 defmodule <%= @module %>.API.Actions.WelcomeMessage do
   use Raxx.SimpleServer
+  alias <%= @module %>.API
 
   @impl Raxx.SimpleServer
   def handle_request(_request = %{method: :GET}, _state) do
@@ -16,19 +17,19 @@ defmodule <%= @module %>.API.Actions.WelcomeMessage do
         data = %{message: message}
 
         response(:ok)
-        |> set_body(Jason.encode!(%{data: data}))
+        |> API.set_json_payload(%{data: data})
 
       {:ok, _} ->
         error = %{title: "Missing required data parameter 'name'"}
 
         response(:bad_request)
-        |> set_body(Jason.encode!(%{errors: [error]}))
+        |> API.set_json_payload(%{errors: [error]})
 
       {:error, _} ->
         error = %{title: "Could not decode request data"}
 
         response(:unsupported_media_type)
-        |> set_body(Jason.encode!(%{errors: [error]}))
+        |> API.set_json_payload(%{errors: [error]})
     end
   end
 end

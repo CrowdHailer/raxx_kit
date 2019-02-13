@@ -23,7 +23,7 @@ defmodule Mix.Tasks.Raxx.New do
 
   ## Options
 
-  - `api`: TODO
+  - `api`:  Creates a JSON API project, instead of HTML pages.
 
   - `--ecto`: Adds Ecto as a dependency and configures project to use
     a Postgres database. If used with `--docker` flag, a docker-compose service

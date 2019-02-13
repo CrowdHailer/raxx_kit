@@ -4,7 +4,7 @@ defmodule <%= @module %>Test do
 
   setup %{} do
     # OS will assign a free port when service is started with port 0.
-    {:ok, service} = <%= @module %>.WWW.start_link(%{}, port: 0, cleartext: true)
+    {:ok, service} = <%= @module %>.<%= if @api do %>API<% else %>WWW<% end %>.start_link(%{}, port: 0, cleartext: true)
     {:ok, port} = Ace.HTTP.Service.port(service)
 
     {:ok, port: port}
