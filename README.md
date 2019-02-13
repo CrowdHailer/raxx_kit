@@ -9,6 +9,8 @@ $ mix raxx.new my_app
 
 ### Options
 
+- `api`: TODO
+
 - `--ecto`: Adds Ecto as a dependency and configures project to use
   a Postgres database. If used with `--docker` flag, a docker-compose service
   with the database will get generated.

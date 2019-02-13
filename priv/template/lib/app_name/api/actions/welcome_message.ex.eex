@@ -1,0 +1,34 @@
+defmodule <%= @module %>.API.Actions.WelcomeMessage do
+  use Raxx.SimpleServer
+
+  @impl Raxx.SimpleServer
+  def handle_request(_request = %{method: :GET}, _state) do
+    data = %{message: "Hello, Raxx!"}
+
+    response(:ok)
+    |> set_body(Jason.encode!(%{data: data}))
+  end
+
+  def handle_request(request = %{method: :POST}, _state) do
+    case Jason.decode(request.body) do
+      {:ok, %{"name" => name}} ->
+        message = <%= @module %>.welcome_message(name)
+        data = %{message: message}
+
+        response(:ok)
+        |> set_body(Jason.encode!(%{data: data}))
+
+      {:ok, _} ->
+        error = %{title: "Missing required data parameter 'name'"}
+
+        response(:bad_request)
+        |> set_body(Jason.encode!(%{errors: [error]}))
+
+      {:error, _} ->
+        error = %{title: "Could not decode request data"}
+
+        response(:unsupported_media_type)
+        |> set_body(Jason.encode!(%{errors: [error]}))
+    end
+  end
+end

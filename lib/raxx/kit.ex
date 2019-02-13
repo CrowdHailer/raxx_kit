@@ -2,6 +2,7 @@ defmodule Raxx.Kit do
   @enforce_keys [
     :name,
     :module,
+    :api,
     :docker,
     :node_assets,
     :exsync,
@@ -19,10 +20,13 @@ defmodule Raxx.Kit do
     File.cd!(config.name, fn ->
       assigns = Map.from_struct(config)
 
+      filter_path = "/app_name/" <> if config.api, do: "www", else: "api"
+
       :ok =
         template_dir()
         |> Path.join("./**/*")
         |> Path.wildcard()
+        |> Enum.reject(fn path -> path =~ filter_path end)
         |> Enum.each(&copy_template(&1, template_dir(), assigns))
 
       if config.docker do
@@ -81,6 +85,7 @@ defmodule Raxx.Kit do
     {:ok, name} = Keyword.fetch(options, :name)
     module = Keyword.get(options, :module, Macro.camelize(name))
     docker = Keyword.get(options, :docker, false)
+    api = Keyword.get(options, :api, false)
     node_assets = Keyword.get(options, :node_assets, false)
     exsync = !Keyword.get(options, :no_exsync, false)
 
@@ -98,6 +103,7 @@ defmodule Raxx.Kit do
     %__MODULE__{
       name: name,
       module: module,
+      api: api,
       docker: docker,
       node_assets: node_assets,
       exsync: exsync,
