@@ -17,8 +17,8 @@ defmodule <%= @module %>.Application do
       <%= if @ecto do %>
       <%= @module %>.Repo,
       <% end %>
-      {<%= @module %>.WWW, [config, cleartext_options]},
-      {<%= @module %>.WWW, [config, secure_options]},
+      {<%= @module %>.<%= if @api do %>API<% else %>WWW<% end %>, [config, cleartext_options]},
+      {<%= @module %>.<%= if @api do %>API<% else %>WWW<% end %>, [config, secure_options]},
       <%= if @node_assets do %>
       Supervisor.child_spec({Task, fn() -> System.cmd("npm", ["run", "watch:js"], cd: "lib/<%= @name %>/www") end}, id: :watch_js),
       Supervisor.child_spec({Task, fn() -> System.cmd("npm", ["run", "watch:css"], cd: "lib/<%= @name %>/www") end}, id: :watch_css),

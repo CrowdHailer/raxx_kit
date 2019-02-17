@@ -5,6 +5,7 @@ defmodule Mix.Tasks.Raxx.New do
 
   @shortdoc "Creates a new Raxx project for browsers"
   @switches [
+    api: :boolean,
     docker: :boolean,
     module: :string,
     node_assets: :boolean,
@@ -21,6 +22,8 @@ defmodule Mix.Tasks.Raxx.New do
         [--no-exsync]
 
   ## Options
+
+  - `--api`:  Creates a JSON API project, instead of HTML pages.
 
   - `--ecto`: Adds Ecto as a dependency and configures project to use
     a Postgres database. If used with `--docker` flag, a docker-compose service

@@ -13,7 +13,7 @@ defmodule <%= @module %>.WWW.Actions.HomePage do
   def handle_request(request = %{method: :POST}, _state) do
     case URI.decode_query(request.body) do
       %{"name" => name} ->
-        greeting = "Hello, #{name}!"
+        greeting = <%= @module %>.welcome_message(name)
 
         response(:ok)
         |> render(greeting)
