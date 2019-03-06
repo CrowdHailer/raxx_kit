@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 - `.dockerignore` is properly handled as a template.
+- Move `.gitignore` for node assets to `WWW` directory.
 
 ## [0.10.0](https://github.com/CrowdHailer/raxx_kit/tree/0.10.0) - 2019-02-17
 
