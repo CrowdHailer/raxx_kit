@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.11.0](https://github.com/CrowdHailer/raxx_kit/tree/0.11.0) - 2019-044-16
+
+### Changed
+
+- Updated dependencies to use raxx `1.0`.
+
 ## [0.10.1](https://github.com/CrowdHailer/raxx_kit/tree/0.10.1) - 2019-03-15
 
 ### Fixed

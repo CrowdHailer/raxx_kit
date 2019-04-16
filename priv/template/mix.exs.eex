@@ -24,11 +24,11 @@ defmodule <%= @module %>.Mixfile do
 
   defp deps do
     [
-      {:ace, "~> 0.18.4"},
-      {:raxx_logger, "~> 0.2.0"},<%= if @api do %>
-      {:jason, "~> 1.0"},<% else %>
-      {:raxx_view, "~> 0.1.1"},
-      {:raxx_static, "~> 0.8.1"},<% end %><%= if @exsync do %>
+      {:ace, "~> 0.18.6"},
+      {:raxx_logger, "~> 0.2.2"},
+      {:jason, "~> 1.0"},<%= if @api do %><% else %>
+      {:raxx_view, "~> 0.1.4"},
+      {:raxx_static, "~> 0.8.3"},<% end %><%= if @exsync do %>
       {:exsync, "~> 0.2.3", only: :dev},<% end %><%= if @ecto do %>
       {:postgrex, ">= 0.0.0"},
       {:ecto_sql, "~> 3.0.0"}<% end %>
