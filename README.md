@@ -43,7 +43,9 @@ $ mix raxx.new my_app
 
 - Isolated web layer with [Raxx](https://github.com/crowdhailer/raxx)
 - HTTP/2 support with [Ace](https://github.com/CrowdHailer/Ace) server
-- Middleware for request logging and static content.
+- Middleware for request logging and static content
+- Sessions and flash messages
+- Safe HTML templating
 - [Ecto 3.0](https://github.com/elixir-ecto/ecto_sql) and PostgreSQL integration
 - Controller unit tests
 - Code reloading with [ExSync](https://github.com/falood/exsync)
