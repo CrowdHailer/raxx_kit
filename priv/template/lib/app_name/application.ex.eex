@@ -4,7 +4,6 @@ defmodule <%= @module %>.Application do
   use Application
 
   def start(_type, _args) do
-    config = %{}
     cleartext_options = [port: port(), cleartext: true]
 
     secure_options = [
@@ -17,8 +16,8 @@ defmodule <%= @module %>.Application do
       <%= if @ecto do %>
       <%= @module %>.Repo,
       <% end %>
-      {<%= @module %>.<%= if @api do %>API<% else %>WWW<% end %>, [config, cleartext_options]},
-      {<%= @module %>.<%= if @api do %>API<% else %>WWW<% end %>, [config, secure_options]},
+      {<%= @module %>.<%= if @api do %>API<% else %>WWW<% end %>, [cleartext_options]},
+      {<%= @module %>.<%= if @api do %>API<% else %>WWW<% end %>, [secure_options]},
       <%= if @node_assets do %>
       Supervisor.child_spec({Task, fn() -> System.cmd("npm", ["run", "watch:js"], cd: "lib/<%= @name %>/www") end}, id: :watch_js),
       Supervisor.child_spec({Task, fn() -> System.cmd("npm", ["run", "watch:css"], cd: "lib/<%= @name %>/www") end}, id: :watch_css),

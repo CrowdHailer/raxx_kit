@@ -1,25 +1,38 @@
 defmodule <%= @module %>.WWW.Actions.HomePage do
   use Raxx.SimpleServer
-  use <%= @module %>.WWW.Layout, arguments: [:title]
+  use <%= @module %>.WWW.Layout, arguments: [:greeting, :flash, :csrf_token]
+  alias Raxx.Session
 
   @impl Raxx.SimpleServer
-  def handle_request(_request = %{method: :GET}, _state) do
-    title = "Raxx.Kit"
+  def handle_request(request = %{method: :GET}, state) do
+    {:ok, session} = Session.extract(request, state.session_config)
+
+    {csrf_token, session} = Session.get_csrf_token(session)
+    {flash, session} = Session.pop_flash(session)
+
+    greeting = <%= @module %>.welcome_message(session[:name])
 
     response(:ok)
-    |> render(title)
+    |> Session.embed(session, state.session_config)
+    |> render(greeting, flash, csrf_token)
   end
 
-  def handle_request(request = %{method: :POST}, _state) do
-    case URI.decode_query(request.body) do
-      %{"name" => name} ->
-        greeting = <%= @module %>.welcome_message(name)
+  def handle_request(request = %{method: :POST}, state) do
+    data = URI.decode_query(request.body)
+    {:ok, session} = Session.extract(request, data["_csrf_token"], state.session_config)
 
-        response(:ok)
-        |> render(greeting)
+    case data do
+      %{"name" => name} ->
+        session =
+          session
+          |> Map.put(:name, name)
+          |> Session.put_flash(:info, "Successfully changed name")
+
+        redirect("/")
+        |> Session.embed(session, state.session_config)
+
       _ ->
-        response(:bad_request)
-        |> render("Bad Request")
+        redirect("/")
     end
   end
 

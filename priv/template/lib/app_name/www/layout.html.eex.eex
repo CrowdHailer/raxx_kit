@@ -8,6 +8,12 @@
     <link rel="icon" href="/favicon.ico">
   </head>
   <body>
+  <%%= if message = Map.get(flash, :info) do %>
+    <p><%%= message %></p>
+  <%% end %>
+  <%%= if message = Map.get(flash, :warning) do %>
+    <p><%%= message %></p>
+  <%% end %>
   <%%= __content__ %>
   <script type="text/javascript" src="/main.js"></script>
   </body>
