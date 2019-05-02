@@ -52,6 +52,19 @@ h1 {
   padding: 30px;
 }
 
+.flash {
+  padding: 0.2em 1em;
+  border-radius: 0.5em;
+}
+
+.flash.info {
+  background-color: #0eb3c6;
+}
+
+.flash.warning {
+  background-color: #e14026;
+}
+
 nav {
   letter-spacing: 1.5em
 }

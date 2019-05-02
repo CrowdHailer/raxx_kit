@@ -9,10 +9,10 @@
   </head>
   <body>
   <%%= if message = Map.get(flash, :info) do %>
-    <p><%%= message %></p>
+    <p class="centered flash info"><%%= message %></p>
   <%% end %>
   <%%= if message = Map.get(flash, :warning) do %>
-    <p><%%= message %></p>
+    <p class="centered flash warning"><%%= message %></p>
   <%% end %>
   <%%= __content__ %>
   <script type="text/javascript" src="/main.js"></script>
