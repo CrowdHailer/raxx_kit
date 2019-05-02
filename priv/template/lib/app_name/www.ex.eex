@@ -28,8 +28,12 @@ defmodule <%= @module %>.WWW do
                    Raxx.Static.setup(options)
                  end)
 
+  def init() do
+    %{session_config: @session_config}
+  end
+
   def start_link(server_options) do
-    start_link(%{session_config: @session_config}, server_options)
+    start_link(init(), server_options)
   end
 
   def start_link(config, server_options) do

@@ -1,12 +1,20 @@
 defmodule <%= @module %>.API do
 
-  def child_spec([config, server_options]) do
+  def child_spec([server_options]) do
     {:ok, port} = Keyword.fetch(server_options, :port)
     %{
       id: {__MODULE__, port},
-      start: {__MODULE__, :start_link, [config, server_options]},
+      start: {__MODULE__, :start_link, [server_options]},
       type: :supervisor
     }
+  end
+
+  def init() do
+    %{}
+  end
+
+  def start_link(server_options) do
+    start_link(init(), server_options)
   end
 
   def start_link(config, server_options) do

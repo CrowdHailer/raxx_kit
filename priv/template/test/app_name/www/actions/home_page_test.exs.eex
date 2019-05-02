@@ -6,7 +6,7 @@ defmodule <%= @module %>.WWW.Actions.HomePageTest do
   test "returns the Raxx.Kit home page" do
     request = Raxx.request(:GET, "/")
 
-    response = HomePage.handle_request(request, %{})
+    response = HomePage.handle_request(request, <%= @module %>.WWW.init())
 
     assert response.status == 200
     assert {"content-type", "text/html"} in response.headers
