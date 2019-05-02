@@ -28,7 +28,8 @@ defmodule <%= @module %>.Mixfile do
       {:raxx_logger, "~> 0.2.2"},
       {:jason, "~> 1.0"},<%= if @api do %><% else %>
       {:raxx_view, "~> 0.1.4"},
-      {:raxx_static, "~> 0.8.3"},<% end %><%= if @exsync do %>
+      {:raxx_static, "~> 0.8.3"},
+      {:raxx_session, "~> 0.2.0"},<% end %><%= if @exsync do %>
       {:exsync, "~> 0.2.3", only: :dev},<% end %><%= if @ecto do %>
       {:postgrex, ">= 0.0.0"},
       {:ecto_sql, "~> 3.0.0"}<% end %>
