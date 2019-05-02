@@ -12,8 +12,8 @@ defmodule <%= @module %>.WWW do
   @session_config Raxx.Session.config(
                     key: "my_app_session",
                     store: Raxx.Session.SignedCookie,
-                    secret_key_base: String.duplicate("squirrel", 8),
-                    salt: "epsom"
+                    secret_key_base: "<%= Raxx.Kit.generate_random(64) %>",
+                    salt: "<%= Raxx.Kit.generate_random(6) %>"
                   )
 
   # This works even if the reference file is not available at start up,
