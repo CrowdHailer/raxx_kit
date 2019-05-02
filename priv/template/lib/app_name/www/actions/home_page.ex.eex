@@ -1,6 +1,6 @@
 defmodule <%= @module %>.WWW.Actions.HomePage do
   use Raxx.SimpleServer
-  use <%= @module %>.WWW.Layout, arguments: [:greeting, :flash, :csrf_token]
+  use <%= @module %>.WWW.Layout, arguments: [:greeting, :csrf_token]
   alias Raxx.Session
 
   @impl Raxx.SimpleServer
@@ -14,7 +14,7 @@ defmodule <%= @module %>.WWW.Actions.HomePage do
 
     response(:ok)
     |> Session.embed(session, state.session_config)
-    |> render(greeting, flash, csrf_token)
+    |> render(greeting, csrf_token, flash: flash)
   end
 
   def handle_request(request = %{method: :POST}, state) do
