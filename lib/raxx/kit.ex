@@ -15,7 +15,8 @@ defmodule Raxx.Kit do
     # TODO check if dir exists
     config = check_config!(options)
 
-    :ok = Mix.Generator.create_directory(config.name)
+    # This calls File.mkdir_p!/1 and may raise a `File.Error` exception
+    Mix.Generator.create_directory(config.name)
 
     File.cd!(config.name, fn ->
       assigns = Map.from_struct(config)
